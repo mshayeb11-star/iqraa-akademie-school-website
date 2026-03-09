@@ -1206,6 +1206,373 @@ p { line-height: 1.7; }
   75% { transform: translateY(-2px) scale(1.01); opacity: 0.96; }
 }
 
+/* REGISTRATION PAGE */
+
+.registration-body {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(245,123,174,0.10), transparent 22%),
+    radial-gradient(circle at 88% 14%, rgba(102,176,233,0.12), transparent 24%),
+    linear-gradient(180deg, #fdf8fc 0%, #f3f9ff 100%);
+}
+
+.registration-main {
+  padding-top: 54px;
+  padding-bottom: 42px;
+}
+
+.premium-registration-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-a {
+  width: 220px;
+  height: 220px;
+  background: rgba(245,123,174,0.22);
+  top: 120px;
+  left: -40px;
+}
+
+.orb-b {
+  width: 260px;
+  height: 260px;
+  background: rgba(102,176,233,0.22);
+  bottom: 80px;
+  right: -50px;
+}
+
+.registration-intro {
+  margin-bottom: 20px;
+}
+
+.registration-intro h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  color: #263552;
+}
+
+.registration-intro p {
+  margin: 0;
+  color: #66748a;
+}
+
+.urgency-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.76);
+  box-shadow:
+    0 20px 52px rgba(32,58,102,0.10),
+    0 8px 18px rgba(245,123,174,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency-strip::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(245,123,174,0.88), rgba(102,176,233,0.88));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.urgency-strip strong {
+  display: block;
+  font-size: 1rem;
+  color: #23314e;
+}
+
+.urgency-strip p {
+  margin: 4px 0 0;
+  color: #6a7585;
+}
+
+.price-pill {
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  color: #fff;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 12px 26px rgba(102,176,233,0.22);
+}
+
+.registration-steps {
+  margin-bottom: 24px;
+}
+
+.registration-steps .step-card {
+  text-align: center;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 14px 36px rgba(32,58,102,0.08);
+}
+
+.registration-steps .step-card h3 {
+  margin: 8px 0 6px;
+  font-size: 1rem;
+  color: #23314e;
+}
+
+.registration-steps .step-card p {
+  margin: 0;
+  color: #66748a;
+}
+
+.registration-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registration-nav a small {
+  display: block;
+}
+
+.registration-form-rich {
+  padding-bottom: 10px;
+}
+
+.form-shell {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.76);
+  box-shadow:
+    0 30px 80px rgba(32,58,102,0.14),
+    0 10px 28px rgba(245,123,174,0.06);
+}
+
+.form-shell::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 36px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(245,123,174,0.9), rgba(102,176,233,0.9));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.form-header {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px 32px 0 0;
+}
+
+.form-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.form-header h2 {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  color: #fff;
+}
+
+.form-grid.three {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.form-grid.two {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.field-card {
+  background: rgba(255,255,255,0.90);
+  box-shadow: 0 10px 24px rgba(32,58,102,0.05);
+}
+
+.field-card label {
+  color: #263552;
+  font-size: 0.95rem;
+}
+
+.field-card input {
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.field-card input:hover {
+  border-color: rgba(102,176,233,0.28);
+}
+
+.radio-row-grid .field-card,
+.schedule-card,
+.policy-box,
+.policies-box,
+.signature-box {
+  background: rgba(255,255,255,0.88);
+}
+
+.radio-group input[type="radio"],
+.checkbox-line input[type="checkbox"] {
+  accent-color: var(--pink-dark);
+}
+
+.schedule-card {
+  margin: 0 22px 10px;
+  padding: 16px;
+  border: 1px solid rgba(24,33,47,0.10);
+  border-radius: 24px;
+}
+
+.schedule-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: "Cairo", sans-serif;
+  font-weight: 700;
+}
+
+.schedule-grid input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(24,33,47,0.14);
+  background: rgba(255,255,255,0.92);
+  font-size: 1rem;
+}
+
+.policy-box {
+  margin: 18px 22px 0;
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid rgba(24,33,47,0.08);
+  background: linear-gradient(180deg, #fff, #fff9fc);
+  box-shadow: 0 12px 30px rgba(32,58,102,0.06);
+}
+
+.policy-box h3 {
+  margin: 0 0 10px;
+  color: #25314d;
+  font-size: 1rem;
+}
+
+.policy-box p {
+  margin: 0 0 12px;
+  color: #5f6d7b;
+  font-size: 0.95rem;
+}
+
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #425168;
+  font-size: 0.95rem;
+}
+
+.checkbox-line a {
+  color: var(--pink-dark);
+  font-weight: 700;
+}
+
+.rich-signatures {
+  padding-top: 18px;
+}
+
+.signature-box {
+  box-shadow: 0 10px 24px rgba(32,58,102,0.05);
+}
+
+.signature-box label {
+  color: #25314d;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.btn.big {
+  min-height: 56px;
+  padding: 16px 30px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #dce7f5;
+  font-weight: 700;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.registration-body .wa-float {
+  width: auto;
+  min-width: 64px;
+  height: auto;
+  min-height: 64px;
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wa-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.wa-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.wa-text strong {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.wa-text small {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.72rem;
+  max-width: 220px;
+}
+
 @media (max-width: 1100px) {
   .benefit-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
 
@@ -1231,6 +1598,10 @@ p { line-height: 1.7; }
 
   .hero-left { left: 70px; }
   .hero-right { right: 70px; }
+
+  .form-grid.three {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
 }
 
 @media (max-width: 860px) {
@@ -1242,7 +1613,9 @@ p { line-height: 1.7; }
   .benefit-grid,
   .steps-grid,
   .form-grid,
-  .signature-grid {
+  .signature-grid,
+  .form-grid.three,
+  .form-grid.two {
     grid-template-columns: 1fr;
   }
 
@@ -1252,7 +1625,8 @@ p { line-height: 1.7; }
   .schedule-grid { grid-template-columns: 1fr 1fr; }
 
   .register-banner,
-  .footer-inner {
+  .footer-inner,
+  .urgency-strip {
     flex-direction: column;
     text-align: center;
   }
@@ -1275,6 +1649,12 @@ p { line-height: 1.7; }
 
   .alphabet-strip {
     gap: 6px;
+  }
+
+  .schedule-card,
+  .policy-box {
+    margin-left: 22px;
+    margin-right: 22px;
   }
 }
 
@@ -1382,6 +1762,78 @@ p { line-height: 1.7; }
   .wa-float {
     bottom: 14px;
     font-size: 1.8rem;
+  }
+
+  .registration-body .wa-float {
+    width: auto;
+    min-height: 58px;
+    height: auto;
+    padding: 10px 12px;
+  }
+
+  .wa-text small {
+    max-width: 150px;
+    font-size: 0.66rem;
+  }
+
+  .registration-main {
+    padding-top: 34px;
+  }
+
+  .submit-wrap,
+  .signature-grid,
+  .form-grid,
+  .schedule-card,
+  .policy-box,
+  .policies-box {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .registration-intro h1 {
+    font-size: 1.35rem;
+  }
+
+  .urgency-strip {
+    padding: 16px;
+  }
+
+  .price-pill {
+    width: 100%;
+    text-align: center;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .registration-body .wa-text {
+    display: none;
+  }
+
+  .registration-body .wa-float {
+    width: 58px;
+    min-width: 58px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .schedule-card,
+  .policy-box,
+  .policies-box {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  .form-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .field-card,
+  .signature-box {
+    padding: 14px;
   }
 }
 
