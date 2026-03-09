@@ -328,6 +328,7 @@ p { line-height: 1.7; }
     0 24px 60px rgba(39,57,97,0.18),
     0 10px 24px rgba(245,123,174,0.10);
   overflow: hidden;
+  will-change: transform;
 }
 
 .hero-video::after {
@@ -344,6 +345,7 @@ p { line-height: 1.7; }
   object-fit: cover;
   border-radius: 31px;
   filter: brightness(0.9) saturate(1.02);
+  background: #edf3fb;
 }
 
 .hero-left {
@@ -1180,5 +1182,29 @@ p { line-height: 1.7; }
 
   .media-card img {
     border-radius: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .letter-cloud span,
+  .hero-logo-main,
+  .hero-left,
+  .hero-center,
+  .hero-right,
+  .benefit-icon,
+  .benefit-card::before,
+  .media-card,
+  .wa-float {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
