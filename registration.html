@@ -21,9 +21,15 @@
   <div class="bg-orb orb-a"></div>
   <div class="bg-orb orb-b"></div>
 
-  <a class="fb-float" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="Facebook öffnen">f</a>
+  <a class="fb-float fb-float-extended" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="Facebook öffnen">
+    <span class="fb-icon">f</span>
+    <span class="fb-text">
+      <strong>Folge uns auf Facebook</strong>
+      <small>تابعنا على فيسبوك</small>
+    </span>
+  </a>
 
-  <a class="wa-float" href="https://wa.me/4917640157586" target="_blank" rel="noreferrer" aria-label="WhatsApp öffnen">
+  <a class="wa-float wa-float-extended" href="https://wa.me/4917640157586" target="_blank" rel="noreferrer" aria-label="WhatsApp öffnen">
     <span class="wa-icon">💬</span>
     <span class="wa-text">
       <strong>WhatsApp</strong>
@@ -87,6 +93,7 @@
     <section class="container form-shell reveal">
       <div class="form-header">
         <h2>إستمارة التسجيل في إقرأ</h2>
+        <p>Registrierungsformular der Iqraa Akademie</p>
       </div>
 
       <form id="registrationForm" class="registration-form registration-form-rich" dir="rtl">
@@ -94,141 +101,199 @@
 
         <div class="form-grid three">
           <div class="field-card">
-            <label>الاسم الكامل للطالب *</label>
+            <label>
+              <span class="label-ar">الاسم الكامل للطالب *</span>
+              <small class="label-de">Vollständiger Name des Kindes *</small>
+            </label>
             <input name="studentName" required>
           </div>
 
           <div class="field-card">
-            <label>تاريخ الميلاد *</label>
+            <label>
+              <span class="label-ar">تاريخ الميلاد *</span>
+              <small class="label-de">Geburtsdatum *</small>
+            </label>
             <input type="date" name="birthDate" required>
           </div>
 
           <div class="field-card">
-            <label>عنوان المنزل</label>
+            <label>
+              <span class="label-ar">عنوان المنزل</span>
+              <small class="label-de">Wohnadresse</small>
+            </label>
             <input name="address">
           </div>
 
           <div class="field-card">
-            <label>الاسم الكامل للوصي *</label>
+            <label>
+              <span class="label-ar">الاسم الكامل للوصي *</span>
+              <small class="label-de">Vollständiger Name des Erziehungsberechtigten *</small>
+            </label>
             <input name="guardianName" required>
           </div>
 
           <div class="field-card">
-            <label>رقم الهاتف للتواصل *</label>
+            <label>
+              <span class="label-ar">رقم الهاتف للتواصل *</span>
+              <small class="label-de">Telefonnummer für Rückfragen *</small>
+            </label>
             <input name="phone" required dir="ltr">
           </div>
 
           <div class="field-card">
-            <label>البريد الإلكتروني للوالدين / Email *</label>
+            <label>
+              <span class="label-ar">البريد الإلكتروني للوالدين / Email *</span>
+              <small class="label-de">E-Mail der Eltern *</small>
+            </label>
             <input type="email" name="guardianEmail" dir="ltr" required placeholder="name@email.com">
           </div>
 
           <div class="field-card full">
-            <label>اللغات المستخدمة في المنزل</label>
+            <label>
+              <span class="label-ar">اللغات المستخدمة في المنزل</span>
+              <small class="label-de">Zu Hause gesprochene Sprachen</small>
+            </label>
             <input name="homeLanguages">
           </div>
         </div>
 
         <div class="form-grid three radio-row-grid">
           <div class="field-card">
-            <label>مستوى الدورة *</label>
+            <label>
+              <span class="label-ar">مستوى الدورة *</span>
+              <small class="label-de">Kursniveau *</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="level" value="مبتدئ" required> مبتدئ</label>
-              <label><input type="radio" name="level" value="متوسط"> متوسط</label>
-              <label><input type="radio" name="level" value="متقدم"> متقدم</label>
+              <label><input type="radio" name="level" value="مبتدئ" required> مبتدئ <small>Anfänger</small></label>
+              <label><input type="radio" name="level" value="متوسط"> متوسط <small>Mittelstufe</small></label>
+              <label><input type="radio" name="level" value="متقدم"> متقدم <small>Fortgeschritten</small></label>
             </div>
           </div>
 
           <div class="field-card">
-            <label>الجنس *</label>
+            <label>
+              <span class="label-ar">الجنس *</span>
+              <small class="label-de">Geschlecht *</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="gender" value="ذكر" required> ذكر</label>
-              <label><input type="radio" name="gender" value="أنثى"> أنثى</label>
+              <label><input type="radio" name="gender" value="ذكر" required> ذكر <small>Junge</small></label>
+              <label><input type="radio" name="gender" value="أنثى"> أنثى <small>Mädchen</small></label>
             </div>
           </div>
 
           <div class="field-card">
-            <label>هل لدى الطفل معرفة سابقة باللغة العربية؟</label>
+            <label>
+              <span class="label-ar">هل لدى الطفل معرفة سابقة باللغة العربية؟</span>
+              <small class="label-de">Hat das Kind bereits Arabischkenntnisse?</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="knowsArabic" value="نعم"> نعم</label>
-              <label><input type="radio" name="knowsArabic" value="لا"> لا</label>
+              <label><input type="radio" name="knowsArabic" value="نعم"> نعم <small>Ja</small></label>
+              <label><input type="radio" name="knowsArabic" value="لا"> لا <small>Nein</small></label>
             </div>
           </div>
         </div>
 
         <div class="form-grid two">
           <div class="field-card price-card">
-            <label>الرسوم الشهرية</label>
+            <label>
+              <span class="label-ar">الرسوم الشهرية</span>
+              <small class="label-de">Monatliche Gebühr</small>
+            </label>
             <div class="price">40,-€</div>
           </div>
 
           <div class="field-card span-2">
-            <label>موافقة على استخدام الصور والفيديوهات على وسائل التواصل الاجتماعي *</label>
+            <label>
+              <span class="label-ar">موافقة على استخدام الصور والفيديوهات على وسائل التواصل الاجتماعي *</span>
+              <small class="label-de">Einverständnis zur Nutzung von Fotos/Videos auf Social Media *</small>
+            </label>
             <div class="radio-group row">
-              <label><input type="radio" name="mediaConsent" value="نعم" required> نعم</label>
-              <label><input type="radio" name="mediaConsent" value="لا"> لا</label>
+              <label><input type="radio" name="mediaConsent" value="نعم" required> نعم <small>Ja</small></label>
+              <label><input type="radio" name="mediaConsent" value="لا"> لا <small>Nein</small></label>
             </div>
           </div>
         </div>
 
         <div class="field-card full schedule-card">
-          <label>الجدول الزمني درسان أسبوعياً</label>
+          <label>
+            <span class="label-ar">الجدول الزمني درسان أسبوعياً</span>
+            <small class="label-de">Zeitplan: zwei Unterrichtseinheiten pro Woche</small>
+          </label>
           <div class="schedule-grid">
-            <input name="scheduleDay1" placeholder="يوم">
-            <input name="scheduleTime1" placeholder="الساعة">
-            <input name="scheduleDay2" placeholder="يوم">
-            <input name="scheduleTime2" placeholder="الساعة">
+            <input name="scheduleDay1" placeholder="يوم / Tag">
+            <input name="scheduleTime1" placeholder="الساعة / Uhrzeit">
+            <input name="scheduleDay2" placeholder="يوم / Tag">
+            <input name="scheduleTime2" placeholder="الساعة / Uhrzeit">
           </div>
         </div>
 
         <div class="form-grid three radio-row-grid">
           <div class="field-card">
-            <label>تاريخ بدء الدورة</label>
+            <label>
+              <span class="label-ar">تاريخ بدء الدورة</span>
+              <small class="label-de">Kursbeginn</small>
+            </label>
             <input type="date" name="startDate">
           </div>
 
           <div class="field-card">
-            <label>هل لدى الطفل أمراض مزمنة؟</label>
+            <label>
+              <span class="label-ar">هل لدى الطفل أمراض مزمنة؟</span>
+              <small class="label-de">Hat das Kind chronische Erkrankungen?</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="chronicIllness" value="نعم"> نعم</label>
-              <label><input type="radio" name="chronicIllness" value="لا"> لا</label>
+              <label><input type="radio" name="chronicIllness" value="نعم"> نعم <small>Ja</small></label>
+              <label><input type="radio" name="chronicIllness" value="لا"> لا <small>Nein</small></label>
             </div>
           </div>
 
           <div class="field-card">
-            <label>هل يعاني الطفل من أي نوع من الحساسية؟</label>
+            <label>
+              <span class="label-ar">هل يعاني الطفل من أي نوع من الحساسية؟</span>
+              <small class="label-de">Hat das Kind Allergien?</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="allergy" value="نعم"> نعم</label>
-              <label><input type="radio" name="allergy" value="لا"> لا</label>
+              <label><input type="radio" name="allergy" value="نعم"> نعم <small>Ja</small></label>
+              <label><input type="radio" name="allergy" value="لا"> لا <small>Nein</small></label>
             </div>
           </div>
         </div>
 
         <div class="form-grid two">
           <div class="field-card span-2">
-            <label>موافقة ولي الأمر على القوانين والسياسات الخاصة بالدورة التعليمية؟ *</label>
+            <label>
+              <span class="label-ar">موافقة ولي الأمر على القوانين والسياسات الخاصة بالدورة التعليمية؟ *</span>
+              <small class="label-de">Einverständnis mit Regeln und Richtlinien des Kurses? *</small>
+            </label>
             <div class="radio-group row">
-              <label><input type="radio" name="policyConsent" value="نعم" required> نعم</label>
-              <label><input type="radio" name="policyConsent" value="لا"> لا</label>
+              <label><input type="radio" name="policyConsent" value="نعم" required> نعم <small>Ja</small></label>
+              <label><input type="radio" name="policyConsent" value="لا"> لا <small>Nein</small></label>
             </div>
           </div>
 
           <div class="field-card">
-            <label>طريقة الدفع المفضلة *</label>
+            <label>
+              <span class="label-ar">طريقة الدفع المفضلة *</span>
+              <small class="label-de">Bevorzugte Zahlungsart *</small>
+            </label>
             <div class="radio-group">
-              <label><input type="radio" name="paymentMethod" value="نقدي" required> نقدي</label>
-              <label><input type="radio" name="paymentMethod" value="تحويل بنكي"> تحويل بنكي</label>
+              <label><input type="radio" name="paymentMethod" value="نقدي" required> نقدي <small>Bar</small></label>
+              <label><input type="radio" name="paymentMethod" value="تحويل بنكي"> تحويل بنكي <small>Überweisung</small></label>
             </div>
           </div>
         </div>
 
         <div class="field-card full">
-          <label>تاريخ التسجيل</label>
+          <label>
+            <span class="label-ar">تاريخ التسجيل</span>
+            <small class="label-de">Anmeldedatum</small>
+          </label>
           <input type="date" name="registrationDate">
         </div>
 
         <section class="policies-box">
           <h3>القوانين والسياسات الخاصة بالدورة التعليمية</h3>
+          <p class="policy-subtitle">Regeln und Richtlinien des Unterrichts</p>
           <ul>
             <li>نرجو الالتزام بانتظام حضور الطفل لتحقيق أفضل مستوى من التقدم الدراسي.</li>
             <li>يسمح للطلاب بالغياب فقط في الحالات الطارئة أو المرضية.</li>
@@ -253,13 +318,31 @@
 
         <div class="signature-grid rich-signatures">
           <div class="signature-box">
-            <label>توقيع ولي أمر الطالب</label>
-            <div class="signature-line"></div>
+            <label>
+              <span class="label-ar">توقيع ولي أمر الطالب</span>
+              <small class="label-de">Unterschrift Erziehungsberechtigter</small>
+            </label>
+            <div class="signature-pad-wrap">
+              <canvas id="guardianSignaturePad" class="signature-canvas" width="500" height="170"></canvas>
+              <input type="hidden" name="guardianSignatureData" id="guardianSignatureData">
+              <div class="signature-actions">
+                <button type="button" class="signature-clear-btn" data-target="guardianSignaturePad">مسح / Löschen</button>
+              </div>
+            </div>
           </div>
 
           <div class="signature-box">
-            <label>توقيع الآنسة</label>
-            <div class="signature-line"></div>
+            <label>
+              <span class="label-ar">توقيع الآنسة</span>
+              <small class="label-de">Unterschrift Lehrerin</small>
+            </label>
+            <div class="signature-pad-wrap">
+              <canvas id="teacherSignaturePad" class="signature-canvas" width="500" height="170"></canvas>
+              <input type="hidden" name="teacherSignatureData" id="teacherSignatureData">
+              <div class="signature-actions">
+                <button type="button" class="signature-clear-btn" data-target="teacherSignaturePad">مسح / Löschen</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -279,7 +362,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="container footer-inner footer-inner-registration">
       <div>
         <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
         <p>Dinxperloer Straße 92, 46399 Bocholt</p>
