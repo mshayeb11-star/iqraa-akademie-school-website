@@ -5,14 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anmeldung | Iqraa Akademie</title>
   <meta name="description" content="Anmeldeformular der Iqraa Akademie für Kinderkurse in Bocholt." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="registration-body">
+
+  <div class="letter-cloud" aria-hidden="true">
+    <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ع</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>ه</span><span>و</span><span>ي</span>
+  </div>
+
   <div class="bg-orb orb-a"></div>
   <div class="bg-orb orb-b"></div>
+
+  <a class="fb-float" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="Facebook öffnen">f</a>
 
   <a class="wa-float" href="https://wa.me/4917640157586" target="_blank" rel="noreferrer" aria-label="WhatsApp öffnen">
     <span class="wa-icon">💬</span>
@@ -31,10 +40,11 @@
           <div class="brand-ar">أكاديمية اقرأ</div>
         </div>
       </a>
+
       <nav class="main-nav registration-nav">
-        <a href="index.html">Startseite / الرئيسية</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+        <a href="index.html"><span>Startseite</span><small>الرئيسية</small></a>
+        <a href="impressum.html"><span>Impressum</span><small>بيانات النشر</small></a>
+        <a href="datenschutz.html"><span>Datenschutz</span><small>الخصوصية</small></a>
       </nav>
     </div>
   </header>
@@ -60,11 +70,13 @@
         <h3>Formular ausfüllen</h3>
         <p class="rtl" dir="rtl">تعبئة الاستمارة</p>
       </article>
+
       <article class="step-card">
         <span>2️⃣</span>
         <h3>Anmeldung per E-Mail erhalten</h3>
         <p class="rtl" dir="rtl">استلام تأكيد التسجيل عبر البريد الإلكتروني</p>
       </article>
+
       <article class="step-card">
         <span>3️⃣</span>
         <h3>Kind startet im Kurs</h3>
@@ -81,15 +93,40 @@
         <img src="logo.png" alt="logo watermark" class="form-watermark" />
 
         <div class="form-grid three">
-          <div class="field-card"><label>الاسم الكامل للطالب *</label><input name="studentName" required></div>
-          <div class="field-card"><label>تاريخ الميلاد *</label><input type="date" name="birthDate" required></div>
-          <div class="field-card"><label>عنوان المنزل</label><input name="address"></div>
+          <div class="field-card">
+            <label>الاسم الكامل للطالب *</label>
+            <input name="studentName" required>
+          </div>
 
-          <div class="field-card"><label>الاسم الكامل للوصي *</label><input name="guardianName" required></div>
-          <div class="field-card"><label>رقم الهاتف للتواصل *</label><input name="phone" required></div>
-          <div class="field-card"><label>البريد الإلكتروني للوالدين / Email *</label><input type="email" name="guardianEmail" dir="ltr" required placeholder="name@email.com"></div>
+          <div class="field-card">
+            <label>تاريخ الميلاد *</label>
+            <input type="date" name="birthDate" required>
+          </div>
 
-          <div class="field-card full"><label>اللغات المستخدمة في المنزل</label><input name="homeLanguages"></div>
+          <div class="field-card">
+            <label>عنوان المنزل</label>
+            <input name="address">
+          </div>
+
+          <div class="field-card">
+            <label>الاسم الكامل للوصي *</label>
+            <input name="guardianName" required>
+          </div>
+
+          <div class="field-card">
+            <label>رقم الهاتف للتواصل *</label>
+            <input name="phone" required dir="ltr">
+          </div>
+
+          <div class="field-card">
+            <label>البريد الإلكتروني للوالدين / Email *</label>
+            <input type="email" name="guardianEmail" dir="ltr" required placeholder="name@email.com">
+          </div>
+
+          <div class="field-card full">
+            <label>اللغات المستخدمة في المنزل</label>
+            <input name="homeLanguages">
+          </div>
         </div>
 
         <div class="form-grid three radio-row-grid">
@@ -101,6 +138,7 @@
               <label><input type="radio" name="level" value="متقدم"> متقدم</label>
             </div>
           </div>
+
           <div class="field-card">
             <label>الجنس *</label>
             <div class="radio-group">
@@ -108,6 +146,7 @@
               <label><input type="radio" name="gender" value="أنثى"> أنثى</label>
             </div>
           </div>
+
           <div class="field-card">
             <label>هل لدى الطفل معرفة سابقة باللغة العربية؟</label>
             <div class="radio-group">
@@ -122,6 +161,7 @@
             <label>الرسوم الشهرية</label>
             <div class="price">40,-€</div>
           </div>
+
           <div class="field-card span-2">
             <label>موافقة على استخدام الصور والفيديوهات على وسائل التواصل الاجتماعي *</label>
             <div class="radio-group row">
@@ -142,14 +182,25 @@
         </div>
 
         <div class="form-grid three radio-row-grid">
-          <div class="field-card"><label>تاريخ بدء الدورة</label><input type="date" name="startDate"></div>
+          <div class="field-card">
+            <label>تاريخ بدء الدورة</label>
+            <input type="date" name="startDate">
+          </div>
+
           <div class="field-card">
             <label>هل لدى الطفل أمراض مزمنة؟</label>
-            <div class="radio-group"><label><input type="radio" name="chronicIllness" value="نعم"> نعم</label><label><input type="radio" name="chronicIllness" value="لا"> لا</label></div>
+            <div class="radio-group">
+              <label><input type="radio" name="chronicIllness" value="نعم"> نعم</label>
+              <label><input type="radio" name="chronicIllness" value="لا"> لا</label>
+            </div>
           </div>
+
           <div class="field-card">
             <label>هل يعاني الطفل من أي نوع من الحساسية؟</label>
-            <div class="radio-group"><label><input type="radio" name="allergy" value="نعم"> نعم</label><label><input type="radio" name="allergy" value="لا"> لا</label></div>
+            <div class="radio-group">
+              <label><input type="radio" name="allergy" value="نعم"> نعم</label>
+              <label><input type="radio" name="allergy" value="لا"> لا</label>
+            </div>
           </div>
         </div>
 
@@ -161,6 +212,7 @@
               <label><input type="radio" name="policyConsent" value="لا"> لا</label>
             </div>
           </div>
+
           <div class="field-card">
             <label>طريقة الدفع المفضلة *</label>
             <div class="radio-group">
@@ -170,7 +222,10 @@
           </div>
         </div>
 
-        <div class="field-card full"><label>تاريخ التسجيل</label><input type="date" name="registrationDate"></div>
+        <div class="field-card full">
+          <label>تاريخ التسجيل</label>
+          <input type="date" name="registrationDate">
+        </div>
 
         <section class="policies-box">
           <h3>القوانين والسياسات الخاصة بالدورة التعليمية</h3>
@@ -189,6 +244,7 @@
         <div class="policy-box">
           <h3>Datenschutz / الخصوصية</h3>
           <p>Mit dem Absenden stimmen Sie zu, dass Ihre Angaben zur Bearbeitung der Anmeldung verwendet werden. / عند الإرسال أنتم توافقون على استخدام البيانات لأغراض التسجيل فقط.</p>
+
           <label class="checkbox-line" dir="ltr">
             <input type="checkbox" name="privacyAccepted" required />
             <span>Ich akzeptiere die <a href="datenschutz.html">Datenschutzerklärung</a> / أوافق على سياسة الخصوصية</span>
@@ -200,6 +256,7 @@
             <label>توقيع ولي أمر الطالب</label>
             <div class="signature-line"></div>
           </div>
+
           <div class="signature-box">
             <label>توقيع الآنسة</label>
             <div class="signature-line"></div>
@@ -209,26 +266,34 @@
         <div class="submit-wrap">
           <p class="submit-info">Die technische PDF- und E-Mail-Funktion wird im nächsten Schritt verbunden.</p>
           <p class="submit-info rtl" dir="rtl">سيتم ربط وظيفة PDF والإرسال بالبريد الإلكتروني في الخطوة التالية.</p>
+
           <div class="form-actions" dir="ltr">
             <button type="submit" class="btn btn-primary big">Anmeldung absenden / إرسال التسجيل</button>
             <a href="index.html" class="btn btn-secondary">Zurück / رجوع</a>
           </div>
+
           <div id="formMessage" class="form-message"></div>
         </div>
       </form>
     </section>
   </main>
+
   <footer class="site-footer">
-    <div class="container footer-wrap">
+    <div class="container footer-inner">
       <div>
         <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
         <p>Dinxperloer Straße 92, 46399 Bocholt</p>
         <p><a href="mailto:kontakt@iqraa-akademie.de">kontakt@iqraa-akademie.de</a></p>
       </div>
+
       <div class="footer-links">
         <a href="index.html">Startseite</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
+      </div>
+
+      <div class="alphabet-strip" aria-hidden="true">
+        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
       </div>
     </div>
   </footer>
