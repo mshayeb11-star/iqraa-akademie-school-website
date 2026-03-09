@@ -800,6 +800,66 @@ p { line-height: 1.7; }
   line-height: 1.5;
 }
 
+/* CONTACT PREMIUM */
+
+.contact-framed {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.72);
+  box-shadow:
+    0 22px 54px rgba(32, 58, 102, 0.12),
+    0 8px 18px rgba(245,123,174,0.06);
+}
+
+.contact-framed::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 34px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(245,123,174,0.92), rgba(102,176,233,0.92));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.contact-card p {
+  margin: 0 0 10px;
+}
+
+.contact-number {
+  direction: ltr;
+  unicode-bidi: bidi-override;
+  display: inline-block;
+}
+
+.contact-number-ltr {
+  direction: ltr;
+  unicode-bidi: bidi-override;
+  display: inline-block;
+}
+
+.contact-link-row {
+  display: block;
+  margin-top: 2px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 14px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.contact-link-row:hover {
+  transform: translateX(2px);
+  opacity: 0.92;
+}
+
 .facebook-box {
   background: rgba(255,255,255,0.90);
   border: 1px solid var(--line);
@@ -826,9 +886,27 @@ p { line-height: 1.7; }
 }
 
 .alphabet-strip {
-  color: #ffd9ea;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 760px;
   font-family: "Cairo", sans-serif;
+  font-weight: 800;
+  line-height: 1;
 }
+
+.alphabet-strip span {
+  display: inline-block;
+  font-size: 1.22rem;
+  animation: footerLetterDance 3.2s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255,255,255,0.08);
+}
+
+.alphabet-strip span:nth-child(4n+1) { color: #ffbdd9; animation-delay: 0s; }
+.alphabet-strip span:nth-child(4n+2) { color: #9fd4ff; animation-delay: 0.25s; }
+.alphabet-strip span:nth-child(4n+3) { color: #ffe09a; animation-delay: 0.5s; }
+.alphabet-strip span:nth-child(4n+4) { color: #c9efad; animation-delay: 0.75s; }
 
 /* FORM SUPPORT */
 
@@ -1031,21 +1109,36 @@ p { line-height: 1.7; }
 .form-message.ok { color: #107354; }
 .form-message.err { color: #b3364e; }
 
+/* FLOATING BUTTONS */
+
+.fb-float,
 .wa-float {
   position: fixed;
   right: 18px;
-  bottom: 18px;
   z-index: 60;
   width: 64px;
   height: 64px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #22c55e;
   color: white;
+  box-shadow: 0 20px 40px rgba(32,58,102,0.24);
+  animation: pulseFloat 2.5s infinite;
+}
+
+.fb-float {
+  bottom: 94px;
+  background: #1877f2;
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: Arial, sans-serif;
+}
+
+.wa-float {
+  bottom: 18px;
+  background: #22c55e;
   font-size: 2rem;
   box-shadow: 0 20px 40px rgba(34,197,94,0.35);
-  animation: pulseFloat 2.5s infinite;
 }
 
 .rtl { font-family: "Cairo", sans-serif; }
@@ -1104,6 +1197,13 @@ p { line-height: 1.7; }
 @keyframes galleryFloat {
   0%,100% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
+}
+
+@keyframes footerLetterDance {
+  0%,100% { transform: translateY(0) scale(1); opacity: 0.92; }
+  25% { transform: translateY(-4px) scale(1.03); opacity: 1; }
+  50% { transform: translateY(2px) scale(0.98); opacity: 0.88; }
+  75% { transform: translateY(-2px) scale(1.01); opacity: 0.96; }
 }
 
 @media (max-width: 1100px) {
@@ -1171,6 +1271,10 @@ p { line-height: 1.7; }
   .media-grid-2,
   .media-grid-3 {
     width: min(100%, 320px);
+  }
+
+  .alphabet-strip {
+    gap: 6px;
   }
 }
 
@@ -1262,6 +1366,23 @@ p { line-height: 1.7; }
   .media-card img {
     border-radius: 20px;
   }
+
+  .fb-float,
+  .wa-float {
+    width: 58px;
+    height: 58px;
+    right: 14px;
+  }
+
+  .fb-float {
+    bottom: 84px;
+    font-size: 1.8rem;
+  }
+
+  .wa-float {
+    bottom: 14px;
+    font-size: 1.8rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1277,7 +1398,9 @@ p { line-height: 1.7; }
   .benefit-icon,
   .benefit-card::before,
   .media-card,
-  .wa-float {
+  .wa-float,
+  .fb-float,
+  .alphabet-strip span {
     animation: none !important;
   }
 
