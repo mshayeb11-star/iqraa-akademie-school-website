@@ -1,0 +1,7 @@
+{
+  "name": "iqraa-akademie",
+  "private": true,
+  "scripts": {
+    "build": "node generate-gallery.js"
+  }
+}
