@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Safe performance improvement: preload only the main center hero video -->
+  <link rel="preload" href="videos/hero2.mp4" as="video" type="video/mp4">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -80,7 +83,7 @@
 
         <div class="hero-videos-under">
           <div class="hero-video hero-left">
-            <video autoplay muted loop playsinline preload="auto">
+            <video autoplay muted loop playsinline preload="metadata">
               <source src="videos/hero1.mp4" type="video/mp4">
             </video>
           </div>
@@ -92,7 +95,7 @@
           </div>
 
           <div class="hero-video hero-right">
-            <video autoplay muted loop playsinline preload="auto">
+            <video autoplay muted loop playsinline preload="metadata">
               <source src="videos/hero3.mp4" type="video/mp4">
             </video>
           </div>
