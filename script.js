@@ -1,38 +1,73 @@
 async function loadImages() {
+  try {
+    const res = await fetch("/data/images.json");
+    if (!res.ok) {
+      throw new Error(`Failed to load images.json: ${res.status}`);
+    }
 
-  const res = await fetch("/data/images.json");
-  const data = await res.json();
+    const data = await res.json();
 
-  function render(containerId, images) {
+    function render(containerId, images) {
+      const container = document.getElementById(containerId);
+      if (!container || !Array.isArray(images)) return;
 
-    const container = document.getElementById(containerId);
-    if (!container) return;
+      container.innerHTML = "";
 
-    container.innerHTML = "";
+      images.forEach((src) => {
+        const card = document.createElement("article");
+        card.className = "media-card reveal";
 
-    images.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.loading = "lazy";
+        img.alt = "Iqraa Akademie";
 
-      const card = document.createElement("article");
-      card.className = "media-card reveal";
+        img.onerror = () => {
+          card.remove();
+        };
 
-      const img = document.createElement("img");
-      img.src = src;
-      img.loading = "lazy";
+        card.appendChild(img);
+        container.appendChild(card);
+      });
+    }
 
-      img.onerror = () => card.remove();
+    render("galleryGrid", data.gallery);
+    render("heroKidsGrid", data.hero);
+    render("certificateGrid", data.certificates);
+    render("reviewGrid", data.reviews);
 
-      card.appendChild(img);
-      container.appendChild(card);
-
-    });
-
+    initReveal();
+  } catch (error) {
+    console.error("Image loading error:", error);
   }
-
-  render("galleryGrid", data.gallery);
-  render("heroKidsGrid", data.hero);
-  render("certificateGrid", data.certificates);
-  render("reviewGrid", data.reviews);
-
 }
 
-loadImages();
+function initReveal() {
+  const revealItems = document.querySelectorAll(".reveal");
+
+  if (!("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("in-view"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+    }
+  );
+
+  revealItems.forEach((item) => observer.observe(item));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadImages();
+  initReveal();
+});
