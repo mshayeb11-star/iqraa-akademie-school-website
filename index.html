@@ -9,9 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Safe performance improvement: preload only the main center hero video -->
   <link rel="preload" href="videos/hero2.mp4" as="video" type="video/mp4">
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +18,7 @@
     <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ع</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>ه</span><span>و</span><span>ي</span>
   </div>
 
+  <a class="fb-float" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
   <a class="wa-float" href="https://wa.me/4917640157586" target="_blank" rel="noreferrer" aria-label="WhatsApp">💬</a>
 
   <header class="site-header">
@@ -250,21 +249,27 @@
     <!-- CONTACT -->
     <section id="contact" class="section footer-top">
       <div class="container grid-2">
-        <article class="contact-card reveal glow-pink">
+
+        <article class="contact-card contact-framed reveal glow-pink">
           <p class="section-kicker">Kontakt</p>
           <h3>Kontaktieren Sie uns</h3>
-          <p>WhatsApp: 0176 40157586</p>
+          <p>WhatsApp: <span class="contact-number">0176 40157586</span></p>
           <p>E-Mail: kontakt@iqraa-akademie.de</p>
-          <p>Facebook: Iqraa Akademie</p>
+          <a class="contact-link-row" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="Facebook Iqraa Akademie">
+            <span>Facebook: Iqraa Akademie</span>
+          </a>
         </article>
 
-        <article class="contact-card reveal rtl glow-blue" dir="rtl">
+        <article class="contact-card contact-framed reveal rtl glow-blue" dir="rtl">
           <p class="section-kicker">تواصل معنا</p>
           <h3>للاستفسار أو التسجيل</h3>
-          <p>واتساب: 0176 40157586</p>
+          <p>واتساب: <span class="contact-number-ltr">0176 40157586</span></p>
           <p>البريد الإلكتروني: kontakt@iqraa-akademie.de</p>
-          <p>فيسبوك: أكاديمية اقرأ</p>
+          <a class="contact-link-row rtl" href="https://www.facebook.com/profile.php?id=61552018691495" target="_blank" rel="noreferrer" aria-label="فيسبوك أكاديمية اقرأ">
+            <span>فيسبوك: أكاديمية اقرأ</span>
+          </a>
         </article>
+
       </div>
     </section>
 
@@ -273,9 +278,9 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© 2026 Iqraa Akademie</p>
-      <p class="alphabet-strip">
-        ا • ب • ت • ث • ج • ح • خ • د • ر • ز • س • ش • ص • ض • ط • ظ • ع • غ • ف • ق • ك • ل • م • ن • هـ • و • ي
-      </p>
+      <div class="alphabet-strip" aria-hidden="true">
+        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
+      </div>
     </div>
   </footer>
 
