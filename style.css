@@ -892,12 +892,14 @@ p { line-height: 1.7; }
 .alphabet-strip {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row-reverse;
   justify-content: center;
   gap: 8px;
   max-width: 760px;
   font-family: "Cairo", sans-serif;
   font-weight: 800;
   line-height: 1;
+  direction: rtl;
 }
 
 .alphabet-strip span {
@@ -1022,7 +1024,7 @@ p { line-height: 1.7; }
 
 .form-watermark {
   position: absolute;
-  inset: 190px 0 auto 0;
+  inset: 220px 0 auto 0;
   margin: 0 auto;
   width: min(540px, 72%);
   opacity: .07;
@@ -1101,29 +1103,66 @@ p { line-height: 1.7; }
   box-shadow: 0 0 0 4px rgba(102,176,233,0.14);
 }
 
-.radio-group { display: grid; gap: 10px; }
-.radio-group.row { display: flex; flex-wrap: wrap; gap: 20px; }
+.choice-card .label-de {
+  margin-bottom: 6px;
+}
 
-.radio-group label {
-  margin: 0;
+.choice-group {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.choice-group-inline {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+}
+
+.choice-item {
   display: flex;
   align-items: center;
-  gap: 8px;
   justify-content: space-between;
-  padding: 4px 0;
+  gap: 14px;
+  padding: 8px 0;
+  margin: 0;
 }
 
-.radio-group small {
+.choice-text {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.choice-ar {
+  font-family: "Cairo", sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #24314f;
+}
+
+.choice-de {
   font-family: "Nunito", sans-serif;
   color: #6c7a8e;
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   font-weight: 700;
+  direction: ltr;
 }
 
-.radio-group input[type="radio"],
+.choice-item input[type="radio"] {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--pink-dark);
+}
+
 .checkbox-line input[type="checkbox"] {
   accent-color: var(--pink-dark);
 }
+
+.radio-group { display: grid; gap: 10px; }
+.radio-group.row { display: flex; flex-wrap: wrap; gap: 20px; }
 
 .schedule-card {
   margin: 0 22px 10px;
@@ -1167,6 +1206,14 @@ p { line-height: 1.7; }
   font-weight: 800;
 }
 
+.conditional-field {
+  margin: 0 22px 12px;
+}
+
+.hidden {
+  display: none;
+}
+
 .policies-box {
   position: relative;
   margin: 6px 22px 0;
@@ -1176,8 +1223,13 @@ p { line-height: 1.7; }
   padding: 22px;
 }
 
+.policies-head {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
 .policies-box h3 {
-  margin: 0 0 8px;
+  margin: 0 auto 8px;
   padding: 14px 18px;
   border-radius: 999px;
   display: inline-block;
@@ -1326,6 +1378,11 @@ p { line-height: 1.7; }
   position: fixed;
   right: 18px;
   z-index: 60;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
   color: white;
   box-shadow: 0 20px 40px rgba(32,58,102,0.24);
   animation: pulseFloat 2.5s infinite;
@@ -1526,20 +1583,17 @@ p { line-height: 1.7; }
 }
 
 .urgency-strip {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  padding: 20px 24px;
+  display: block;
+  text-align: center;
+  gap: 0;
+  padding: 28px 24px;
   margin-bottom: 24px;
   border-radius: 28px;
-  background: rgba(255,255,255,0.78);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.76);
+  background: linear-gradient(90deg, rgba(245,123,174,0.92), rgba(102,176,233,0.92));
+  color: #fff;
   box-shadow:
-    0 20px 52px rgba(32,58,102,0.10),
-    0 8px 18px rgba(245,123,174,0.06);
+    0 20px 52px rgba(32,58,102,0.14),
+    0 8px 18px rgba(245,123,174,0.08);
   position: relative;
   overflow: hidden;
 }
@@ -1547,37 +1601,30 @@ p { line-height: 1.7; }
 .urgency-strip::before {
   content: "";
   position: absolute;
-  inset: -2px;
-  border-radius: 30px;
-  padding: 2px;
-  background: linear-gradient(135deg, rgba(245,123,174,0.88), rgba(102,176,233,0.88));
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
   pointer-events: none;
 }
 
 .urgency-strip strong {
   display: block;
-  font-size: 1rem;
-  color: #23314e;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  color: #fff;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
 }
 
 .urgency-strip p {
-  margin: 4px 0 0;
-  color: #6a7585;
+  margin: 0;
+  color: rgba(255,255,255,0.95);
+  font-size: 1.05rem;
+  position: relative;
+  z-index: 1;
 }
 
 .price-pill {
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--pink), var(--blue));
-  color: #fff;
-  font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 12px 26px rgba(102,176,233,0.22);
+  display: none;
 }
 
 .registration-steps {
@@ -1663,8 +1710,7 @@ p { line-height: 1.7; }
   .schedule-grid { grid-template-columns: 1fr 1fr; }
 
   .register-banner,
-  .footer-inner,
-  .urgency-strip {
+  .footer-inner {
     flex-direction: column;
     text-align: center;
   }
@@ -1690,13 +1736,18 @@ p { line-height: 1.7; }
   }
 
   .schedule-card,
-  .policy-box {
+  .policy-box,
+  .conditional-field {
     margin-left: 22px;
     margin-right: 22px;
   }
 
   .footer-inner-registration {
     align-items: center;
+  }
+
+  .choice-group-inline {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1831,12 +1882,7 @@ p { line-height: 1.7; }
   }
 
   .urgency-strip {
-    padding: 16px;
-  }
-
-  .price-pill {
-    width: 100%;
-    text-align: center;
+    padding: 18px 16px;
   }
 
   .schedule-grid {
@@ -1852,13 +1898,31 @@ p { line-height: 1.7; }
   .wa-float-extended {
     width: 58px;
     min-width: 58px;
+    min-height: 58px;
+    height: 58px;
     padding: 0;
     justify-content: center;
   }
 
+  .fb-float,
+  .wa-float {
+    width: 58px;
+    height: 58px;
+    right: 12px;
+  }
+
+  .fb-float {
+    bottom: 84px;
+  }
+
+  .wa-float {
+    bottom: 14px;
+  }
+
   .schedule-card,
   .policy-box,
-  .policies-box {
+  .policies-box,
+  .conditional-field {
     margin-left: 14px;
     margin-right: 14px;
   }
@@ -1874,6 +1938,18 @@ p { line-height: 1.7; }
 
   .label-de {
     font-size: 0.73rem;
+  }
+
+  .choice-item {
+    gap: 10px;
+  }
+
+  .choice-ar {
+    font-size: 0.95rem;
+  }
+
+  .choice-de {
+    font-size: 0.76rem;
   }
 }
 

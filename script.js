@@ -158,6 +158,33 @@ function setupSignaturePad(canvasId, hiddenInputId) {
   return { clearSignature, hiddenInput };
 }
 
+function setupConditionalField(radioName, wrapId, inputId) {
+  const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+  const wrap = document.getElementById(wrapId);
+  const input = document.getElementById(inputId);
+
+  if (!radios.length || !wrap || !input) return;
+
+  function update() {
+    const checked = document.querySelector(`input[name="${radioName}"]:checked`);
+    const show = checked && checked.value === "نعم";
+
+    wrap.classList.toggle("hidden", !show);
+    input.disabled = !show;
+    input.required = !!show;
+
+    if (!show) {
+      input.value = "";
+    }
+  }
+
+  radios.forEach((radio) => {
+    radio.addEventListener("change", update);
+  });
+
+  update();
+}
+
 function setupSignaturePads() {
   const guardianPad = setupSignaturePad("guardianSignaturePad", "guardianSignatureData");
   const teacherPad = setupSignaturePad("teacherSignaturePad", "teacherSignatureData");
@@ -186,7 +213,7 @@ function setupSignaturePads() {
       return;
     }
 
-    formMessage.textContent = "Formular bereit zum späteren Versand / الاستمارة جاهزة للإرسال لاحقًا";
+    formMessage.textContent = "Formular geprüft / تم التحقق من الاستمارة";
     formMessage.className = "form-message ok";
 
     event.preventDefault();
@@ -197,4 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadImages();
   initReveal();
   setupSignaturePads();
+  setupConditionalField("chronicIllness", "chronicDetailsWrap", "chronicDetails");
+  setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
 });

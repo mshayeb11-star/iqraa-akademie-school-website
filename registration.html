@@ -58,16 +58,13 @@
   <main class="section registration-main premium-registration-page">
     <div class="container registration-intro reveal center">
       <p class="section-kicker">Anmeldung • التسجيل</p>
-      <h1>Kursteilnahme Anmeldung / استمارة التسجيل</h1>
+      <h1>Registrierungsformular der Iqraa Akademie</h1>
       <p>Die komplette Anmeldung erfolgt auf dieser eigenen Seite. / تتم عملية التسجيل الكاملة في هذه الصفحة الخاصة.</p>
     </div>
 
     <div class="container urgency-strip reveal">
-      <div>
-        <strong>Begrenzte Plätze pro Gruppe</strong>
-        <p class="rtl" dir="rtl">عدد المقاعد محدود في كل مجموعة</p>
-      </div>
-      <div class="price-pill">40,-€ / Monat</div>
+      <strong>Begrenzte Plätze pro Gruppe</strong>
+      <p class="rtl" dir="rtl">عدد المقاعد محدود في كل مجموعة</p>
     </div>
 
     <section class="container steps-grid reveal registration-steps">
@@ -93,7 +90,6 @@
     <section class="container form-shell reveal">
       <div class="form-header">
         <h2>إستمارة التسجيل في إقرأ</h2>
-        <p>Registrierungsformular der Iqraa Akademie</p>
       </div>
 
       <form id="registrationForm" class="registration-form registration-form-rich" dir="rtl">
@@ -158,37 +154,86 @@
         </div>
 
         <div class="form-grid three radio-row-grid">
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">مستوى الدورة *</span>
               <small class="label-de">Kursniveau *</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="level" value="مبتدئ" required> مبتدئ <small>Anfänger</small></label>
-              <label><input type="radio" name="level" value="متوسط"> متوسط <small>Mittelstufe</small></label>
-              <label><input type="radio" name="level" value="متقدم"> متقدم <small>Fortgeschritten</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">مبتدئ</span>
+                  <small class="choice-de">Anfänger</small>
+                </span>
+                <input type="radio" name="level" value="مبتدئ" required>
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">متوسط</span>
+                  <small class="choice-de">Mittelstufe</small>
+                </span>
+                <input type="radio" name="level" value="متوسط">
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">متقدم</span>
+                  <small class="choice-de">Fortgeschritten</small>
+                </span>
+                <input type="radio" name="level" value="متقدم">
+              </label>
             </div>
           </div>
 
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">الجنس *</span>
               <small class="label-de">Geschlecht *</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="gender" value="ذكر" required> ذكر <small>Junge</small></label>
-              <label><input type="radio" name="gender" value="أنثى"> أنثى <small>Mädchen</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">ذكر</span>
+                  <small class="choice-de">Junge</small>
+                </span>
+                <input type="radio" name="gender" value="ذكر" required>
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">أنثى</span>
+                  <small class="choice-de">Mädchen</small>
+                </span>
+                <input type="radio" name="gender" value="أنثى">
+              </label>
             </div>
           </div>
 
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">هل لدى الطفل معرفة سابقة باللغة العربية؟</span>
               <small class="label-de">Hat das Kind bereits Arabischkenntnisse?</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="knowsArabic" value="نعم"> نعم <small>Ja</small></label>
-              <label><input type="radio" name="knowsArabic" value="لا"> لا <small>Nein</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نعم</span>
+                  <small class="choice-de">Ja</small>
+                </span>
+                <input type="radio" name="knowsArabic" value="نعم">
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">لا</span>
+                  <small class="choice-de">Nein</small>
+                </span>
+                <input type="radio" name="knowsArabic" value="لا">
+              </label>
             </div>
           </div>
         </div>
@@ -207,9 +252,23 @@
               <span class="label-ar">موافقة على استخدام الصور والفيديوهات على وسائل التواصل الاجتماعي *</span>
               <small class="label-de">Einverständnis zur Nutzung von Fotos/Videos auf Social Media *</small>
             </label>
-            <div class="radio-group row">
-              <label><input type="radio" name="mediaConsent" value="نعم" required> نعم <small>Ja</small></label>
-              <label><input type="radio" name="mediaConsent" value="لا"> لا <small>Nein</small></label>
+
+            <div class="choice-group choice-group-inline">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نعم</span>
+                  <small class="choice-de">Ja</small>
+                </span>
+                <input type="radio" name="mediaConsent" value="نعم" required>
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">لا</span>
+                  <small class="choice-de">Nein</small>
+                </span>
+                <input type="radio" name="mediaConsent" value="لا">
+              </label>
             </div>
           </div>
         </div>
@@ -236,27 +295,71 @@
             <input type="date" name="startDate">
           </div>
 
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">هل لدى الطفل أمراض مزمنة؟</span>
               <small class="label-de">Hat das Kind chronische Erkrankungen?</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="chronicIllness" value="نعم"> نعم <small>Ja</small></label>
-              <label><input type="radio" name="chronicIllness" value="لا"> لا <small>Nein</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نعم</span>
+                  <small class="choice-de">Ja</small>
+                </span>
+                <input type="radio" name="chronicIllness" value="نعم">
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">لا</span>
+                  <small class="choice-de">Nein</small>
+                </span>
+                <input type="radio" name="chronicIllness" value="لا">
+              </label>
             </div>
           </div>
 
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">هل يعاني الطفل من أي نوع من الحساسية؟</span>
               <small class="label-de">Hat das Kind Allergien?</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="allergy" value="نعم"> نعم <small>Ja</small></label>
-              <label><input type="radio" name="allergy" value="لا"> لا <small>Nein</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نعم</span>
+                  <small class="choice-de">Ja</small>
+                </span>
+                <input type="radio" name="allergy" value="نعم">
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">لا</span>
+                  <small class="choice-de">Nein</small>
+                </span>
+                <input type="radio" name="allergy" value="لا">
+              </label>
             </div>
           </div>
+        </div>
+
+        <div id="chronicDetailsWrap" class="field-card full conditional-field hidden">
+          <label>
+            <span class="label-ar">إذا كانت الإجابة نعم، يرجى كتابة المرض المزمن</span>
+            <small class="label-de">Falls ja, bitte die chronische Erkrankung angeben</small>
+          </label>
+          <input id="chronicDetails" name="chronicDetails" disabled>
+        </div>
+
+        <div id="allergyDetailsWrap" class="field-card full conditional-field hidden">
+          <label>
+            <span class="label-ar">إذا كانت الإجابة نعم، يرجى كتابة نوع الحساسية</span>
+            <small class="label-de">Falls ja, bitte die Allergie angeben</small>
+          </label>
+          <input id="allergyDetails" name="allergyDetails" disabled>
         </div>
 
         <div class="form-grid two">
@@ -265,20 +368,48 @@
               <span class="label-ar">موافقة ولي الأمر على القوانين والسياسات الخاصة بالدورة التعليمية؟ *</span>
               <small class="label-de">Einverständnis mit Regeln und Richtlinien des Kurses? *</small>
             </label>
-            <div class="radio-group row">
-              <label><input type="radio" name="policyConsent" value="نعم" required> نعم <small>Ja</small></label>
-              <label><input type="radio" name="policyConsent" value="لا"> لا <small>Nein</small></label>
+
+            <div class="choice-group choice-group-inline">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نعم</span>
+                  <small class="choice-de">Ja</small>
+                </span>
+                <input type="radio" name="policyConsent" value="نعم" required>
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">لا</span>
+                  <small class="choice-de">Nein</small>
+                </span>
+                <input type="radio" name="policyConsent" value="لا">
+              </label>
             </div>
           </div>
 
-          <div class="field-card">
+          <div class="field-card choice-card">
             <label>
               <span class="label-ar">طريقة الدفع المفضلة *</span>
               <small class="label-de">Bevorzugte Zahlungsart *</small>
             </label>
-            <div class="radio-group">
-              <label><input type="radio" name="paymentMethod" value="نقدي" required> نقدي <small>Bar</small></label>
-              <label><input type="radio" name="paymentMethod" value="تحويل بنكي"> تحويل بنكي <small>Überweisung</small></label>
+
+            <div class="choice-group">
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">نقدي</span>
+                  <small class="choice-de">Bar</small>
+                </span>
+                <input type="radio" name="paymentMethod" value="نقدي" required>
+              </label>
+
+              <label class="choice-item">
+                <span class="choice-text">
+                  <span class="choice-ar">تحويل بنكي</span>
+                  <small class="choice-de">Überweisung</small>
+                </span>
+                <input type="radio" name="paymentMethod" value="تحويل بنكي">
+              </label>
             </div>
           </div>
         </div>
@@ -292,8 +423,11 @@
         </div>
 
         <section class="policies-box">
-          <h3>القوانين والسياسات الخاصة بالدورة التعليمية</h3>
-          <p class="policy-subtitle">Regeln und Richtlinien des Unterrichts</p>
+          <div class="policies-head">
+            <h3>القوانين والسياسات الخاصة بالدورة التعليمية</h3>
+            <p class="policy-subtitle">Regeln und Richtlinien des Unterrichts</p>
+          </div>
+
           <ul>
             <li>نرجو الالتزام بانتظام حضور الطفل لتحقيق أفضل مستوى من التقدم الدراسي.</li>
             <li>يسمح للطلاب بالغياب فقط في الحالات الطارئة أو المرضية.</li>
@@ -314,6 +448,14 @@
             <input type="checkbox" name="privacyAccepted" required />
             <span>Ich akzeptiere die <a href="datenschutz.html">Datenschutzerklärung</a> / أوافق على سياسة الخصوصية</span>
           </label>
+        </div>
+
+        <div class="field-card full">
+          <label>
+            <span class="label-ar">ملاحظات إضافية من ولي الأمر</span>
+            <small class="label-de">Zusätzliche Notizen der Eltern</small>
+          </label>
+          <input name="parentNotes" placeholder="ملاحظات / Notizen">
         </div>
 
         <div class="signature-grid rich-signatures">
@@ -347,9 +489,6 @@
         </div>
 
         <div class="submit-wrap">
-          <p class="submit-info">Die technische PDF- und E-Mail-Funktion wird im nächsten Schritt verbunden.</p>
-          <p class="submit-info rtl" dir="rtl">سيتم ربط وظيفة PDF والإرسال بالبريد الإلكتروني في الخطوة التالية.</p>
-
           <div class="form-actions" dir="ltr">
             <button type="submit" class="btn btn-primary big">Anmeldung absenden / إرسال التسجيل</button>
             <a href="index.html" class="btn btn-secondary">Zurück / رجوع</a>
