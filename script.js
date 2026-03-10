@@ -227,3 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupConditionalField("chronicIllness", "chronicDetailsWrap", "chronicDetails");
   setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
 });
+
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
+});
