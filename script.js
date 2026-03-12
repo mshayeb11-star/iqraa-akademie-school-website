@@ -229,5 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
+  setTimeout(() => {
+    document.body.classList.add("loaded");
+  }, 2000);
 });
