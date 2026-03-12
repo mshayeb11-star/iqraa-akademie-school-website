@@ -1960,6 +1960,18 @@ body.loaded #pageLoader {
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  /* SAFE MOBILE FIX: do not hide reveal sections on mobile */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .reveal.in-view {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -2044,6 +2056,18 @@ body.loaded #pageLoader {
 
   .price-value {
     font-size: 3rem;
+  }
+
+  /* SAFE MOBILE FIX: do not hide reveal sections on mobile */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .reveal.in-view {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
