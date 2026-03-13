@@ -15,7 +15,7 @@
 <body class="registration-body">
 
   <div id="pageLoader" aria-hidden="true">
-    <img src="logo.png" alt="Iqraa Akademie Logo" />
+    <img src="logo.png" alt="Iqraa Akademie Logo" draggable="false" />
   </div>
 
   <div class="letter-cloud" aria-hidden="true">
@@ -44,7 +44,7 @@
   <header class="site-header light">
     <div class="container nav-wrap">
       <a href="index.html" class="brand" aria-label="Zur Startseite">
-        <img src="logo.png" alt="Iqraa Akademie Logo" class="brand-logo" />
+        <img src="logo.png" alt="Iqraa Akademie Logo" class="brand-logo" draggable="false" />
         <div>
           <div class="brand-de">Iqraa Akademie</div>
           <div class="brand-ar">أكاديمية اقرأ</div>
@@ -97,7 +97,7 @@
       </div>
 
       <form id="registrationForm" class="registration-form registration-form-rich" dir="rtl">
-        <img src="logo.png" alt="logo watermark" class="form-watermark" />
+        <img src="logo.png" alt="logo watermark" class="form-watermark" draggable="false" />
 
         <div class="form-grid three">
           <div class="field-card">
@@ -520,12 +520,23 @@
         <a href="datenschutz.html">Datenschutz</a>
       </div>
 
-      <div class="alphabet-strip" aria-hidden="true">
-        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
+      <div class="alphabet-strip" dir="rtl" aria-hidden="true">
+        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ذ</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
+
+  <div id="sendingOverlay" class="sending-overlay hidden" aria-hidden="true">
+    <div class="sending-box">
+      <img src="logo.png" alt="Iqraa Akademie Logo" class="sending-logo" draggable="false">
+      <div class="sending-spinner"></div>
+      <h3>Ihre Anmeldung wird gesendet</h3>
+      <p>Bitte einen Moment warten...</p>
+      <p class="rtl" dir="rtl">يتم الآن إرسال استمارة التسجيل، يرجى الانتظار قليلاً...</p>
+    </div>
+  </div>
+
 </body>
 </html>

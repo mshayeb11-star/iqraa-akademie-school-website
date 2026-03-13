@@ -9,7 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="preload" href="videos/hero1.mp4" as="video" type="video/mp4">
   <link rel="preload" href="videos/hero2.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="videos/hero3.mp4" as="video" type="video/mp4">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -64,7 +66,7 @@
       <div class="hero-layout">
 
         <div class="hero-card">
-          <img src="logo.png" class="hero-logo-main" alt="Iqraa Akademie Logo">
+          <img src="logo.png" class="hero-logo-main" alt="Iqraa Akademie Logo" draggable="false">
 
           <div class="hero-mini-line">
             Arabisch lernen • Spielerisch • Modern • تعليم اللغة العربية للأطفال
@@ -95,19 +97,19 @@
 
         <div class="hero-videos-under">
           <div class="hero-video hero-left">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video class="protected-media" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback" aria-label="Unterrichtsvideo links">
               <source src="videos/hero1.mp4" type="video/mp4">
             </video>
           </div>
 
           <div class="hero-video hero-center">
-            <video autoplay muted loop playsinline preload="auto">
+            <video class="protected-media" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback" aria-label="Unterrichtsvideo Mitte">
               <source src="videos/hero2.mp4" type="video/mp4">
             </video>
           </div>
 
           <div class="hero-video hero-right">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video class="protected-media" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload noremoteplayback" aria-label="Unterrichtsvideo rechts">
               <source src="videos/hero3.mp4" type="video/mp4">
             </video>
           </div>
@@ -238,7 +240,7 @@
         <div class="team-grid reveal">
 
           <article class="team-card">
-            <img src="images/team/owner-01.jpg" alt="Moustafa Shayeb" loading="lazy">
+            <img src="images/team/owner-01.jpg" alt="Moustafa Shayeb" loading="lazy" draggable="false">
             <div class="team-info">
               <h3>Moustafa Shayeb</h3>
               <p class="team-role">Organisation &amp; Akademieleitung</p>
@@ -247,7 +249,7 @@
           </article>
 
           <article class="team-card">
-            <img src="images/team/owner-02.jpg" alt="Safaa Dibo" loading="lazy">
+            <img src="images/team/owner-02.jpg" alt="Safaa Dibo" loading="lazy" draggable="false">
             <div class="team-info">
               <h3>Safaa Dibo</h3>
               <p class="team-role">Lehrerin &amp; Pädagogische Leitung</p>
@@ -291,8 +293,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© 2026 Iqraa Akademie</p>
-      <div class="alphabet-strip" aria-hidden="true">
-        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
+      <div class="alphabet-strip" dir="rtl" aria-hidden="true">
+        <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ذ</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
       </div>
     </div>
   </footer>
