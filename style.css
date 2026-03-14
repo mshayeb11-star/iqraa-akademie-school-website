@@ -24,8 +24,7 @@ body {
 }
 
 img,
-video,
-canvas {
+video {
   max-width: 100%;
   display: block;
   -webkit-user-drag: none;
@@ -133,7 +132,6 @@ p { line-height: 1.7; }
   align-items: center;
   gap: 12px;
   color: var(--ink);
-  flex: 0 0 auto;
 }
 
 .brand-logo {
@@ -182,6 +180,7 @@ p { line-height: 1.7; }
   background: linear-gradient(90deg, var(--pink), var(--blue));
   color: white !important;
   box-shadow: var(--shadow);
+  white-space: nowrap;
 }
 
 .nav-cta small { color: rgba(255,255,255,0.88) !important; }
@@ -762,7 +761,7 @@ p { line-height: 1.7; }
 }
 
 .team-card {
-  width: 205px;
+  width: 210px;
   background: rgba(255,255,255,0.97);
   border-radius: 22px;
   overflow: hidden;
@@ -773,7 +772,7 @@ p { line-height: 1.7; }
 
 .team-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 50px rgba(32, 58, 102, 0.15);
+  box-shadow: 0 22px 48px rgba(32, 58, 102, 0.14);
 }
 
 .team-card img {
@@ -795,11 +794,11 @@ p { line-height: 1.7; }
 }
 
 .team-role {
-  margin: 7px 0 4px;
+  margin: 8px 0 4px;
   font-size: 0.86rem;
   font-weight: 700;
   color: #4f5d6c;
-  line-height: 1.4;
+  line-height: 1.42;
 }
 
 .team-role-ar {
@@ -902,14 +901,13 @@ p { line-height: 1.7; }
 .alphabet-strip {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  direction: rtl;
   justify-content: center;
   gap: 8px;
   max-width: 760px;
   font-family: "Cairo", sans-serif;
   font-weight: 800;
   line-height: 1;
-  direction: rtl;
 }
 
 .alphabet-strip span {
@@ -1228,24 +1226,24 @@ p { line-height: 1.7; }
 }
 
 .price-display {
-  width: 100%;
-  margin-top: 10px;
-  padding: 34px 24px;
-  border-radius: 30px;
+  width: min(100%, 360px);
+  margin: 12px auto 0;
+  padding: 18px 22px;
+  border-radius: 24px;
   text-align: center;
-  background: linear-gradient(90deg, var(--pink), var(--blue));
+  background: linear-gradient(90deg, rgba(245,123,174,0.96), rgba(102,176,233,0.96));
   color: white;
-  box-shadow: 0 20px 46px rgba(32,58,102,0.18);
+  box-shadow: 0 16px 34px rgba(32,58,102,0.15);
 }
 
 .price-value {
   display: inline-flex;
   align-items: baseline;
   justify-content: center;
-  gap: 10px;
-  font-size: clamp(3.2rem, 6vw, 4.6rem);
+  gap: 8px;
+  font-size: clamp(2rem, 5vw, 3.4rem);
   font-weight: 900;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   line-height: 1;
 }
 
@@ -1316,18 +1314,29 @@ p { line-height: 1.7; }
 }
 
 .policy-box p {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   color: #5f6d7b;
   font-size: 0.95rem;
+  line-height: 1.75;
 }
 
 .checkbox-line {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   color: #425168;
   font-size: 0.95rem;
+  background: rgba(245,123,174,0.06);
+  border: 1px solid rgba(245,123,174,0.14);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.checkbox-line input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
 }
 
 .checkbox-line a {
@@ -1443,46 +1452,51 @@ p { line-height: 1.7; }
 .fb-float,
 .wa-float {
   position: fixed;
-  right: 16px;
+  right: 18px;
   z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 58px;
-  padding: 9px 12px;
-  border-radius: 999px;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
   color: white;
   box-shadow: 0 20px 40px rgba(32,58,102,0.24);
   animation: pulseFloat 2.5s infinite;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  max-width: min(300px, calc(100vw - 24px));
 }
 
 .fb-float-extended,
 .wa-float-extended {
   width: auto;
-  min-width: 58px;
+  min-width: 64px;
+  min-height: 64px;
   height: auto;
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(280px, calc(100vw - 24px));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .fb-float {
-  bottom: 86px;
-  background: linear-gradient(135deg, #1877f2, #1d5ed8);
+  bottom: 94px;
+  background: #1877f2;
   font-family: Arial, sans-serif;
 }
 
 .wa-float {
-  bottom: 16px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  bottom: 18px;
+  background: #22c55e;
   box-shadow: 0 20px 40px rgba(34,197,94,0.35);
 }
 
 .fb-icon,
 .wa-icon {
-  font-size: 1.55rem;
+  font-size: 1.8rem;
   line-height: 1;
-  width: 30px;
+  width: 36px;
   text-align: center;
   flex: 0 0 auto;
 }
@@ -1491,25 +1505,23 @@ p { line-height: 1.7; }
 .wa-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.12;
-  min-width: 0;
+  line-height: 1.15;
 }
 
 .fb-text strong,
 .wa-text strong {
   color: #fff;
-  font-size: 0.82rem;
-  white-space: normal;
+  font-size: 0.95rem;
 }
 
 .fb-text small,
 .wa-text small {
   color: rgba(255,255,255,0.92);
-  font-size: 0.58rem;
-  max-width: 150px;
-  white-space: normal;
-  word-break: break-word;
+  font-size: 0.72rem;
+  max-width: 220px;
 }
+
+/* FOOTER LINKS */
 
 .footer-links {
   display: flex;
@@ -1547,7 +1559,7 @@ p { line-height: 1.7; }
 
 @keyframes pulseFloat {
   0%,100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-3px) scale(1.03); }
+  50% { transform: translateY(-3px) scale(1.04); }
 }
 
 @keyframes drift {
@@ -1790,27 +1802,33 @@ body.loaded #pageLoader {
 @media (max-width: 860px) {
   .nav-wrap {
     flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 12px;
-    min-height: auto;
-    padding: 12px 0 14px;
+    padding: 10px 0 12px;
   }
 
   .brand {
-    justify-content: flex-start;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .brand > div {
+    text-align: center;
   }
 
   .main-nav {
     display: flex;
+    width: 100%;
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    gap: 12px;
-    padding: 0 2px 6px;
+    gap: 10px;
     justify-content: flex-start;
+    padding: 4px 2px 6px;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
   }
 
   .main-nav::-webkit-scrollbar {
@@ -1819,20 +1837,27 @@ body.loaded #pageLoader {
 
   .main-nav a {
     flex: 0 0 auto;
-    min-width: max-content;
-    padding: 8px 10px;
+    min-width: 88px;
+    padding: 10px 12px;
     border-radius: 16px;
-    background: rgba(255,255,255,0.82);
-    border: 1px solid rgba(31,43,58,0.06);
-    box-shadow: 0 8px 20px rgba(32,58,102,0.05);
+    background: rgba(255,255,255,0.96);
+    border: 1px solid rgba(31,43,58,0.08);
+    box-shadow: 0 8px 20px rgba(32,58,102,0.06);
+  }
+
+  .main-nav a span {
+    font-size: 0.95rem;
+    line-height: 1.1;
   }
 
   .main-nav a small {
-    font-size: 0.67rem;
+    font-size: 0.64rem;
+    line-height: 1.1;
   }
 
   .nav-cta {
-    padding: 10px 16px !important;
+    min-width: 165px !important;
+    padding: 12px 18px !important;
   }
 
   .grid-2,
@@ -1866,11 +1891,7 @@ body.loaded #pageLoader {
   }
 
   .team-card {
-    width: min(100%, 240px);
-  }
-
-  .team-card img {
-    height: 240px;
+    width: min(100%, 250px);
   }
 
   .media-grid-2,
@@ -1987,41 +2008,40 @@ body.loaded #pageLoader {
     border-radius: 20px;
   }
 
-  .fb-float,
-  .wa-float {
-    right: 12px;
-    min-height: 54px;
+  .fb-float-extended,
+  .wa-float-extended {
+    right: 10px;
+    min-height: 50px;
     padding: 8px 10px;
     gap: 8px;
-    max-width: min(220px, calc(100vw - 18px));
-    border-radius: 24px;
+    max-width: 190px;
   }
 
   .fb-float {
-    bottom: 80px;
+    bottom: 74px;
   }
 
   .wa-float {
-    bottom: 12px;
+    bottom: 14px;
   }
 
   .fb-icon,
   .wa-icon {
-    width: 28px;
-    font-size: 1.38rem;
+    width: 26px;
+    font-size: 1.15rem;
   }
 
   .fb-text strong,
   .wa-text strong {
-    font-size: 0.76rem;
-    line-height: 1.08;
+    font-size: 0.70rem;
+    line-height: 1.1;
   }
 
   .fb-text small,
   .wa-text small {
-    max-width: 132px;
-    font-size: 0.54rem;
-    line-height: 1.16;
+    max-width: 120px;
+    font-size: 0.52rem;
+    line-height: 1.08;
   }
 
   .registration-main {
@@ -2052,40 +2072,6 @@ body.loaded #pageLoader {
 }
 
 @media (max-width: 600px) {
-  .container {
-    width: min(1180px, calc(100% - 20px));
-  }
-
-  .brand-logo {
-    width: 48px;
-    height: 48px;
-  }
-
-  .brand-de {
-    font-size: 0.96rem;
-  }
-
-  .brand-ar {
-    font-size: 0.92rem;
-  }
-
-  .main-nav {
-    gap: 10px;
-    padding-bottom: 4px;
-  }
-
-  .main-nav a {
-    padding: 7px 10px;
-  }
-
-  .main-nav a span {
-    font-size: 0.92rem;
-  }
-
-  .main-nav a small {
-    font-size: 0.62rem;
-  }
-
   .registration-intro h1 {
     font-size: 1.35rem;
   }
@@ -2098,28 +2084,43 @@ body.loaded #pageLoader {
     grid-template-columns: 1fr;
   }
 
-  .fb-float,
-  .wa-float {
-    right: 10px;
-    min-height: 50px;
-    padding: 7px 9px;
-    gap: 7px;
-    max-width: min(195px, calc(100vw - 14px));
-    border-radius: 20px;
+  .site-header {
+    padding-bottom: 2px;
   }
 
-  .fb-float {
-    bottom: 74px;
+  .brand-logo {
+    width: 52px;
+    height: 52px;
   }
 
-  .wa-float {
-    bottom: 10px;
+  .brand-de {
+    font-size: 1rem;
   }
 
-  .fb-icon,
-  .wa-icon {
-    width: 24px;
-    font-size: 1.18rem;
+  .brand-ar {
+    font-size: 0.94rem;
+  }
+
+  .main-nav {
+    padding-top: 2px;
+  }
+
+  .main-nav a {
+    min-width: 78px;
+    padding: 9px 10px;
+    border-radius: 14px;
+  }
+
+  .main-nav a span {
+    font-size: 0.86rem;
+  }
+
+  .main-nav a small {
+    font-size: 0.58rem;
+  }
+
+  .nav-cta {
+    min-width: 150px !important;
   }
 
   .fb-text,
@@ -2127,19 +2128,26 @@ body.loaded #pageLoader {
     display: flex;
   }
 
-  .fb-text strong,
-  .wa-text strong {
-    font-size: 0.69rem;
-    line-height: 1.06;
-    white-space: normal;
+  .fb-float-extended,
+  .wa-float-extended {
+    width: auto;
+    min-width: 0;
+    height: auto;
+    border-radius: 18px;
   }
 
-  .fb-text small,
-  .wa-text small {
-    display: block;
-    max-width: 116px;
-    font-size: 0.49rem;
-    line-height: 1.12;
+  .fb-float,
+  .wa-float {
+    width: auto;
+    height: auto;
+  }
+
+  .fb-float {
+    bottom: 72px;
+  }
+
+  .wa-float {
+    bottom: 12px;
   }
 
   .schedule-card,
@@ -2176,11 +2184,24 @@ body.loaded #pageLoader {
   }
 
   .price-display {
-    padding: 26px 18px;
+    width: min(100%, 240px);
+    padding: 14px 16px;
+    border-radius: 18px;
   }
 
   .price-value {
-    font-size: 3rem;
+    font-size: 2.1rem;
+  }
+
+  .checkbox-line {
+    align-items: flex-start;
+    text-align: right;
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+
+  .checkbox-line span {
+    flex: 1 1 0;
   }
 
   /* SAFE MOBILE FIX: do not hide reveal sections on mobile */
@@ -2193,26 +2214,6 @@ body.loaded #pageLoader {
   .reveal.in-view {
     opacity: 1 !important;
     transform: none !important;
-  }
-}
-
-@media (max-width: 400px) {
-  .fb-float,
-  .wa-float {
-    max-width: min(182px, calc(100vw - 10px));
-    right: 8px;
-    padding: 7px 8px;
-  }
-
-  .fb-text strong,
-  .wa-text strong {
-    font-size: 0.64rem;
-  }
-
-  .fb-text small,
-  .wa-text small {
-    max-width: 104px;
-    font-size: 0.46rem;
   }
 }
 
