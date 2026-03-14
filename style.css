@@ -549,10 +549,10 @@ p { line-height: 1.7; }
 
 .section-head {
   width: fit-content;
-  max-width: min(100%, 820px);
+  max-width: min(100%, 860px);
   margin: 0 auto 24px;
   padding: 14px 18px;
-  border-radius: 26px;
+  border-radius: 28px;
   background: linear-gradient(90deg, rgba(245,123,174,0.96), rgba(102,176,233,0.96));
   box-shadow:
     0 18px 38px rgba(102,176,233,0.18),
@@ -1895,14 +1895,14 @@ body.loaded #pageLoader {
     width: fit-content;
     justify-content: center;
     text-align: center;
-    padding: 10px 16px;
-    border-radius: 22px;
+    padding: 14px 18px;
+    border-radius: 28px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)),
-      linear-gradient(135deg, rgba(245,123,174,0.14), rgba(102,176,233,0.16));
+      linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.84)),
+      linear-gradient(135deg, rgba(245,123,174,0.16), rgba(102,176,233,0.18));
     box-shadow:
-      0 12px 28px rgba(32,58,102,0.08),
-      inset 0 1px 0 rgba(255,255,255,0.85);
+      0 14px 32px rgba(32,58,102,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.88);
     position: relative;
     overflow: hidden;
   }
@@ -1911,14 +1911,24 @@ body.loaded #pageLoader {
     content: "";
     position: absolute;
     inset: -2px;
-    border-radius: 24px;
+    border-radius: 30px;
     padding: 2px;
-    background: linear-gradient(135deg, rgba(245,123,174,0.75), rgba(102,176,233,0.75));
+    background: linear-gradient(135deg, rgba(245,123,174,0.85), rgba(102,176,233,0.85));
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 25%, rgba(245,123,174,0.10), transparent 28%),
+      radial-gradient(circle at 82% 30%, rgba(102,176,233,0.12), transparent 28%);
     pointer-events: none;
   }
 
@@ -1932,7 +1942,16 @@ body.loaded #pageLoader {
   }
 
   .brand-logo {
-    filter: drop-shadow(0 8px 14px rgba(245,123,174,0.14));
+    filter: drop-shadow(0 8px 14px rgba(245,123,174,0.16));
+  }
+
+  .brand-de {
+    font-size: 1.2rem;
+  }
+
+  .brand-ar {
+    font-size: 1.08rem;
+    color: #5e6b7e;
   }
 
   .main-nav {
@@ -2056,14 +2075,14 @@ body.loaded #pageLoader {
   }
 
   .section-head h2 {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
     line-height: 1.24;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
 
   .section-sub-ar {
-    font-size: 0.82rem;
-    line-height: 1.4;
+    font-size: 0.76rem;
+    line-height: 1.35;
   }
 
   .hero {
@@ -2282,11 +2301,11 @@ body.loaded #pageLoader {
   }
 
   .brand-de {
-    font-size: 0.98rem;
+    font-size: 1.02rem;
   }
 
   .brand-ar {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
   }
 
   .main-nav {
