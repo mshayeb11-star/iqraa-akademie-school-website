@@ -23,7 +23,16 @@ body {
   position: relative;
 }
 
-img, video { max-width: 100%; display: block; }
+img,
+video,
+canvas {
+  max-width: 100%;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 a { text-decoration: none; }
 p { line-height: 1.7; }
 
@@ -124,6 +133,7 @@ p { line-height: 1.7; }
   align-items: center;
   gap: 12px;
   color: var(--ink);
+  flex: 0 0 auto;
 }
 
 .brand-logo {
@@ -739,65 +749,65 @@ p { line-height: 1.7; }
 }
 
 .team-container {
-  max-width: 860px;
+  max-width: 760px;
 }
 
 .team-grid {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  gap: 20px;
+  gap: 18px;
   flex-wrap: wrap;
   margin-top: 30px;
 }
 
 .team-card {
-  width: 240px;
+  width: 205px;
   background: rgba(255,255,255,0.97);
-  border-radius: 24px;
+  border-radius: 22px;
   overflow: hidden;
   border: 1px solid rgba(31, 43, 58, 0.08);
-  box-shadow: 0 18px 45px rgba(32, 58, 102, 0.12);
+  box-shadow: 0 16px 38px rgba(32, 58, 102, 0.10);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .team-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 56px rgba(32, 58, 102, 0.16);
+  box-shadow: 0 22px 50px rgba(32, 58, 102, 0.15);
 }
 
 .team-card img {
   width: 100%;
-  height: 270px;
+  height: 220px;
   object-fit: cover;
 }
 
 .team-info {
-  padding: 16px 16px 18px;
+  padding: 14px 14px 16px;
   text-align: center;
 }
 
 .team-info h3 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #23314e;
 }
 
 .team-role {
-  margin: 8px 0 4px;
-  font-size: 0.92rem;
+  margin: 7px 0 4px;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #4f5d6c;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .team-role-ar {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.90rem;
   font-weight: 700;
   color: #7a4e69;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 /* CONTACT PREMIUM */
@@ -892,7 +902,7 @@ p { line-height: 1.7; }
 .alphabet-strip {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   gap: 8px;
   max-width: 760px;
@@ -1433,51 +1443,46 @@ p { line-height: 1.7; }
 .fb-float,
 .wa-float {
   position: fixed;
-  right: 18px;
+  right: 16px;
   z-index: 60;
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 64px;
-  padding: 10px 14px;
+  gap: 10px;
+  min-height: 58px;
+  padding: 9px 12px;
   border-radius: 999px;
   color: white;
   box-shadow: 0 20px 40px rgba(32,58,102,0.24);
   animation: pulseFloat 2.5s infinite;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  max-width: min(320px, calc(100vw - 28px));
-}
-
-.fb-float:hover,
-.wa-float:hover {
-  transform: translateY(-2px);
+  max-width: min(300px, calc(100vw - 24px));
 }
 
 .fb-float-extended,
 .wa-float-extended {
   width: auto;
-  min-width: 64px;
+  min-width: 58px;
   height: auto;
 }
 
 .fb-float {
-  bottom: 94px;
+  bottom: 86px;
   background: linear-gradient(135deg, #1877f2, #1d5ed8);
   font-family: Arial, sans-serif;
 }
 
 .wa-float {
-  bottom: 18px;
+  bottom: 16px;
   background: linear-gradient(135deg, #22c55e, #16a34a);
   box-shadow: 0 20px 40px rgba(34,197,94,0.35);
 }
 
 .fb-icon,
 .wa-icon {
-  font-size: 1.8rem;
+  font-size: 1.55rem;
   line-height: 1;
-  width: 36px;
+  width: 30px;
   text-align: center;
   flex: 0 0 auto;
 }
@@ -1486,22 +1491,22 @@ p { line-height: 1.7; }
 .wa-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.15;
+  line-height: 1.12;
   min-width: 0;
 }
 
 .fb-text strong,
 .wa-text strong {
   color: #fff;
-  font-size: 0.95rem;
-  white-space: nowrap;
+  font-size: 0.82rem;
+  white-space: normal;
 }
 
 .fb-text small,
 .wa-text small {
   color: rgba(255,255,255,0.92);
-  font-size: 0.72rem;
-  max-width: 220px;
+  font-size: 0.58rem;
+  max-width: 150px;
   white-space: normal;
   word-break: break-word;
 }
@@ -1542,7 +1547,7 @@ p { line-height: 1.7; }
 
 @keyframes pulseFloat {
   0%,100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-3px) scale(1.04); }
+  50% { transform: translateY(-3px) scale(1.03); }
 }
 
 @keyframes drift {
@@ -1783,7 +1788,52 @@ body.loaded #pageLoader {
 }
 
 @media (max-width: 860px) {
-  .main-nav { display: none; }
+  .nav-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: auto;
+    padding: 12px 0 14px;
+  }
+
+  .brand {
+    justify-content: flex-start;
+  }
+
+  .main-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 12px;
+    padding: 0 2px 6px;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-nav a {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 8px 10px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(31,43,58,0.06);
+    box-shadow: 0 8px 20px rgba(32,58,102,0.05);
+  }
+
+  .main-nav a small {
+    font-size: 0.67rem;
+  }
+
+  .nav-cta {
+    padding: 10px 16px !important;
+  }
 
   .grid-2,
   .media-grid-2,
@@ -1816,7 +1866,11 @@ body.loaded #pageLoader {
   }
 
   .team-card {
-    width: min(100%, 280px);
+    width: min(100%, 240px);
+  }
+
+  .team-card img {
+    height: 240px;
   }
 
   .media-grid-2,
@@ -1935,37 +1989,39 @@ body.loaded #pageLoader {
 
   .fb-float,
   .wa-float {
-    right: 14px;
-    min-height: 58px;
-    padding: 10px 12px;
-    gap: 10px;
-    max-width: min(260px, calc(100vw - 24px));
+    right: 12px;
+    min-height: 54px;
+    padding: 8px 10px;
+    gap: 8px;
+    max-width: min(220px, calc(100vw - 18px));
+    border-radius: 24px;
   }
 
   .fb-float {
-    bottom: 84px;
+    bottom: 80px;
   }
 
   .wa-float {
-    bottom: 14px;
+    bottom: 12px;
   }
 
   .fb-icon,
   .wa-icon {
-    width: 32px;
-    font-size: 1.55rem;
+    width: 28px;
+    font-size: 1.38rem;
   }
 
   .fb-text strong,
   .wa-text strong {
-    font-size: 0.86rem;
+    font-size: 0.76rem;
+    line-height: 1.08;
   }
 
   .fb-text small,
   .wa-text small {
-    max-width: 170px;
-    font-size: 0.64rem;
-    line-height: 1.25;
+    max-width: 132px;
+    font-size: 0.54rem;
+    line-height: 1.16;
   }
 
   .registration-main {
@@ -1996,6 +2052,40 @@ body.loaded #pageLoader {
 }
 
 @media (max-width: 600px) {
+  .container {
+    width: min(1180px, calc(100% - 20px));
+  }
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-de {
+    font-size: 0.96rem;
+  }
+
+  .brand-ar {
+    font-size: 0.92rem;
+  }
+
+  .main-nav {
+    gap: 10px;
+    padding-bottom: 4px;
+  }
+
+  .main-nav a {
+    padding: 7px 10px;
+  }
+
+  .main-nav a span {
+    font-size: 0.92rem;
+  }
+
+  .main-nav a small {
+    font-size: 0.62rem;
+  }
+
   .registration-intro h1 {
     font-size: 1.35rem;
   }
@@ -2011,25 +2101,25 @@ body.loaded #pageLoader {
   .fb-float,
   .wa-float {
     right: 10px;
-    min-height: 54px;
-    padding: 8px 10px;
-    gap: 8px;
-    max-width: min(220px, calc(100vw - 20px));
-    border-radius: 22px;
+    min-height: 50px;
+    padding: 7px 9px;
+    gap: 7px;
+    max-width: min(195px, calc(100vw - 14px));
+    border-radius: 20px;
   }
 
   .fb-float {
-    bottom: 76px;
+    bottom: 74px;
   }
 
   .wa-float {
-    bottom: 12px;
+    bottom: 10px;
   }
 
   .fb-icon,
   .wa-icon {
-    width: 28px;
-    font-size: 1.35rem;
+    width: 24px;
+    font-size: 1.18rem;
   }
 
   .fb-text,
@@ -2039,17 +2129,17 @@ body.loaded #pageLoader {
 
   .fb-text strong,
   .wa-text strong {
-    font-size: 0.78rem;
-    line-height: 1.1;
+    font-size: 0.69rem;
+    line-height: 1.06;
     white-space: normal;
   }
 
   .fb-text small,
   .wa-text small {
     display: block;
-    max-width: 145px;
-    font-size: 0.58rem;
-    line-height: 1.18;
+    max-width: 116px;
+    font-size: 0.49rem;
+    line-height: 1.12;
   }
 
   .schedule-card,
@@ -2109,20 +2199,20 @@ body.loaded #pageLoader {
 @media (max-width: 400px) {
   .fb-float,
   .wa-float {
-    max-width: min(198px, calc(100vw - 16px));
+    max-width: min(182px, calc(100vw - 10px));
     right: 8px;
-    padding: 8px 9px;
+    padding: 7px 8px;
   }
 
   .fb-text strong,
   .wa-text strong {
-    font-size: 0.72rem;
+    font-size: 0.64rem;
   }
 
   .fb-text small,
   .wa-text small {
-    max-width: 126px;
-    font-size: 0.54rem;
+    max-width: 104px;
+    font-size: 0.46rem;
   }
 }
 
