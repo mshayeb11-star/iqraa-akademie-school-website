@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmeldung erfolgreich | Iqraa Akademie</title>
+  <meta name="description" content="Erfolgreiche Anmeldung bei der Iqraa Akademie." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #f57bae;
+      --pink-dark: #d95d91;
+      --blue: #66b0e9;
+      --blue-dark: #388fd5;
+      --ink: #1f2b3a;
+      --muted: #5f6d7b;
+      --line: rgba(31, 43, 58, 0.08);
+      --radius: 30px;
+      --shadow: 0 18px 50px rgba(32, 58, 102, 0.12);
+      --success: #22c55e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(245,123,174,0.10), transparent 22%),
+        radial-gradient(circle at 88% 14%, rgba(102,176,233,0.12), transparent 24%),
+        linear-gradient(180deg, #fdf8fc 0%, #f3f9ff 100%);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(31, 43, 58, 0.06);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 84px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+    }
+
+    .brand-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+
+    .brand-de { font-weight: 800; }
+    .brand-ar {
+      font-family: "Cairo", sans-serif;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      color: #334055;
+      font-weight: 800;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      text-align: center;
+    }
+
+    .main-nav a small {
+      font-family: "Cairo", sans-serif;
+      font-size: .72rem;
+      color: #7b8194;
+    }
+
+    .main-nav a:hover span,
+    .main-nav a:hover small {
+      color: var(--pink-dark);
+    }
+
+    .success-main {
+      padding: 56px 0 64px;
+    }
+
+    .success-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.76);
+      box-shadow:
+        0 30px 80px rgba(32,58,102,0.14),
+        0 10px 28px rgba(245,123,174,0.06);
+      animation: fadeUp 0.8s ease;
+    }
+
+    .success-shell::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 36px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(245,123,174,0.9), rgba(102,176,233,0.9));
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .success-hero {
+      position: relative;
+      padding: 38px 24px 30px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(245,123,174,0.16), rgba(102,176,233,0.16));
+    }
+
+    .success-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
+      pointer-events: none;
+    }
+
+    .success-logo {
+      width: min(180px, 42vw);
+      margin: 0 auto 14px;
+      filter: drop-shadow(0 14px 28px rgba(245,123,174,0.14));
+      position: relative;
+      z-index: 1;
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    .success-check {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #34d399, #22c55e);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 28px rgba(34,197,94,0.22);
+      position: relative;
+      z-index: 1;
+      animation: popIn 0.55s ease 0.15s both, pulseCheck 2.6s ease-in-out infinite 0.8s;
+    }
+
+    .success-check::before {
+      content: "✓";
+      color: #fff;
+      font-size: 1.75rem;
+      font-weight: 900;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .success-kicker {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pink), var(--blue));
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.4px;
+      box-shadow:
+        0 12px 30px rgba(102,176,233,0.28),
+        0 4px 10px rgba(245,123,174,0.20);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 18px;
+      animation: pulseBadge 2.4s ease-in-out infinite;
+    }
+
+    .success-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      line-height: 1.2;
+      color: #24314f;
+      position: relative;
+      z-index: 1;
+    }
+
+    .success-title-ar {
+      margin: 12px 0 0;
+      font-size: clamp(1.45rem, 3vw, 2.15rem);
+      line-height: 1.6;
+      color: #7d436d;
+      font-family: "Cairo", sans-serif;
+      direction: rtl;
+      position: relative;
+      z-index: 1;
+    }
+
+    .success-body {
+      padding: 30px 24px 34px;
+    }
+
+    .success-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 14px 36px rgba(32,58,102,0.08);
+      text-align: center;
+    }
+
+    .success-text {
+      margin: 0;
+      line-height: 1.9;
+      color: #425168;
+      font-size: 1.06rem;
+    }
+
+    .success-text.rtl {
+      margin-top: 10px;
+      font-family: "Cairo", sans-serif;
+      direction: rtl;
+      color: #5a4f67;
+      line-height: 2;
+    }
+
+    .success-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 20px;
+      font-weight: 800;
+      transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px) scale(1.01); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--pink), var(--blue));
+      color: white;
+      box-shadow: 0 14px 34px rgba(102,176,233,0.32);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.92);
+      color: #21507b;
+      border: 1px solid rgba(31,43,58,0.08);
+      box-shadow: 0 10px 24px rgba(32,58,102,0.07);
+    }
+
+    .site-footer {
+      background: linear-gradient(90deg, #18212f, #222d40);
+      color: white;
+      padding: 18px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .footer-links a {
+      color: #dce7f5;
+      font-weight: 700;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    @keyframes floatLogo {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulseBadge {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.6); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulseCheck {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @media (max-width: 860px) {
+      .main-nav { display: none; }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .success-main { padding: 34px 0 46px; }
+      .success-hero { padding: 28px 16px 22px; }
+      .success-body { padding: 22px 14px 24px; }
+      .success-card { padding: 22px 16px 20px; border-radius: 22px; }
+      .success-title { font-size: 1.55rem; }
+      .success-title-ar { font-size: 1.28rem; }
+      .success-kicker { padding: 14px 22px; font-size: 0.92rem; }
+      .success-check {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 16px;
+      }
+      .success-check::before {
+        font-size: 1.45rem;
+      }
+      .success-text {
+        font-size: 0.98rem;
+      }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand" aria-label="Zur Startseite">
+        <img src="logo.png" alt="Iqraa Akademie Logo" class="brand-logo" />
+        <div>
+          <div class="brand-de">Iqraa Akademie</div>
+          <div class="brand-ar">أكاديمية اقرأ</div>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html"><span>Startseite</span><small>الرئيسية</small></a>
+        <a href="registration.html"><span>Anmeldung</span><small>التسجيل</small></a>
+        <a href="impressum.html"><span>Impressum</span><small>بيانات النشر</small></a>
+        <a href="datenschutz.html"><span>Datenschutz</span><small>الخصوصية</small></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="success-main">
+    <div class="container">
+      <section class="success-shell">
+        <div class="success-hero">
+          <img src="logo.png" alt="Iqraa Akademie Logo" class="success-logo">
+          <div class="success-check" aria-hidden="true"></div>
+          <div class="success-kicker">Erfolgreich gesendet • تم الإرسال بنجاح</div>
+          <h1 class="success-title">Anmeldung erfolgreich gesendet</h1>
+          <div class="success-title-ar">تم إرسال استمارة التسجيل بنجاح</div>
+        </div>
+
+        <div class="success-body">
+          <div class="success-card">
+            <p class="success-text">
+              Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigungsnachricht.
+            </p>
+
+            <p class="success-text rtl" dir="rtl">
+              يرجى التحقق أيضاً من بريدكم الإلكتروني للاطلاع على رسالة التأكيد.
+            </p>
+
+            <div class="success-actions">
+              <a href="index.html" class="btn btn-primary">Zur Startseite / الرئيسية</a>
+              <a href="registration.html" class="btn btn-secondary">Neue Anmeldung / تسجيل جديد</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
+        <p style="margin:6px 0 0;">Dinxperloer Straße 92, 46399 Bocholt</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Startseite</a>
+        <a href="registration.html">Anmeldung</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
