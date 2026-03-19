@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import puppeteer from "puppeteer";
+import rateLimit from "express-rate-limit";
 
 dotenv.config();
 
@@ -21,6 +22,17 @@ const allowedOrigins = [
   "http://localhost:8080",
   "http://127.0.0.1:8080",
 ];
+
+const registerLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    ok: false,
+    message: "Zu viele Anfragen. Bitte später erneut versuchen.",
+  },
+});
 
 app.use(
   cors({
@@ -63,6 +75,105 @@ function escapeHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function normalizeString(value) {
+  if (value === undefined || value === null) return "";
+  return String(value).trim();
+}
+
+function truncate(value, maxLength) {
+  return normalizeString(value).slice(0, maxLength);
+}
+
+function isValidEmail(value) {
+  const email = normalizeString(value);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isAllowedValue(value, allowedValues) {
+  if (value === undefined || value === null || value === "") return true;
+  return allowedValues.includes(String(value));
+}
+
+function isReasonableSignature(value) {
+  if (!value) return false;
+  const str = String(value);
+  return str.startsWith("data:image/png;base64,") && str.length <= 2_000_000;
+}
+
+function sanitizeFormData(rawData = {}) {
+  return {
+    website: truncate(rawData.website, 200),
+
+    studentName: truncate(rawData.studentName, 120),
+    birthDate: truncate(rawData.birthDate, 30),
+    address: truncate(rawData.address, 250),
+    guardianName: truncate(rawData.guardianName, 120),
+    phone: truncate(rawData.phone, 50),
+    guardianEmail: truncate(rawData.guardianEmail, 160),
+    homeLanguages: truncate(rawData.homeLanguages, 200),
+
+    level: truncate(rawData.level, 50),
+    gender: truncate(rawData.gender, 50),
+    knowsArabic: truncate(rawData.knowsArabic, 50),
+
+    mediaConsent: truncate(rawData.mediaConsent, 50),
+
+    scheduleDay1: truncate(rawData.scheduleDay1, 50),
+    scheduleTime1: truncate(rawData.scheduleTime1, 50),
+    scheduleDay2: truncate(rawData.scheduleDay2, 50),
+    scheduleTime2: truncate(rawData.scheduleTime2, 50),
+
+    startDate: truncate(rawData.startDate, 30),
+    chronicIllness: truncate(rawData.chronicIllness, 50),
+    allergy: truncate(rawData.allergy, 50),
+    chronicDetails: truncate(rawData.chronicDetails, 200),
+    allergyDetails: truncate(rawData.allergyDetails, 200),
+
+    policyConsent: truncate(rawData.policyConsent, 50),
+    paymentMethod: truncate(rawData.paymentMethod, 50),
+    registrationDate: truncate(rawData.registrationDate, 30),
+    privacyAccepted: rawData.privacyAccepted,
+
+    parentNotes: truncate(rawData.parentNotes, 500),
+
+    guardianSignatureData: rawData.guardianSignatureData || "",
+    teacherSignatureData: rawData.teacherSignatureData || "",
+  };
+}
+
+function validateFormData(data) {
+  if (data.website) {
+    return "Spam detected.";
+  }
+
+  if (!data.studentName || !data.guardianName || !data.guardianEmail || !data.phone) {
+    return "Required fields are missing.";
+  }
+
+  if (!isValidEmail(data.guardianEmail)) {
+    return "Invalid email address.";
+  }
+
+  if (!isReasonableSignature(data.guardianSignatureData) || !isReasonableSignature(data.teacherSignatureData)) {
+    return "Both signatures are required.";
+  }
+
+  if (
+    !isAllowedValue(data.level, ["مبتدئ", "متوسط", "متقدم"]) ||
+    !isAllowedValue(data.gender, ["ذكر", "أنثى"]) ||
+    !isAllowedValue(data.knowsArabic, ["نعم", "لا"]) ||
+    !isAllowedValue(data.mediaConsent, ["نعم", "لا"]) ||
+    !isAllowedValue(data.chronicIllness, ["نعم", "لا"]) ||
+    !isAllowedValue(data.allergy, ["نعم", "لا"]) ||
+    !isAllowedValue(data.policyConsent, ["نعم", "لا"]) ||
+    !isAllowedValue(data.paymentMethod, ["نقدي", "تحويل بنكي"])
+  ) {
+    return "Invalid form values detected.";
+  }
+
+  return null;
 }
 
 function buildScheduleLines(data) {
@@ -262,7 +373,7 @@ function renderPoliciesHtml() {
     "Bei verspäteter Abholung des Kindes nach dem Unterricht wird eine Gebühr von 10 Euro berechnet.",
     "Hausaufgaben müssen fristgerecht erledigt werden.",
     "Von den Schülerinnen und Schülern wird ein höflicher und respektvoller Umgang mit der Lehrkraft und den Mitschülern erwartet.",
-    "Die Kinder sollen ein Heft für den Abend, ein Heft für den Tag, Buntstifte, einen Bleistift und einen Radiergummi mitbringen.",
+    'Die Kinder sollen ein Heft für den Abend, ein Heft für den Tag, Buntstifte, einen Bleistift und einen Radiergummi mitbringen.',
     'Beim Ausfüllen der Anmeldung sind 15 Euro als Gebühr für das Iqraa-Buch zu zahlen, damit das Kind sein eigenes Exemplar erhält.',
     "Alle persönlichen Daten der Schülerinnen und Schüler werden vertraulich und entsprechend den geltenden Datenschutzrichtlinien behandelt."
   ];
@@ -273,7 +384,7 @@ function renderPoliciesHtml() {
     "في حال التأخير في استلام الطفل بعد الدرس، ستفرض غرامة قدرها (عشرة يورو).",
     "يجب إتمام الواجبات المنزلية في الموعد المحدد.",
     "يتوقع من الطلاب التصرف بأدب واحترام تجاه المعلم وزملائهم.",
-    "يجب على الطلاب إحضار دفتر ليلي، دفتر نهاري، أقلام تلوين، قلم رصاص وممحاة.",
+    'يجب على الطلاب إحضار دفتر ليلي، دفتر نهاري، أقلام تلوين، قلم رصاص وممحاة.',
     'عند تعبئة استمارة التسجيل، يرجى دفع (15 يورو) كرسوم لكتاب "إقرأ" لضمان استلام الطفل نسخته الخاصة.',
     "سيتم التعامل مع جميع البيانات الشخصية الخاصة بالطلاب بسرية تامة وفقًا لسياسات الخصوصية المعتمدة."
   ];
@@ -504,8 +615,6 @@ function renderPdfHtml(data) {
 
     .section-title-row {
       padding: 14px 16px 0;
-      break-inside: avoid;
-      page-break-inside: avoid;
     }
 
     .section-title {
@@ -520,8 +629,6 @@ function renderPdfHtml(data) {
       font-weight: 900;
       font-size: 16px;
       letter-spacing: 0.25px;
-      break-inside: avoid;
-      page-break-inside: avoid;
       border: 1px solid rgba(31,43,58,0.05);
     }
 
@@ -540,8 +647,6 @@ function renderPdfHtml(data) {
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       padding: 12px 16px 0;
-      break-inside: auto;
-      page-break-inside: auto;
     }
 
     .card {
@@ -1100,8 +1205,16 @@ async function buildPdfBuffer(formData) {
     const page = await browser.newPage();
     const html = renderPdfHtml(formData);
 
+    await page.setViewport({ width: 1240, height: 1754 });
+
     await page.setContent(html, {
-      waitUntil: "networkidle0",
+      waitUntil: "domcontentloaded",
+    });
+
+    await page.evaluate(async () => {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
     });
 
     const pdfBuffer = await page.pdf({
@@ -1128,24 +1241,15 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", registerLimiter, async (req, res) => {
   try {
-    const data = req.body || {};
+    const data = sanitizeFormData(req.body || {});
+    const validationError = validateFormData(data);
 
-    if (
-      !data.studentName ||
-      !data.guardianName ||
-      !data.guardianEmail ||
-      !data.phone
-    ) {
+    if (validationError) {
       return res.status(400).json({
-        message: "Required fields are missing.",
-      });
-    }
-
-    if (!data.guardianSignatureData || !data.teacherSignatureData) {
-      return res.status(400).json({
-        message: "Both signatures are required.",
+        ok: false,
+        message: validationError,
       });
     }
 

@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anmeldung erfolgreich | Iqraa Akademie</title>
-  <meta name="description" content="Erfolgreiche Anmeldung bei der Iqraa Akademie." />
+
+  <title>Anmeldung erfolgreich | Iqraa Akademie Bocholt</title>
+  <meta name="description" content="Die Anmeldung bei der Iqraa Akademie in Bocholt wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigung.">
+  <meta name="keywords" content="Iqraa Akademie, Anmeldung erfolgreich, Bocholt, Arabisch für Kinder, Bestätigung Anmeldung, أكاديمية اقرأ, تم التسجيل بنجاح">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="Iqraa Akademie">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anmeldung erfolgreich | Iqraa Akademie Bocholt">
+  <meta property="og:description" content="Die Anmeldung wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigung.">
+  <meta property="og:image" content="https://iqraa-akademie.netlify.app/logo.png">
+  <meta property="og:locale" content="de_DE">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Anmeldung erfolgreich | Iqraa Akademie Bocholt">
+  <meta name="twitter:description" content="Die Anmeldung wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach.">
+  <meta name="twitter:image" content="https://iqraa-akademie.netlify.app/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,17 +66,21 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(14px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.90)),
+        radial-gradient(circle at 15% 10%, rgba(245,123,174,0.12), transparent 26%),
+        radial-gradient(circle at 85% 10%, rgba(102,176,233,0.14), transparent 26%);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(31, 43, 58, 0.06);
+      box-shadow: 0 12px 32px rgba(32,58,102,0.07);
     }
 
     .nav-wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      min-height: 84px;
+      gap: 14px;
+      min-height: 88px;
     }
 
     .brand {
@@ -69,41 +88,111 @@
       align-items: center;
       gap: 12px;
       color: var(--ink);
+      position: relative;
+      padding: 10px 14px;
+      border-radius: 24px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      max-width: 255px;
+    }
+
+    .brand::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(245,123,174,0.08), rgba(102,176,233,0.08));
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .brand > * {
+      position: relative;
+      z-index: 1;
     }
 
     .brand-logo {
-      width: 56px;
-      height: 56px;
+      width: 54px;
+      height: 54px;
       object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(245,123,174,0.10));
+      flex: 0 0 auto;
     }
 
-    .brand-de { font-weight: 800; }
+    .brand-de {
+      font-weight: 900;
+      line-height: 1.05;
+      font-size: 1rem;
+      color: #24314f;
+    }
+
     .brand-ar {
       font-family: "Cairo", sans-serif;
-      font-weight: 700;
-      color: var(--muted);
+      font-weight: 800;
+      color: #5e6b7e;
+      line-height: 1.05;
+      font-size: 0.94rem;
     }
 
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 8px;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      min-width: 0;
+      flex: 1 1 auto;
     }
 
     .main-nav a {
+      position: relative;
       color: #334055;
       font-weight: 800;
       display: grid;
       justify-items: center;
       gap: 2px;
       text-align: center;
+      padding: 9px 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(255,255,255,0.74);
+      box-shadow: 0 8px 22px rgba(32,58,102,0.07);
+      overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      flex: 0 0 auto;
+      min-width: 0;
+    }
+
+    .main-nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245,123,174,0.10), rgba(102,176,233,0.12));
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .main-nav a > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-nav a span {
+      white-space: nowrap;
+      font-size: 0.92rem;
     }
 
     .main-nav a small {
       font-family: "Cairo", sans-serif;
-      font-size: .72rem;
+      font-size: .66rem;
       color: #7b8194;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(32,58,102,0.10);
+      border-color: rgba(102,176,233,0.20);
     }
 
     .main-nav a:hover span,
@@ -112,7 +201,7 @@
     }
 
     .success-main {
-      padding: 56px 0 64px;
+      padding: 56px 0 46px;
     }
 
     .success-shell {
@@ -295,18 +384,121 @@
       box-shadow: 0 10px 24px rgba(32,58,102,0.07);
     }
 
-    .site-footer {
-      background: linear-gradient(90deg, #18212f, #222d40);
-      color: white;
-      padding: 18px 0;
+    .site-footer.registration-footer-premium {
+      margin-top: 8px;
+      padding: 24px 0 38px;
+      background: transparent;
+      box-shadow: none;
     }
 
-    .footer-inner {
+    .footer-registration-premium {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .footer-premium-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 24px 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.78));
+      border: 1px solid rgba(255,255,255,0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        0 22px 54px rgba(32,58,102,0.12),
+        0 8px 18px rgba(245,123,174,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.88);
+    }
+
+    .footer-premium-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 30px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(245,123,174,0.92), rgba(102,176,233,0.92));
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .footer-premium-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(245,123,174,0.12), transparent 24%),
+        radial-gradient(circle at 86% 16%, rgba(102,176,233,0.12), transparent 24%);
+      pointer-events: none;
+    }
+
+    .footer-premium-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-brand-block {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .footer-brand-block strong {
+      display: block;
+      margin: 0 0 10px;
+      font-size: 1.02rem;
+      line-height: 1.45;
+      font-weight: 900;
+      color: #24314f;
+      letter-spacing: 0.1px;
+    }
+
+    .footer-brand-block strong .footer-brand-ar {
+      color: #7d436d;
+      font-family: "Cairo", sans-serif;
+      font-weight: 800;
+    }
+
+    .footer-brand-block p {
+      margin: 0 0 8px;
+      color: #607089;
+      font-weight: 700;
+      font-size: 0.97rem;
+      line-height: 1.65;
+    }
+
+    .footer-brand-block p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .footer-brand-block a {
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+      color: #365173;
+      font-weight: 800;
+      font-size: 0.96rem;
+      line-height: 1.5;
+      padding: 2px 0;
+      transition: color .2s ease, transform .2s ease;
+    }
+
+    .footer-brand-block a:hover {
+      color: var(--pink-dark);
+      transform: translateX(1px);
+    }
+
+    .footer-links-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .footer-links {
@@ -314,16 +506,57 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      justify-content: center;
     }
 
     .footer-links a {
-      color: #dce7f5;
-      font-weight: 700;
+      color: #274562;
+      font-weight: 800;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(102,176,233,0.14);
+      box-shadow:
+        0 10px 22px rgba(32,58,102,0.07),
+        inset 0 1px 0 rgba(255,255,255,0.88);
+      transition: transform .2s ease, box-shadow .2s ease, color .2s ease;
     }
 
     .footer-links a:hover {
-      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(32,58,102,0.10);
+      color: var(--pink-dark);
     }
+
+    .footer-alphabet-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .alphabet-strip {
+      display: flex;
+      flex-wrap: wrap;
+      direction: rtl;
+      justify-content: center;
+      gap: 10px;
+      max-width: 100%;
+      font-family: "Cairo", sans-serif;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .alphabet-strip span {
+      display: inline-block;
+      font-size: 1.18rem;
+      animation: footerLetterDance 3.2s ease-in-out infinite;
+      text-shadow: none;
+    }
+
+    .alphabet-strip span:nth-child(4n+1) { color: #ffbdd9; animation-delay: 0s; }
+    .alphabet-strip span:nth-child(4n+2) { color: #9fd4ff; animation-delay: 0.25s; }
+    .alphabet-strip span:nth-child(4n+3) { color: #ffe09a; animation-delay: 0.5s; }
+    .alphabet-strip span:nth-child(4n+4) { color: #c9efad; animation-delay: 0.75s; }
 
     @keyframes floatLogo {
       0%,100% { transform: translateY(0); }
@@ -350,34 +583,161 @@
       50% { transform: scale(1.05); }
     }
 
+    @keyframes footerLetterDance {
+      0%,100% { transform: translateY(0) scale(1); opacity: 0.92; }
+      25% { transform: translateY(-4px) scale(1.03); opacity: 1; }
+      50% { transform: translateY(2px) scale(0.98); opacity: 0.88; }
+      75% { transform: translateY(-2px) scale(1.01); opacity: 0.96; }
+    }
+
     @media (max-width: 860px) {
-      .main-nav { display: none; }
-      .footer-inner {
+      .nav-wrap {
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px 0 12px;
+        min-height: auto;
+      }
+
+      .brand {
+        width: 100%;
+        max-width: 460px;
+        justify-content: center;
         text-align: center;
+        padding: 15px 18px;
+        border-radius: 32px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255,255,255,0.88)),
+          linear-gradient(135deg, rgba(245,123,174,0.16), rgba(102,176,233,0.18));
+        box-shadow:
+          0 18px 40px rgba(32,58,102,0.10),
+          inset 0 1px 0 rgba(255,255,255,0.92);
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .brand-de {
+        font-size: 1.02rem;
+      }
+
+      .brand-ar {
+        font-size: 0.94rem;
+      }
+
+      .main-nav {
+        display: flex;
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        justify-content: flex-start;
+        padding: 2px 2px 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .main-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .main-nav a {
+        flex: 0 0 auto;
+        min-width: 96px;
+        padding: 10px 12px;
+        border-radius: 16px;
+      }
+
+      .footer-registration-premium {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 600px) {
-      .success-main { padding: 34px 0 46px; }
-      .success-hero { padding: 28px 16px 22px; }
-      .success-body { padding: 22px 14px 24px; }
-      .success-card { padding: 22px 16px 20px; border-radius: 22px; }
-      .success-title { font-size: 1.55rem; }
-      .success-title-ar { font-size: 1.28rem; }
-      .success-kicker { padding: 14px 22px; font-size: 0.92rem; }
+      .container {
+        width: min(100%, calc(100% - 20px));
+      }
+
+      .success-main {
+        padding: 34px 0 28px;
+      }
+
+      .success-hero {
+        padding: 28px 16px 22px;
+      }
+
+      .success-body {
+        padding: 22px 14px 24px;
+      }
+
+      .success-card {
+        padding: 22px 16px 20px;
+        border-radius: 22px;
+      }
+
+      .success-title {
+        font-size: 1.55rem;
+      }
+
+      .success-title-ar {
+        font-size: 1.28rem;
+      }
+
+      .success-kicker {
+        padding: 14px 22px;
+        font-size: 0.92rem;
+      }
+
       .success-check {
         width: 50px;
         height: 50px;
         margin-bottom: 16px;
       }
+
       .success-check::before {
         font-size: 1.45rem;
       }
+
       .success-text {
         font-size: 0.98rem;
       }
-      .btn { width: 100%; }
+
+      .btn {
+        width: 100%;
+      }
+
+      .site-footer.registration-footer-premium {
+        padding-bottom: 30px;
+      }
+
+      .footer-premium-card {
+        padding: 20px 16px;
+        border-radius: 22px;
+      }
+
+      .footer-premium-card::before {
+        border-radius: 24px;
+      }
+
+      .footer-links a {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+
+      .alphabet-strip {
+        gap: 7px;
+      }
+
+      .alphabet-strip span {
+        font-size: 1.06rem;
+      }
     }
   </style>
 </head>
@@ -433,18 +793,30 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
-        <p style="margin:6px 0 0;">Dinxperloer Straße 92, 46399 Bocholt</p>
+  <footer class="site-footer registration-footer-premium">
+    <div class="container footer-registration-premium">
+      <div class="footer-premium-card footer-brand-block">
+        <strong>
+          Iqraa Akademie
+          <span class="footer-brand-ar">/ أكاديمية اقرأ</span>
+        </strong>
+        <p>Dinxperloer Straße 92, 46399 Bocholt</p>
+        <p><a href="mailto:kontakt@iqraa-akademie.de">kontakt@iqraa-akademie.de</a></p>
       </div>
 
-      <div class="footer-links">
-        <a href="index.html">Startseite</a>
-        <a href="registration.html">Anmeldung</a>
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+      <div class="footer-premium-card footer-links-block">
+        <div class="footer-links">
+          <a href="index.html">Startseite</a>
+          <a href="registration.html">Anmeldung</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+
+      <div class="footer-premium-card footer-alphabet-block">
+        <div class="alphabet-strip" aria-hidden="true">
+          <span>أ</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ذ</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
+        </div>
       </div>
     </div>
   </footer>

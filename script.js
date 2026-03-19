@@ -209,12 +209,129 @@ function getFormDataObject(form) {
   return data;
 }
 
-function setSendingOverlayVisible(visible) {
+function getSendingOverlayElements() {
   const overlay = document.getElementById("sendingOverlay");
-  if (!overlay) return;
+  if (!overlay) return null;
 
-  overlay.classList.toggle("hidden", !visible);
-  overlay.setAttribute("aria-hidden", visible ? "false" : "true");
+  const title = overlay.querySelector("h3");
+  const paragraphs = overlay.querySelectorAll("p");
+
+  return {
+    overlay,
+    title,
+    deText: paragraphs[0] || null,
+    arText: paragraphs[1] || null,
+  };
+}
+
+function setSendingOverlayVisible(visible) {
+  const elements = getSendingOverlayElements();
+  if (!elements) return;
+
+  elements.overlay.classList.toggle("hidden", !visible);
+  elements.overlay.setAttribute("aria-hidden", visible ? "false" : "true");
+  document.body.classList.toggle("sending-active", visible);
+}
+
+function setSendingOverlayText({
+  title = "Ihre Anmeldung wird gesendet",
+  deText = "Bitte einen Moment warten...",
+  arText = "يتم الآن إرسال استمارة التسجيل، يرجى الانتظار قليلاً...",
+} = {}) {
+  const elements = getSendingOverlayElements();
+  if (!elements) return;
+
+  if (elements.title) {
+    elements.title.textContent = title;
+  }
+
+  if (elements.deText) {
+    elements.deText.textContent = deText;
+    elements.deText.classList.add("sending-progress-dots");
+  }
+
+  if (elements.arText) {
+    elements.arText.textContent = arText;
+    elements.arText.classList.remove("sending-progress-dots");
+  }
+}
+
+function resetSendingOverlayText() {
+  setSendingOverlayText({
+    title: "Ihre Anmeldung wird gesendet",
+    deText: "Bitte einen Moment warten...",
+    arText: "يتم الآن إرسال استمارة التسجيل، يرجى الانتظار قليلاً...",
+  });
+}
+
+const sendingMessageSteps = [
+  {
+    title: "Ihre Anmeldung wird gesendet",
+    deText: "Anmeldung wird vorbereitet",
+    arText: "يتم تجهيز التسجيل",
+  },
+  {
+    title: "Ihre Anmeldung wird gesendet",
+    deText: "Ihre Daten werden verarbeitet",
+    arText: "يتم الآن معالجة البيانات",
+  },
+  {
+    title: "Ihre Anmeldung wird gesendet",
+    deText: "Bestätigung wird gesendet",
+    arText: "يتم إرسال التأكيد",
+  },
+  {
+    title: "Ihre Anmeldung wird gesendet",
+    deText: "Fast fertig",
+    arText: "أوشكنا على الانتهاء",
+  },
+];
+
+let sendingMessageInterval = null;
+
+function startSendingOverlaySequence() {
+  stopSendingOverlaySequence();
+
+  let index = 0;
+  setSendingOverlayText(sendingMessageSteps[index]);
+
+  sendingMessageInterval = window.setInterval(() => {
+    index = (index + 1) % sendingMessageSteps.length;
+    setSendingOverlayText(sendingMessageSteps[index]);
+  }, 1700);
+}
+
+function stopSendingOverlaySequence() {
+  if (sendingMessageInterval) {
+    clearInterval(sendingMessageInterval);
+    sendingMessageInterval = null;
+  }
+}
+
+function setSubmitButtonLoading(button, isLoading) {
+  if (!button) return;
+
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.textContent;
+  }
+
+  button.disabled = isLoading;
+  button.setAttribute("aria-busy", isLoading ? "true" : "false");
+  button.classList.toggle("is-loading", isLoading);
+
+  if (isLoading) {
+    button.textContent = "Wird gesendet... / جاري الإرسال...";
+  } else {
+    button.textContent = button.dataset.originalText;
+  }
+}
+
+function nextPaint() {
+  return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function setupSignaturePads() {
@@ -259,14 +376,18 @@ function setupSignaturePads() {
       return;
     }
 
-    const originalButtonText = submitButton.textContent;
-
     try {
-      submitButton.disabled = true;
-      submitButton.textContent = "Wird gesendet... / جاري الإرسال...";
       formMessage.textContent = "";
       formMessage.className = "form-message";
+
+      setSubmitButtonLoading(submitButton, true);
+      resetSendingOverlayText();
       setSendingOverlayVisible(true);
+
+      await nextPaint();
+      await nextPaint();
+
+      startSendingOverlaySequence();
 
       const data = getFormDataObject(form);
 
@@ -284,6 +405,16 @@ function setupSignaturePads() {
         throw new Error(result.message || "Submit failed");
       }
 
+      stopSendingOverlaySequence();
+
+      setSendingOverlayText({
+        title: "Anmeldung erfolgreich gesendet",
+        deText: "Weiterleitung wird vorbereitet",
+        arText: "تم إرسال الاستمارة بنجاح، يتم الآن تحويلكم",
+      });
+
+      await delay(650);
+
       form.reset();
 
       if (guardianPad) guardianPad.clearSignature();
@@ -295,13 +426,16 @@ function setupSignaturePads() {
       window.location.href = "registration-success.html";
     } catch (error) {
       console.error("Registration submit error:", error);
+
+      stopSendingOverlaySequence();
       setSendingOverlayVisible(false);
+      resetSendingOverlayText();
+
       formMessage.textContent =
         "Die Anmeldung konnte noch nicht gesendet werden. Bitte später erneut versuchen oder SMTP/Backend prüfen. / تعذر إرسال التسجيل حالياً. يرجى المحاولة لاحقاً أو التحقق من الخادم والبريد.";
       formMessage.className = "form-message err";
     } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = originalButtonText;
+      setSubmitButtonLoading(submitButton, false);
     }
   });
 }
@@ -402,6 +536,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
   initMediaProtection();
   initHeroVideos();
+  resetSendingOverlayText();
 });
 
 window.addEventListener("load", () => {
