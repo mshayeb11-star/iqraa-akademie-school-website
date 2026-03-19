@@ -10,11 +10,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const WEBSITE_BASE_URL =
-  process.env.WEBSITE_BASE_URL || "https://iqraa-akademie.netlify.app";
+  process.env.WEBSITE_BASE_URL || "https://https://iqraa-akademie.de";
 const LOGO_URL = `${WEBSITE_BASE_URL}/logo.png`;
 
 const allowedOrigins = [
-  "https://iqraa-akademie.netlify.app",
+  "https://iqraa-akademie.de",
+  "https://www.iqraa-akademie.de",
   "http://localhost:5500",
   "http://127.0.0.1:5500",
   "http://localhost:3000",
