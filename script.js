@@ -391,7 +391,7 @@ function setupSignaturePads() {
 
       const data = getFormDataObject(form);
 
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("https://iqraa-akademie-backend.onrender.com/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
