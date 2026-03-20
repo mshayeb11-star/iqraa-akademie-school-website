@@ -16,7 +16,7 @@ const LOGO_URL = `${WEBSITE_BASE_URL}/logo.png`;
 const allowedOrigins = [
   "https://iqraa-akademie.de",
   "https://www.iqraa-akademie.de",
-  "https://iqraa-akademie.netlify.app"
+  "https://iqraa-akademie.netlify.app",
   "http://localhost:5500",
   "http://127.0.0.1:5500",
   "http://localhost:3000",
