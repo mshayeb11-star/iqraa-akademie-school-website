@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const WEBSITE_BASE_URL =
-  process.env.WEBSITE_BASE_URL || "https://https://iqraa-akademie.de";
+  process.env.WEBSITE_BASE_URL || "https://iqraa-akademie.de";
 const LOGO_URL = `${WEBSITE_BASE_URL}/logo.png`;
 
 const allowedOrigins = [
