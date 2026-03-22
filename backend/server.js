@@ -747,7 +747,7 @@ function renderPdfHtml(data) {
 
     .policy-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 12px;
     }
 
