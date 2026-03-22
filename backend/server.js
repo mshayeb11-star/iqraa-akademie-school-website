@@ -617,6 +617,8 @@ function renderPdfHtml(data) {
 
     .section-title-row {
       padding: 14px 16px 0;
+      break-after: avoid;
+      page-break-after: avoid;
     }
 
     .section-title {
@@ -741,8 +743,6 @@ function renderPdfHtml(data) {
 
     .policy-wrap {
       padding: 12px 16px 0;
-      break-inside: avoid;
-      page-break-inside: avoid;
     }
 
     .policy-grid {
@@ -757,8 +757,6 @@ function renderPdfHtml(data) {
       border: 1px solid rgba(31,43,58,0.06);
       box-shadow: 0 4px 14px rgba(31,43,58,0.03);
       padding: 14px 15px;
-      break-inside: avoid;
-      page-break-inside: avoid;
     }
 
     .policy-subhead {
