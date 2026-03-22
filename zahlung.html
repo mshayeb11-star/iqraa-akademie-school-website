@@ -4,30 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Anmeldung erfolgreich | Iqraa Akademie Bocholt | تم التسجيل بنجاح</title>
-  <meta name="description" content="Die Anmeldung bei der Iqraa Akademie in Bocholt wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigung.">
-  <meta name="keywords" content="Iqraa Akademie, Anmeldung erfolgreich, Bocholt, Arabisch für Kinder, Bestätigung Anmeldung, أكاديمية اقرأ, تم التسجيل بنجاح">
-  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Zahlungsinformationen | Iqraa Akademie Bocholt | معلومات الدفع</title>
+  <meta name="description" content="Zahlungsinformationen der Iqraa Akademie in Bocholt. Hier finden Sie die Bankdaten für eine Überweisung sowie wichtige Hinweise zum Verwendungszweck.">
+  <meta name="keywords" content="Iqraa Akademie Zahlung, Zahlungsinformationen, Überweisung, Bocholt, Bankverbindung, معلومات الدفع, تحويل بنكي, أكاديمية اقرأ">
+  <meta name="robots" content="index, follow">
   <meta name="author" content="Iqraa Akademie">
   <meta name="theme-color" content="#f57bae">
 
-  <link rel="canonical" href="https://iqraa-akademie.de/registration-success.html">
-  <link rel="alternate" hreflang="de" href="https://iqraa-akademie.de/registration-success.html">
-  <link rel="alternate" hreflang="ar" href="https://iqraa-akademie.de/registration-success.html">
-  <link rel="alternate" hreflang="x-default" href="https://iqraa-akademie.de/registration-success.html">
+  <link rel="canonical" href="https://iqraa-akademie.de/zahlung.html">
+  <link rel="alternate" hreflang="de" href="https://iqraa-akademie.de/zahlung.html">
+  <link rel="alternate" hreflang="ar" href="https://iqraa-akademie.de/zahlung.html">
+  <link rel="alternate" hreflang="x-default" href="https://iqraa-akademie.de/zahlung.html">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Iqraa Akademie">
-  <meta property="og:title" content="Anmeldung erfolgreich | Iqraa Akademie Bocholt | تم التسجيل بنجاح">
-  <meta property="og:description" content="Die Anmeldung wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigung.">
-  <meta property="og:url" content="https://iqraa-akademie.de/registration-success.html">
+  <meta property="og:title" content="Zahlungsinformationen | Iqraa Akademie Bocholt | معلومات الدفع">
+  <meta property="og:description" content="Bankverbindung und Zahlungsinformationen der Iqraa Akademie in Bocholt.">
+  <meta property="og:url" content="https://iqraa-akademie.de/zahlung.html">
   <meta property="og:image" content="https://iqraa-akademie.de/logo.png">
   <meta property="og:image:alt" content="Iqraa Akademie Logo">
   <meta property="og:locale" content="de_DE">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Anmeldung erfolgreich | Iqraa Akademie Bocholt | تم التسجيل بنجاح">
-  <meta name="twitter:description" content="Die Anmeldung wurde erfolgreich gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach.">
+  <meta name="twitter:title" content="Zahlungsinformationen | Iqraa Akademie Bocholt | معلومات الدفع">
+  <meta name="twitter:description" content="Bankverbindung und Zahlungsinformationen der Iqraa Akademie.">
   <meta name="twitter:image" content="https://iqraa-akademie.de/logo.png">
   <meta name="twitter:image:alt" content="Iqraa Akademie Logo">
 
@@ -49,7 +49,6 @@
       --line: rgba(31, 43, 58, 0.08);
       --radius: 30px;
       --shadow: 0 18px 50px rgba(32, 58, 102, 0.12);
-      --success: #22c55e;
     }
 
     * { box-sizing: border-box; }
@@ -67,7 +66,7 @@
       min-height: 100vh;
     }
 
-    a { text-decoration: none; }
+    a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
     .container {
@@ -213,11 +212,11 @@
       color: var(--pink-dark);
     }
 
-    .success-main {
-      padding: 56px 0 46px;
+    .payment-main {
+      padding: 56px 0 40px;
     }
 
-    .success-shell {
+    .payment-shell {
       position: relative;
       overflow: hidden;
       border-radius: 34px;
@@ -228,10 +227,9 @@
       box-shadow:
         0 30px 80px rgba(32,58,102,0.14),
         0 10px 28px rgba(245,123,174,0.06);
-      animation: fadeUp 0.8s ease;
     }
 
-    .success-shell::before {
+    .payment-shell::before {
       content: "";
       position: absolute;
       inset: -2px;
@@ -246,139 +244,153 @@
       pointer-events: none;
     }
 
-    .success-hero {
+    .payment-hero {
       position: relative;
-      padding: 38px 24px 30px;
+      padding: 38px 24px 28px;
       text-align: center;
       background: linear-gradient(135deg, rgba(245,123,174,0.16), rgba(102,176,233,0.16));
     }
 
-    .success-hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
-      pointer-events: none;
-    }
-
-    .success-logo {
+    .payment-logo {
       width: min(180px, 42vw);
       margin: 0 auto 14px;
       filter: drop-shadow(0 14px 28px rgba(245,123,174,0.14));
-      position: relative;
-      z-index: 1;
-      animation: floatLogo 4s ease-in-out infinite;
     }
 
-    .success-check {
-      width: 58px;
-      height: 58px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #34d399, #22c55e);
-      display: grid;
-      place-items: center;
-      box-shadow: 0 12px 28px rgba(34,197,94,0.22);
-      position: relative;
-      z-index: 1;
-      animation: popIn 0.55s ease 0.15s both, pulseCheck 2.6s ease-in-out infinite 0.8s;
-    }
-
-    .success-check::before {
-      content: "✓";
-      color: #fff;
-      font-size: 1.75rem;
-      font-weight: 900;
-      line-height: 1;
-      transform: translateY(-1px);
-    }
-
-    .success-kicker {
+    .payment-kicker {
       display: inline-block;
-      padding: 16px 32px;
+      padding: 14px 28px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--pink), var(--blue));
       color: #fff;
       font-weight: 900;
-      font-size: 1.05rem;
-      letter-spacing: 0.4px;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
       box-shadow:
         0 12px 30px rgba(102,176,233,0.28),
         0 4px 10px rgba(245,123,174,0.20);
-      position: relative;
-      z-index: 1;
       margin-bottom: 18px;
-      animation: pulseBadge 2.4s ease-in-out infinite;
     }
 
-    .success-body {
+    .payment-title {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      color: #24314f;
+    }
+
+    .payment-title-ar {
+      margin: 12px 0 0;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.6;
+      color: #7d436d;
+      font-family: "Cairo", sans-serif;
+      direction: rtl;
+    }
+
+    .payment-body {
       padding: 30px 24px 34px;
     }
 
-    .success-card {
-      max-width: 760px;
+    .payment-card {
+      max-width: 780px;
       margin: 0 auto;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.94);
       border: 1px solid var(--line);
       border-radius: 28px;
       padding: 28px 24px 24px;
       box-shadow: 0 14px 36px rgba(32,58,102,0.08);
+    }
+
+    .payment-intro {
       text-align: center;
-    }
-
-    .success-text {
-      margin: 0;
-      line-height: 1.9;
       color: #425168;
-      font-size: 1.06rem;
+      line-height: 1.9;
+      font-size: 1.02rem;
+      margin: 0 0 20px;
     }
 
-    .success-text.rtl {
-      margin-top: 10px;
+    .payment-intro.rtl {
       font-family: "Cairo", sans-serif;
       direction: rtl;
       color: #5a4f67;
       line-height: 2;
+      margin-top: -2px;
+      margin-bottom: 24px;
     }
 
-    .payment-info-box {
+    .payment-info-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .payment-info-item {
+      background:
+        linear-gradient(135deg, rgba(245,123,174,0.08), rgba(102,176,233,0.08)),
+        rgba(255,255,255,0.96);
+      border: 1px solid rgba(31, 43, 58, 0.08);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 8px 22px rgba(32,58,102,0.05);
+    }
+
+    .payment-label {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #24314f;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .payment-label-ar {
+      display: block;
+      font-family: "Cairo", sans-serif;
+      color: #8a456f;
+      direction: rtl;
+      font-weight: 800;
+      margin-top: 2px;
+      font-size: 0.92rem;
+    }
+
+    .payment-value {
+      color: #3f4f67;
+      font-size: 1.03rem;
+      line-height: 1.8;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .iban-value {
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.4px;
+      font-size: 1.02rem;
+      color: #23425f;
+    }
+
+    .payment-note-box {
       margin-top: 22px;
-      padding: 22px 18px;
+      padding: 20px 18px;
       border-radius: 24px;
       background:
         linear-gradient(135deg, rgba(245,123,174,0.10), rgba(102,176,233,0.10)),
         rgba(255,255,255,0.92);
       border: 1px solid rgba(31, 43, 58, 0.08);
       box-shadow: 0 10px 26px rgba(32,58,102,0.06);
-      text-align: left;
     }
 
-    .payment-info-box h2 {
-      margin: 0 0 10px;
-      font-size: 1.18rem;
-      color: #24314f;
-      line-height: 1.4;
-      text-align: center;
-    }
-
-    .payment-info-box .payment-title-ar {
-      display: block;
-      margin-top: 4px;
-      font-family: "Cairo", sans-serif;
-      color: #8a456f;
-      direction: rtl;
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    .payment-info-box p {
+    .payment-note-box p {
       margin: 0 0 10px;
       color: #4c5b71;
       line-height: 1.85;
       font-size: 0.98rem;
+      text-align: center;
     }
 
-    .payment-info-box p.rtl {
+    .payment-note-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .payment-note-box .rtl {
       font-family: "Cairo", sans-serif;
       direction: rtl;
       text-align: right;
@@ -386,14 +398,7 @@
       color: #5f5068;
     }
 
-    .payment-mini-note {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(31, 43, 58, 0.08);
-      font-size: 0.95rem;
-    }
-
-    .success-actions {
+    .payment-actions {
       display: flex;
       justify-content: center;
       gap: 14px;
@@ -429,21 +434,20 @@
       box-shadow: 0 10px 24px rgba(32,58,102,0.07);
     }
 
-    .site-footer.registration-footer-premium {
+    .site-footer {
       margin-top: 8px;
       padding: 24px 0 38px;
       background: transparent;
-      box-shadow: none;
     }
 
-    .footer-registration-premium {
+    .footer-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1.1fr;
       gap: 18px;
       align-items: stretch;
     }
 
-    .footer-premium-card {
+    .footer-card {
       position: relative;
       overflow: hidden;
       border-radius: 28px;
@@ -459,7 +463,7 @@
         inset 0 1px 0 rgba(255,255,255,0.88);
     }
 
-    .footer-premium-card::before {
+    .footer-card::before {
       content: "";
       position: absolute;
       inset: -2px;
@@ -474,76 +478,26 @@
       pointer-events: none;
     }
 
-    .footer-premium-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 14% 18%, rgba(245,123,174,0.12), transparent 24%),
-        radial-gradient(circle at 86% 16%, rgba(102,176,233,0.12), transparent 24%);
-      pointer-events: none;
-    }
-
-    .footer-premium-card > * {
+    .footer-card > * {
       position: relative;
       z-index: 1;
     }
 
-    .footer-brand-block {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-    }
-
-    .footer-brand-block strong {
+    .footer-brand strong {
       display: block;
       margin: 0 0 10px;
       font-size: 1.02rem;
       line-height: 1.45;
       font-weight: 900;
       color: #24314f;
-      letter-spacing: 0.1px;
     }
 
-    .footer-brand-block strong .footer-brand-ar {
-      color: #7d436d;
-      font-family: "Cairo", sans-serif;
-      font-weight: 800;
-    }
-
-    .footer-brand-block p {
+    .footer-brand p {
       margin: 0 0 8px;
       color: #607089;
       font-weight: 700;
       font-size: 0.97rem;
       line-height: 1.65;
-    }
-
-    .footer-brand-block p:last-of-type {
-      margin-bottom: 0;
-    }
-
-    .footer-brand-block a {
-      display: inline-flex;
-      align-items: center;
-      color: #365173;
-      font-weight: 800;
-      font-size: 0.96rem;
-      line-height: 1.5;
-      padding: 2px 0;
-      transition: color .2s ease, transform .2s ease;
-    }
-
-    .footer-brand-block a:hover {
-      color: var(--pink-dark);
-      transform: translateX(1px);
-    }
-
-    .footer-links-block {
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .footer-links {
@@ -552,6 +506,7 @@
       gap: 12px;
       align-items: center;
       justify-content: center;
+      height: 100%;
     }
 
     .footer-links a {
@@ -573,12 +528,6 @@
       color: var(--pink-dark);
     }
 
-    .footer-alphabet-block {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .alphabet-strip {
       display: flex;
       flex-wrap: wrap;
@@ -589,51 +538,20 @@
       font-family: "Cairo", sans-serif;
       font-weight: 800;
       line-height: 1;
+      height: 100%;
+      align-content: center;
     }
 
     .alphabet-strip span {
       display: inline-block;
       font-size: 1.18rem;
-      animation: footerLetterDance 3.2s ease-in-out infinite;
-      text-shadow: none;
+      color: #8dbfe9;
     }
 
-    .alphabet-strip span:nth-child(4n+1) { color: #ffbdd9; animation-delay: 0s; }
-    .alphabet-strip span:nth-child(4n+2) { color: #9fd4ff; animation-delay: 0.25s; }
-    .alphabet-strip span:nth-child(4n+3) { color: #ffe09a; animation-delay: 0.5s; }
-    .alphabet-strip span:nth-child(4n+4) { color: #c9efad; animation-delay: 0.75s; }
-
-    @keyframes floatLogo {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @keyframes pulseBadge {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(18px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.6); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes pulseCheck {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @keyframes footerLetterDance {
-      0%,100% { transform: translateY(0) scale(1); opacity: 0.92; }
-      25% { transform: translateY(-4px) scale(1.03); opacity: 1; }
-      50% { transform: translateY(2px) scale(0.98); opacity: 0.88; }
-      75% { transform: translateY(-2px) scale(1.01); opacity: 0.96; }
-    }
+    .alphabet-strip span:nth-child(4n+1) { color: #ffbdd9; }
+    .alphabet-strip span:nth-child(4n+2) { color: #9fd4ff; }
+    .alphabet-strip span:nth-child(4n+3) { color: #ffe09a; }
+    .alphabet-strip span:nth-child(4n+4) { color: #c9efad; }
 
     @media (max-width: 860px) {
       .nav-wrap {
@@ -652,28 +570,7 @@
         text-align: center;
         padding: 15px 18px;
         border-radius: 32px;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255,255,255,0.88)),
-          linear-gradient(135deg, rgba(245,123,174,0.16), rgba(102,176,233,0.18));
-        box-shadow:
-          0 18px 40px rgba(32,58,102,0.10),
-          inset 0 1px 0 rgba(255,255,255,0.92);
-        position: relative;
-        overflow: hidden;
         max-width: 100%;
-      }
-
-      .brand-logo {
-        width: 50px;
-        height: 50px;
-      }
-
-      .brand-de {
-        font-size: 1.02rem;
-      }
-
-      .brand-ar {
-        font-size: 0.94rem;
       }
 
       .main-nav {
@@ -700,7 +597,7 @@
         border-radius: 16px;
       }
 
-      .footer-registration-premium {
+      .footer-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -710,78 +607,36 @@
         width: min(100%, calc(100% - 20px));
       }
 
-      .success-main {
+      .payment-main {
         padding: 34px 0 28px;
       }
 
-      .success-hero {
+      .payment-hero {
         padding: 28px 16px 22px;
       }
 
-      .success-body {
+      .payment-body {
         padding: 22px 14px 24px;
       }
 
-      .success-card {
+      .payment-card {
         padding: 22px 16px 20px;
         border-radius: 22px;
       }
 
-      .success-kicker {
-        padding: 14px 22px;
-        font-size: 0.92rem;
-      }
-
-      .success-check {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 16px;
-      }
-
-      .success-check::before {
-        font-size: 1.45rem;
-      }
-
-      .success-text {
-        font-size: 0.98rem;
-      }
-
-      .payment-info-box h2 {
-        font-size: 1.05rem;
-      }
-
-      .payment-info-box p {
-        font-size: 0.94rem;
+      .payment-intro,
+      .payment-note-box p,
+      .payment-value {
+        font-size: 0.96rem;
       }
 
       .btn {
         width: 100%;
       }
 
-      .site-footer.registration-footer-premium {
-        padding-bottom: 30px;
-      }
-
-      .footer-premium-card {
+      .footer-card {
         padding: 20px 16px;
         border-radius: 22px;
-      }
-
-      .footer-premium-card::before {
-        border-radius: 24px;
-      }
-
-      .footer-links a {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-      }
-
-      .alphabet-strip {
-        gap: 7px;
-      }
-
-      .alphabet-strip span {
-        font-size: 1.06rem;
       }
     }
   </style>
@@ -801,58 +656,80 @@
       <nav class="main-nav">
         <a href="index.html"><span>Startseite</span><small>الرئيسية</small></a>
         <a href="registration.html"><span>Anmeldung</span><small>التسجيل</small></a>
+        <a href="zahlung.html"><span>Zahlung</span><small>الدفع</small></a>
         <a href="impressum.html"><span>Impressum</span><small>بيانات النشر</small></a>
         <a href="datenschutz.html"><span>Datenschutz</span><small>الخصوصية</small></a>
       </nav>
     </div>
   </header>
 
-  <main class="success-main">
+  <main class="payment-main">
     <div class="container">
-      <section class="success-shell">
-        <div class="success-hero">
-          <img src="logo.png" alt="Iqraa Akademie Logo" class="success-logo">
-          <div class="success-check" aria-hidden="true"></div>
-          <div class="success-kicker">Erfolgreich gesendet • تم الإرسال بنجاح</div>
+      <section class="payment-shell">
+        <div class="payment-hero">
+          <img src="logo.png" alt="Iqraa Akademie Logo" class="payment-logo">
+          <div class="payment-kicker">Zahlungsinformationen • معلومات الدفع</div>
+          <h1 class="payment-title">Bankverbindung für Überweisung</h1>
+          <div class="payment-title-ar">بيانات الحساب البنكي للتحويل</div>
         </div>
 
-        <div class="success-body">
-          <div class="success-card">
-            <p class="success-text">
-              Bitte prüfen Sie Ihr E-Mail-Postfach für die Bestätigungsnachricht.
+        <div class="payment-body">
+          <div class="payment-card">
+            <p class="payment-intro">
+              Wenn Sie die Kursgebühr per Überweisung bezahlen möchten, verwenden Sie bitte die folgenden Bankdaten.
             </p>
 
-            <p class="success-text rtl" dir="rtl">
-              يرجى التحقق أيضاً من بريدكم الإلكتروني للاطلاع على رسالة التأكيد.
+            <p class="payment-intro rtl" dir="rtl">
+              إذا كنتم ترغبون بدفع رسوم الدورة عن طريق التحويل البنكي، يرجى استخدام بيانات الحساب التالية.
             </p>
 
-            <div class="payment-info-box">
-              <h2>
-                Zahlungsinformationen
-                <span class="payment-title-ar">معلومات الدفع</span>
-              </h2>
+            <div class="payment-info-grid">
+              <div class="payment-info-item">
+                <div class="payment-label">
+                  Kontoinhaber
+                  <span class="payment-label-ar">صاحب الحساب</span>
+                </div>
+                <div class="payment-value">Safaa Dibo</div>
+              </div>
 
+              <div class="payment-info-item">
+                <div class="payment-label">
+                  IBAN
+                  <span class="payment-label-ar">رقم الحساب الدولي</span>
+                </div>
+                <div class="payment-value iban-value">DE57 1001 1001 2791 4009 62</div>
+              </div>
+
+              <div class="payment-info-item">
+                <div class="payment-label">
+                  Verwendungszweck
+                  <span class="payment-label-ar">سبب التحويل</span>
+                </div>
+                <div class="payment-value">الاسم الكامل للطالب</div>
+              </div>
+            </div>
+
+            <div class="payment-note-box">
               <p>
-                Falls Sie per Überweisung bezahlen möchten, finden Sie alle Zahlungsdetails auf unserer separaten Zahlungsseite.
+                Bitte geben Sie im Verwendungszweck immer den vollständigen Namen des Kindes an, damit wir die Zahlung richtig zuordnen können.
               </p>
 
               <p class="rtl" dir="rtl">
-                إذا كنتم ترغبون بالدفع عن طريق التحويل البنكي، يمكنكم الاطلاع على جميع معلومات الدفع من خلال صفحة الدفع الخاصة بنا.
+                يرجى كتابة الاسم الكامل للطالب دائمًا في سبب التحويل، حتى نتمكن من ربط الدفعة بالتسجيل بشكل صحيح.
               </p>
 
-              <p class="payment-mini-note">
-                Alternativ ist auch eine Zahlung vor Ort möglich.
+              <p>
+                Alternativ ist auch eine direkte Zahlung vor Ort möglich.
               </p>
 
-              <p class="payment-mini-note rtl" dir="rtl">
-                كما يمكنكم أيضاً الدفع بشكل مباشر في الأكاديمية.
+              <p class="rtl" dir="rtl">
+                كما يمكنكم أيضًا الدفع بشكل مباشر في الأكاديمية.
               </p>
             </div>
 
-            <div class="success-actions">
-              <a href="index.html" class="btn btn-primary">Zur Startseite / الرئيسية</a>
-              <a href="registration.html" class="btn btn-secondary">Neue Anmeldung / تسجيل جديد</a>
-              <a href="zahlung.html" class="btn btn-secondary">Zahlungsinfos / معلومات الدفع</a>
+            <div class="payment-actions">
+              <a href="registration.html" class="btn btn-primary">Zur Anmeldung / التسجيل</a>
+              <a href="index.html" class="btn btn-secondary">Zur Startseite / الرئيسية</a>
             </div>
           </div>
         </div>
@@ -860,27 +737,25 @@
     </div>
   </main>
 
-  <footer class="site-footer registration-footer-premium">
-    <div class="container footer-registration-premium">
-      <div class="footer-premium-card footer-brand-block">
-        <strong>
-          Iqraa Akademie
-          <span class="footer-brand-ar">/ أكاديمية اقرأ</span>
-        </strong>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-card footer-brand">
+        <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
         <p>Dinxperloer Straße 92, 46399 Bocholt</p>
         <p><a href="mailto:kontakt@iqraa-akademie.de">kontakt@iqraa-akademie.de</a></p>
       </div>
 
-      <div class="footer-premium-card footer-links-block">
+      <div class="footer-card">
         <div class="footer-links">
           <a href="index.html">Startseite</a>
           <a href="registration.html">Anmeldung</a>
+          <a href="zahlung.html">Zahlung</a>
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
         </div>
       </div>
 
-      <div class="footer-premium-card footer-alphabet-block">
+      <div class="footer-card">
         <div class="alphabet-strip" aria-hidden="true">
           <span>أ</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ذ</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
         </div>

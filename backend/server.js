@@ -158,8 +158,8 @@ function validateFormData(data) {
     return "Invalid email address.";
   }
 
-  if (!isReasonableSignature(data.guardianSignatureData) || !isReasonableSignature(data.teacherSignatureData)) {
-    return "Both signatures are required.";
+  if (!isReasonableSignature(data.guardianSignatureData)) {
+    return "Guardian signature is required.";
   }
 
   if (
@@ -442,7 +442,7 @@ function renderPdfHtml(data) {
 
   const teacherSignatureHtml = data.teacherSignatureData
     ? `<img src="${data.teacherSignatureData}" alt="Teacher Signature">`
-    : `<div class="signature-empty">Keine Unterschrift / لا يوجد توقيع</div>`;
+    : `<div class="signature-empty">Wird von der Akademie ausgefüllt / يُستكمل من قبل الأكاديمية</div>`;
 
   return `
 <!doctype html>

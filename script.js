@@ -336,7 +336,6 @@ function delay(ms) {
 
 function setupSignaturePads() {
   const guardianPad = setupSignaturePad("guardianSignaturePad", "guardianSignatureData");
-  const teacherPad = setupSignaturePad("teacherSignaturePad", "teacherSignatureData");
 
   document.querySelectorAll(".signature-clear-btn").forEach((button) => {
     button.addEventListener("click", () => {
@@ -344,10 +343,6 @@ function setupSignaturePads() {
 
       if (target === "guardianSignaturePad" && guardianPad) {
         guardianPad.clearSignature();
-      }
-
-      if (target === "teacherSignaturePad" && teacherPad) {
-        teacherPad.clearSignature();
       }
     });
   });
@@ -362,10 +357,9 @@ function setupSignaturePads() {
     event.preventDefault();
 
     const guardianData = document.getElementById("guardianSignatureData")?.value || "";
-    const teacherData = document.getElementById("teacherSignatureData")?.value || "";
 
-    if (!guardianData || !teacherData) {
-      formMessage.textContent = "Bitte beide Unterschriften eintragen / يرجى إدخال التوقيعين";
+    if (!guardianData) {
+      formMessage.textContent = "Bitte die Unterschrift eintragen / يرجى إدخال التوقيع";
       formMessage.className = "form-message err";
       return;
     }
@@ -418,7 +412,6 @@ function setupSignaturePads() {
       form.reset();
 
       if (guardianPad) guardianPad.clearSignature();
-      if (teacherPad) teacherPad.clearSignature();
 
       setupConditionalField("chronicIllness", "chronicDetailsWrap", "chronicDetails");
       setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
