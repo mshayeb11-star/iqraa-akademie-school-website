@@ -3427,7 +3427,6 @@ body:not(.registration-body) .wa-float-extended {
   }
 }
 
-
 body.sending-active {
   overflow: hidden;
 }
@@ -3489,5 +3488,63 @@ body.sending-active {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   DESKTOP HEADER NAV FIX ONLY
+   mobile stays untouched
+   ========================= */
+
+@media (min-width: 1101px) {
+  .site-header .container.nav-wrap {
+    width: min(1380px, calc(100% - 36px));
+    gap: 12px;
+    min-height: 92px;
+  }
+
+  .site-header .brand {
+    max-width: 235px;
+    padding: 10px 12px;
+    gap: 10px;
+    flex: 0 0 auto;
+  }
+
+  .site-header .brand-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-header .brand-de {
+    font-size: 0.96rem;
+  }
+
+  .site-header .brand-ar {
+    font-size: 0.86rem;
+  }
+
+  .site-header .main-nav {
+    gap: 6px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  .site-header .main-nav a {
+    padding: 8px 9px;
+    border-radius: 16px;
+  }
+
+  .site-header .main-nav a span {
+    font-size: 0.84rem;
+  }
+
+  .site-header .main-nav a small {
+    font-size: 0.60rem;
+  }
+
+  .site-header .main-nav .nav-cta {
+    padding: 10px 14px !important;
+    border-radius: 999px !important;
+    white-space: nowrap;
   }
 }
