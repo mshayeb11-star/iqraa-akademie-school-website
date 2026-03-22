@@ -401,20 +401,18 @@ function renderPoliciesHtml() {
 
   return `
     <div class="policy-wrap">
-      <div class="policy-grid">
-        <div class="policy-column">
-          <div class="policy-subhead">Regeln und Richtlinien des Unterrichts</div>
-          <ul class="policy-list german-list">
-            ${germanList}
-          </ul>
-        </div>
+      <div class="policy-single">
+        <div class="policy-subhead">Regeln und Richtlinien des Unterrichts</div>
+        <ul class="policy-list german-list">
+          ${germanList}
+        </ul>
 
-        <div class="policy-column">
-          <div class="policy-subhead rtl-head">القوانين والسياسات الخاصة بالدورة التعليمية</div>
-          <ul class="policy-list arabic-list">
-            ${arabicList}
-          </ul>
-        </div>
+        <div class="policy-divider"></div>
+
+        <div class="policy-subhead rtl-head">القوانين والسياسات الخاصة بالدورة التعليمية</div>
+        <ul class="policy-list arabic-list">
+          ${arabicList}
+        </ul>
       </div>
 
       <div class="privacy-box">
@@ -745,13 +743,7 @@ function renderPdfHtml(data) {
       padding: 12px 16px 0;
     }
 
-    .policy-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .policy-column {
+    .policy-single {
       background: linear-gradient(180deg, #ffffff, #fcfdff);
       border-radius: 16px;
       border: 1px solid rgba(31,43,58,0.06);
@@ -794,6 +786,12 @@ function renderPdfHtml(data) {
       font-family: "Cairo", Arial, sans-serif;
       line-height: 2;
       color: #425168;
+    }
+
+    .policy-divider {
+      height: 1px;
+      background: rgba(31,43,58,0.08);
+      margin: 14px 0;
     }
 
     .privacy-box {
