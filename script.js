@@ -370,6 +370,16 @@ function setupSignaturePads() {
       return;
     }
 
+    const policyConsentValue =
+      document.querySelector('input[name="policyConsent"]:checked')?.value || "";
+
+    if (policyConsentValue !== "نعم") {
+      formMessage.textContent =
+        "Die Anmeldung ist nur mit Zustimmung zu den Regeln und Richtlinien möglich / لا يمكن إتمام التسجيل إلا بعد الموافقة على القوانين والسياسات";
+      formMessage.className = "form-message err";
+      return;
+    }
+
     try {
       formMessage.textContent = "";
       formMessage.className = "form-message";

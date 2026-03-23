@@ -178,10 +178,10 @@
 
           <div class="field-card">
             <label>
-              <span class="label-ar">عنوان المنزل</span>
-              <small class="label-de">Wohnadresse</small>
+              <span class="label-ar">عنوان المنزل *</span>
+              <small class="label-de">Wohnadresse *</small>
             </label>
-            <input name="address">
+            <input name="address" required>
           </div>
 
           <div class="field-card">
@@ -210,10 +210,10 @@
 
           <div class="field-card full">
             <label>
-              <span class="label-ar">اللغات المستخدمة في المنزل</span>
-              <small class="label-de">Zu Hause gesprochene Sprachen</small>
+              <span class="label-ar">اللغات المستخدمة في المنزل *</span>
+              <small class="label-de">Zu Hause gesprochene Sprachen *</small>
             </label>
-            <input name="homeLanguages">
+            <input name="homeLanguages" required>
           </div>
         </div>
 
@@ -278,8 +278,8 @@
 
           <div class="field-card choice-card">
             <label>
-              <span class="label-ar">هل لدى الطفل معرفة سابقة باللغة العربية؟</span>
-              <small class="label-de">Hat das Kind bereits Arabischkenntnisse?</small>
+              <span class="label-ar">هل لدى الطفل معرفة سابقة باللغة العربية؟ *</span>
+              <small class="label-de">Hat das Kind bereits Arabischkenntnisse? *</small>
             </label>
 
             <div class="choice-group">
@@ -288,7 +288,7 @@
                   <span class="choice-ar">نعم</span>
                   <small class="choice-de">Ja</small>
                 </span>
-                <input type="radio" name="knowsArabic" value="نعم">
+                <input type="radio" name="knowsArabic" value="نعم" required>
               </label>
 
               <label class="choice-item">
@@ -341,30 +341,30 @@
 
         <div class="field-card full schedule-card">
           <label>
-            <span class="label-ar">الجدول الزمني درسان أسبوعياً</span>
-            <small class="label-de">Zeitplan: zwei Unterrichtseinheiten pro Woche</small>
+            <span class="label-ar">الجدول الزمني درسان أسبوعياً *</span>
+            <small class="label-de">Zeitplan: zwei Unterrichtseinheiten pro Woche *</small>
           </label>
           <div class="schedule-grid">
-            <input name="scheduleDay1" placeholder="يوم / Tag">
-            <input name="scheduleTime1" placeholder="الساعة / Uhrzeit">
-            <input name="scheduleDay2" placeholder="يوم / Tag">
-            <input name="scheduleTime2" placeholder="الساعة / Uhrzeit">
+            <input name="scheduleDay1" placeholder="يوم / Tag" required>
+            <input name="scheduleTime1" placeholder="الساعة / Uhrzeit" required>
+            <input name="scheduleDay2" placeholder="يوم / Tag" required>
+            <input name="scheduleTime2" placeholder="الساعة / Uhrzeit" required>
           </div>
         </div>
 
         <div class="form-grid three radio-row-grid">
           <div class="field-card">
             <label>
-              <span class="label-ar">تاريخ بدء الدورة</span>
-              <small class="label-de">Kursbeginn</small>
+              <span class="label-ar">تاريخ بدء الدورة *</span>
+              <small class="label-de">Kursbeginn *</small>
             </label>
-            <input type="date" name="startDate">
+            <input type="date" name="startDate" required>
           </div>
 
           <div class="field-card choice-card">
             <label>
-              <span class="label-ar">هل لدى الطفل أمراض مزمنة؟</span>
-              <small class="label-de">Hat das Kind chronische Erkrankungen?</small>
+              <span class="label-ar">هل لدى الطفل أمراض مزمنة؟ *</span>
+              <small class="label-de">Hat das Kind chronische Erkrankungen? *</small>
             </label>
 
             <div class="choice-group">
@@ -373,7 +373,7 @@
                   <span class="choice-ar">نعم</span>
                   <small class="choice-de">Ja</small>
                 </span>
-                <input type="radio" name="chronicIllness" value="نعم">
+                <input type="radio" name="chronicIllness" value="نعم" required>
               </label>
 
               <label class="choice-item">
@@ -388,8 +388,8 @@
 
           <div class="field-card choice-card">
             <label>
-              <span class="label-ar">هل يعاني الطفل من أي نوع من الحساسية؟</span>
-              <small class="label-de">Hat das Kind Allergien?</small>
+              <span class="label-ar">هل يعاني الطفل من أي نوع من الحساسية؟ *</span>
+              <small class="label-de">Hat das Kind Allergien? *</small>
             </label>
 
             <div class="choice-group">
@@ -398,7 +398,7 @@
                   <span class="choice-ar">نعم</span>
                   <small class="choice-de">Ja</small>
                 </span>
-                <input type="radio" name="allergy" value="نعم">
+                <input type="radio" name="allergy" value="نعم" required>
               </label>
 
               <label class="choice-item">
@@ -482,10 +482,10 @@
 
         <div class="field-card full">
           <label>
-            <span class="label-ar">تاريخ التسجيل</span>
-            <small class="label-de">Anmeldedatum</small>
+            <span class="label-ar">تاريخ التسجيل *</span>
+            <small class="label-de">Anmeldedatum *</small>
           </label>
-          <input type="date" name="registrationDate">
+          <input type="date" name="registrationDate" required>
         </div>
 
         <section class="policies-box">
@@ -558,8 +558,8 @@
         <div class="signature-grid rich-signatures">
           <div class="signature-box">
             <label>
-              <span class="label-ar">توقيع ولي أمر الطالب</span>
-              <small class="label-de">Unterschrift Erziehungsberechtigter</small>
+              <span class="label-ar">توقيع ولي أمر الطالب *</span>
+              <small class="label-de">Unterschrift Erziehungsberechtigter *</small>
             </label>
             <div class="signature-pad-wrap">
               <canvas id="guardianSignaturePad" class="signature-canvas" width="500" height="170"></canvas>

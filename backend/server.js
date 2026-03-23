@@ -175,6 +175,40 @@ function validateFormData(data) {
     return "Invalid form values detected.";
   }
 
+  if (
+    !data.address ||
+    !data.homeLanguages ||
+    !data.knowsArabic ||
+    !data.mediaConsent ||
+    !data.scheduleDay1 ||
+    !data.scheduleTime1 ||
+    !data.scheduleDay2 ||
+    !data.scheduleTime2 ||
+    !data.startDate ||
+    !data.chronicIllness ||
+    !data.allergy ||
+    !data.paymentMethod ||
+    !data.registrationDate
+  ) {
+    return "Please fill out all required fields.";
+  }
+
+  if (data.chronicIllness === "نعم" && !data.chronicDetails) {
+    return "Please provide chronic illness details.";
+  }
+
+  if (data.allergy === "نعم" && !data.allergyDetails) {
+    return "Please provide allergy details.";
+  }
+
+  if (data.policyConsent !== "نعم") {
+    return "Registration is only possible if the rules and policies are accepted.";
+  }
+
+  if (data.privacyAccepted !== "on" && data.privacyAccepted !== true) {
+    return "Privacy acceptance is required.";
+  }
+
   return null;
 }
 
