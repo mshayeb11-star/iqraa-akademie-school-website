@@ -1,12 +1,32 @@
 {
-  "gallery": [],
+  "gallery": [
+    "/images/gallery/kids-01.jpg",
+    "/images/gallery/kids-2.jpg",
+    "/images/gallery/kids-03.jpg",
+    "/images/gallery/kids-04.jpg",
+    "/images/gallery/kids-05.jpg",
+    "/images/gallery/kids-06.jpg",
+    "/images/gallery/kids-07.jpg",
+    "/images/gallery/kids-08.jpg",
+    "/images/gallery/kids-09.jpg",
+    "/images/gallery/kids-10.jpg",
+    "/images/gallery/kids-11.jpg",
+    "/images/gallery/kids-12.jpg"
+  ],
   "hero": [
     "/images/hero/hero-01.jpg",
     "/images/hero/hero-02.jpg",
     "/images/hero/hero-03.jpg",
     "/images/hero/hero-04.jpg"
   ],
-  "certificates": [],
+  "certificates": [
+    "/images/certificates/certificate-01.jpg",
+    "/images/certificates/certificate-02.jpg",
+    "/images/certificates/certificate-03.jpg",
+    "/images/certificates/certificate-04.jpg",
+    "/images/certificates/certificate-05.jpg",
+    "/images/certificates/certificate-06.jpg"
+  ],
   "reviews": [
     "/images/reviews/review-01.jpg",
     "/images/reviews/review-02.jpg",
