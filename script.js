@@ -6,7 +6,12 @@ async function loadImages() {
       return;
     }
 
-    const res = await fetch("/data/images.json");
+    const assetVersion = "20260327-v3";
+
+    const res = await fetch(`/data/images.json?v=${assetVersion}`, {
+      cache: "no-store",
+    });
+
     if (!res.ok) {
       throw new Error(`Failed to load images.json: ${res.status}`);
     }
@@ -24,12 +29,13 @@ async function loadImages() {
         card.className = "media-card reveal";
 
         const img = document.createElement("img");
-        img.src = src;
+        img.src = `${src}?v=${assetVersion}`;
         img.loading = "lazy";
         img.alt = "Iqraa Akademie";
         img.draggable = false;
 
         img.onerror = () => {
+          console.error("Failed image:", img.src);
           card.remove();
         };
 
