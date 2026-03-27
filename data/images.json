@@ -1,61 +1,39 @@
 {
   "gallery": [
-    "/images/gallery/kids-01-v2-opt.jpg",
     "/images/gallery/kids-01-v2.jpg",
     "/images/gallery/kids-02-v2.jpg",
-    "/images/gallery/kids-03-v2-opt.jpg",
     "/images/gallery/kids-03-v2.jpg",
     "/images/gallery/kids-04-v2.jpg",
     "/images/gallery/kids-05-v2.jpg",
-    "/images/gallery/kids-06-v2-opt.jpg",
     "/images/gallery/kids-06-v2.jpg",
-    "/images/gallery/kids-07-v2-opt.jpg",
     "/images/gallery/kids-07-v2.jpg",
-    "/images/gallery/kids-08-v2-opt.jpg",
     "/images/gallery/kids-08-v2.jpg",
-    "/images/gallery/kids-09-v2-opt.jpg",
     "/images/gallery/kids-09-v2.jpg",
-    "/images/gallery/kids-10-v2-opt.jpg",
     "/images/gallery/kids-10-v2.jpg",
     "/images/gallery/kids-11-v2.jpg",
     "/images/gallery/kids-12-v2.jpg"
   ],
   "hero": [
-    "/images/hero/hero-01-opt.jpg",
     "/images/hero/hero-01.jpg",
-    "/images/hero/hero-02-opt.jpg",
     "/images/hero/hero-02.jpg",
-    "/images/hero/hero-03-opt.jpg",
     "/images/hero/hero-03.jpg",
     "/images/hero/hero-04.jpg"
   ],
   "certificates": [
-    "/images/certificates/certificate-01-v2-opt.jpg",
     "/images/certificates/certificate-01-v2.jpg",
-    "/images/certificates/certificate-02-v2-opt.jpg",
     "/images/certificates/certificate-02-v2.jpg",
-    "/images/certificates/certificate-03-v2-opt.jpg",
     "/images/certificates/certificate-03-v2.jpg",
-    "/images/certificates/certificate-04-v2-opt.jpg",
     "/images/certificates/certificate-04-v2.jpg",
-    "/images/certificates/certificate-05-v2-opt.jpg",
     "/images/certificates/certificate-05-v2.jpg",
     "/images/certificates/certificate-06-v2.jpg"
   ],
   "reviews": [
-    "/images/reviews/review-01-opt.jpg",
     "/images/reviews/review-01.jpg",
-    "/images/reviews/review-02-opt.jpg",
     "/images/reviews/review-02.jpg",
-    "/images/reviews/review-03-opt.jpg",
     "/images/reviews/review-03.jpg",
-    "/images/reviews/review-04-opt.jpg",
     "/images/reviews/review-04.jpg",
-    "/images/reviews/review-05-opt.jpg",
     "/images/reviews/review-05.jpg",
-    "/images/reviews/review-06-opt.jpg",
     "/images/reviews/review-06.jpg",
-    "/images/reviews/review-07-opt.jpg",
     "/images/reviews/review-07.jpg"
   ]
 }
