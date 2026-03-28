@@ -48,7 +48,9 @@ async function loadImages() {
 
     function populateReviewsIntroCards(images) {
       const introCards = document.querySelectorAll(".reviews-fan-card");
-      if (!introCards.length) return;
+      if (!introCards.length) return Promise.resolve();
+
+      const loadingPromises = [];
 
       introCards.forEach((card, index) => {
         card.innerHTML = "";
@@ -64,26 +66,36 @@ async function loadImages() {
         img.alt = "Iqraa Akademie Bewertung";
         img.draggable = false;
 
-        img.onerror = () => {
-          card.innerHTML = "";
-          card.classList.add("is-empty");
-        };
+        const imageReadyPromise = new Promise((resolve) => {
+          img.onload = () => {
+            card.classList.remove("is-empty");
+            resolve(true);
+          };
 
-        img.onload = () => {
-          card.classList.remove("is-empty");
-        };
+          img.onerror = () => {
+            card.innerHTML = "";
+            card.classList.add("is-empty");
+            resolve(false);
+          };
+        });
 
+        loadingPromises.push(imageReadyPromise);
         card.appendChild(img);
       });
 
       protectMediaElements(document.querySelectorAll(".reviews-fan-card img"));
+
+      return Promise.all(loadingPromises);
     }
 
     render("galleryGrid", data.gallery);
     render("heroKidsGrid", data.hero);
     render("certificateGrid", data.certificates);
     render("reviewGrid", data.reviews);
-    populateReviewsIntroCards(Array.isArray(data.reviews) ? data.reviews.slice(0, 3) : []);
+
+    await populateReviewsIntroCards(
+      Array.isArray(data.reviews) ? data.reviews.slice(0, 3) : []
+    );
 
     initReveal();
   } catch (error) {
@@ -749,8 +761,8 @@ function initReviewsIntro() {
   runIntro();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadImages();
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadImages();
   initReveal();
   setupSignaturePads();
   setupConditionalField("chronicIllness", "chronicDetailsWrap", "chronicDetails");
