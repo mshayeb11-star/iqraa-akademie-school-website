@@ -6,7 +6,7 @@ async function loadImages() {
       return;
     }
 
-    const assetVersion = "20260327-v3";
+    const assetVersion = "20260328-v1";
 
     const res = await fetch(`/data/images.json?v=${assetVersion}`, {
       cache: "no-store",
@@ -18,15 +18,24 @@ async function loadImages() {
 
     const data = await res.json();
 
-    function render(containerId, images) {
+    function render(containerId, images, options = {}) {
       const container = document.getElementById(containerId);
       if (!container || !Array.isArray(images)) return;
 
+      const { limit = null } = options;
+      const safeImages = images.filter(Boolean);
+      const finalImages =
+        typeof limit === "number" && limit > 0
+          ? safeImages.slice(0, limit)
+          : safeImages;
+
       container.innerHTML = "";
 
-      images.forEach((src) => {
+      finalImages.forEach((src, index) => {
         const card = document.createElement("article");
         card.className = "media-card reveal";
+        card.style.setProperty("--stagger-delay", `${index * 0.1}s`);
+        card.style.setProperty("--float-delay", `${index * 0.8}s`);
 
         const img = document.createElement("img");
         img.src = `${src}?v=${assetVersion}`;
@@ -88,9 +97,14 @@ async function loadImages() {
       return Promise.all(loadingPromises);
     }
 
-    render("galleryGrid", data.gallery);
-    render("heroKidsGrid", data.hero);
-    render("certificateGrid", data.certificates);
+    render("galleryGrid", data.gallery, { limit: 3 });
+    render("heroKidsGrid", data.hero, { limit: 3 });
+    render("certificateGrid", data.certificates, { limit: 3 });
+
+    render("galleryPageGrid", data.gallery);
+    render("heroMomentsPageGrid", data.hero);
+    render("certificatePageGrid", data.certificates);
+
     render("reviewGrid", data.reviews);
 
     await populateReviewsIntroCards(
@@ -98,6 +112,7 @@ async function loadImages() {
     );
 
     initReveal();
+    initLivingPreviewGrids();
   } catch (error) {
     console.error("Image loading error:", error);
   }
@@ -126,6 +141,59 @@ function initReveal() {
   );
 
   revealItems.forEach((item) => observer.observe(item));
+}
+
+function initLivingPreviewGrids() {
+  const previewGrids = document.querySelectorAll('[data-live-preview="true"]');
+
+  previewGrids.forEach((grid) => {
+    const cards = Array.from(grid.querySelectorAll(".media-card"));
+    if (cards.length < 2) return;
+
+    let activeIndex = 0;
+    let intervalId = null;
+
+    const setActiveCard = (index) => {
+      cards.forEach((card, cardIndex) => {
+        card.classList.remove(
+          "is-spotlight",
+          "is-before-spotlight",
+          "is-after-spotlight"
+        );
+
+        if (cardIndex === index) {
+          card.classList.add("is-spotlight");
+        } else if (cardIndex < index) {
+          card.classList.add("is-before-spotlight");
+        } else {
+          card.classList.add("is-after-spotlight");
+        }
+      });
+    };
+
+    const startCycle = () => {
+      if (intervalId) return;
+
+      intervalId = window.setInterval(() => {
+        activeIndex = (activeIndex + 1) % cards.length;
+        setActiveCard(activeIndex);
+      }, 2600);
+    };
+
+    const stopCycle = () => {
+      if (!intervalId) return;
+      clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    setActiveCard(activeIndex);
+    startCycle();
+
+    grid.addEventListener("mouseenter", stopCycle);
+    grid.addEventListener("mouseleave", startCycle);
+    grid.addEventListener("focusin", stopCycle);
+    grid.addEventListener("focusout", startCycle);
+  });
 }
 
 function setupSignaturePad(canvasId, hiddenInputId) {
