@@ -643,22 +643,18 @@ function initPageTransitions() {
 
     document.body.classList.remove("loaded");
 
-    await delay(420);
+    await delay(180);
     window.location.href = destination.href;
   });
 }
 
 function initReviewsIntro() {
   const overlay = document.getElementById("reviewsIntroOverlay");
-  const skipButton = document.getElementById("skipReviewsIntro");
-  const replayButton = document.getElementById("replayReviewsIntro");
-
   if (!overlay) return;
 
   let openTimer = null;
   let closeTimer = null;
   let hideTimer = null;
-  let introIsRunning = false;
 
   const openDuration = 900;
   const holdDuration = 950;
@@ -682,17 +678,6 @@ function initReviewsIntro() {
     }
   }
 
-  function hideOverlayImmediately() {
-    clearIntroTimers();
-    introIsRunning = false;
-
-    overlay.classList.remove("is-opening", "is-open", "is-closing", "is-hiding");
-    overlay.classList.add("hidden");
-    overlay.setAttribute("aria-hidden", "true");
-    overlay.dataset.active = "false";
-    document.body.classList.remove("reviews-intro-lock");
-  }
-
   function finishIntro() {
     overlay.classList.add("is-hiding");
     overlay.setAttribute("aria-hidden", "true");
@@ -700,7 +685,6 @@ function initReviewsIntro() {
     document.body.classList.remove("reviews-intro-lock");
 
     hideTimer = window.setTimeout(() => {
-      introIsRunning = false;
       overlay.classList.add("hidden");
       overlay.classList.remove("is-opening", "is-open", "is-closing", "is-hiding");
     }, overlayFadeDuration);
@@ -708,7 +692,6 @@ function initReviewsIntro() {
 
   function runIntro() {
     clearIntroTimers();
-    introIsRunning = true;
 
     overlay.classList.remove("hidden", "is-opening", "is-open", "is-closing", "is-hiding");
     overlay.setAttribute("aria-hidden", "false");
@@ -734,30 +717,6 @@ function initReviewsIntro() {
     }, openDuration);
   }
 
-  function closeIntroNow() {
-    hideOverlayImmediately();
-  }
-
-  if (skipButton) {
-    skipButton.addEventListener("click", closeIntroNow);
-  }
-
-  if (replayButton) {
-    replayButton.addEventListener("click", runIntro);
-  }
-
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) {
-      closeIntroNow();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && introIsRunning) {
-      closeIntroNow();
-    }
-  });
-
   runIntro();
 }
 
@@ -777,7 +736,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 window.addEventListener("load", () => {
   setTimeout(() => {
     document.body.classList.add("loaded");
-  }, 2000);
+  }, 550);
 
   initHeroVideos();
 });
