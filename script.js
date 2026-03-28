@@ -537,6 +537,152 @@ function initHeroVideos() {
   });
 }
 
+function initPageTransitions() {
+  if (document.body.dataset.pageTransitionReady === "true") return;
+  document.body.dataset.pageTransitionReady = "true";
+
+  let isTransitioning = false;
+
+  document.addEventListener("click", async (event) => {
+    const link = event.target.closest("a");
+    if (!link) return;
+
+    if (isTransitioning) {
+      event.preventDefault();
+      return;
+    }
+
+    if (event.defaultPrevented) return;
+    if (event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (link.hasAttribute("download")) return;
+
+    const rawHref = link.getAttribute("href");
+    if (!rawHref) return;
+
+    const href = rawHref.trim();
+
+    if (
+      href === "" ||
+      href.startsWith("#") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
+      href.startsWith("javascript:")
+    ) {
+      return;
+    }
+
+    if (link.target && link.target.toLowerCase() === "_blank") return;
+    if (link.getAttribute("rel")?.includes("external")) return;
+
+    const destination = new URL(link.href, window.location.href);
+
+    if (destination.origin !== window.location.origin) return;
+
+    const currentUrlWithoutHash = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+    const destinationWithoutHash = `${destination.origin}${destination.pathname}${destination.search}`;
+
+    if (destinationWithoutHash === currentUrlWithoutHash && destination.hash) {
+      return;
+    }
+
+    event.preventDefault();
+    isTransitioning = true;
+
+    const loader = document.getElementById("pageLoader");
+
+    if (loader) {
+      loader.setAttribute("aria-hidden", "false");
+    }
+
+    document.body.classList.remove("loaded");
+
+    await delay(420);
+    window.location.href = destination.href;
+  });
+}
+
+function initReviewsIntro() {
+  const overlay = document.getElementById("reviewsIntroOverlay");
+  const skipButton = document.getElementById("skipReviewsIntro");
+  const replayButton = document.getElementById("replayReviewsIntro");
+
+  if (!overlay) return;
+
+  let introTimeout = null;
+  let introIsClosing = false;
+  const introDuration = 3200;
+
+  function clearIntroTimer() {
+    if (introTimeout) {
+      clearTimeout(introTimeout);
+      introTimeout = null;
+    }
+  }
+
+  function closeIntro() {
+    if (introIsClosing) return;
+    introIsClosing = true;
+
+    clearIntroTimer();
+
+    overlay.classList.add("is-hiding");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.dataset.active = "false";
+    document.body.classList.remove("reviews-intro-lock");
+
+    window.setTimeout(() => {
+      overlay.classList.add("hidden");
+      overlay.classList.remove("is-hiding");
+      introIsClosing = false;
+    }, 650);
+  }
+
+  function startIntro() {
+    clearIntroTimer();
+
+    overlay.classList.remove("hidden", "is-hiding");
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.dataset.active = "true";
+    document.body.classList.add("reviews-intro-lock");
+
+    // restart animation cleanly
+    overlay.classList.remove("is-restarting");
+    void overlay.offsetWidth;
+    overlay.classList.add("is-restarting");
+
+    window.setTimeout(() => {
+      overlay.classList.remove("is-restarting");
+    }, 60);
+
+    introTimeout = window.setTimeout(() => {
+      closeIntro();
+    }, introDuration);
+  }
+
+  if (skipButton) {
+    skipButton.addEventListener("click", closeIntro);
+  }
+
+  if (replayButton) {
+    replayButton.addEventListener("click", startIntro);
+  }
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closeIntro();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && overlay.dataset.active === "true") {
+      closeIntro();
+    }
+  });
+
+  startIntro();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   loadImages();
   initReveal();
@@ -546,6 +692,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initMediaProtection();
   initHeroVideos();
   resetSendingOverlayText();
+  initPageTransitions();
+  initReviewsIntro();
 });
 
 window.addEventListener("load", () => {
