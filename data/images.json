@@ -1,17 +1,11 @@
 {
   "gallery": [
     "/images/gallery/kids-01-v2.jpg",
-    "/images/gallery/kids-02-v2.jpg",
     "/images/gallery/kids-03-v2.jpg",
-    "/images/gallery/kids-04-v2.jpg",
-    "/images/gallery/kids-05-v2.jpg",
-    "/images/gallery/kids-06-v2.jpg",
     "/images/gallery/kids-07-v2.jpg",
     "/images/gallery/kids-08-v2.jpg",
     "/images/gallery/kids-09-v2.jpg",
-    "/images/gallery/kids-10-v2.jpg",
-    "/images/gallery/kids-11-v2.jpg",
-    "/images/gallery/kids-12-v2.jpg"
+    "/images/gallery/kids-10-v2.jpg"
   ],
   "hero": [
     "/images/hero/hero-01.jpg",
