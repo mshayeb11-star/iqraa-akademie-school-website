@@ -46,10 +46,44 @@ async function loadImages() {
       protectMediaElements(container.querySelectorAll("img, video"));
     }
 
+    function populateReviewsIntroCards(images) {
+      const introCards = document.querySelectorAll(".reviews-fan-card");
+      if (!introCards.length) return;
+
+      introCards.forEach((card, index) => {
+        card.innerHTML = "";
+        card.classList.add("is-empty");
+
+        if (!Array.isArray(images) || !images[index]) {
+          return;
+        }
+
+        const img = document.createElement("img");
+        img.src = `${images[index]}?v=${assetVersion}`;
+        img.loading = "eager";
+        img.alt = "Iqraa Akademie Bewertung";
+        img.draggable = false;
+
+        img.onerror = () => {
+          card.innerHTML = "";
+          card.classList.add("is-empty");
+        };
+
+        img.onload = () => {
+          card.classList.remove("is-empty");
+        };
+
+        card.appendChild(img);
+      });
+
+      protectMediaElements(document.querySelectorAll(".reviews-fan-card img"));
+    }
+
     render("galleryGrid", data.gallery);
     render("heroKidsGrid", data.hero);
     render("certificateGrid", data.certificates);
     render("reviewGrid", data.reviews);
+    populateReviewsIntroCards(Array.isArray(data.reviews) ? data.reviews.slice(0, 3) : []);
 
     initReveal();
   } catch (error) {
@@ -609,78 +643,110 @@ function initReviewsIntro() {
 
   if (!overlay) return;
 
-  let introTimeout = null;
-  let introIsClosing = false;
-  const introDuration = 3200;
+  let openTimer = null;
+  let closeTimer = null;
+  let hideTimer = null;
+  let introIsRunning = false;
 
-  function clearIntroTimer() {
-    if (introTimeout) {
-      clearTimeout(introTimeout);
-      introTimeout = null;
+  const openDuration = 900;
+  const holdDuration = 950;
+  const closeDuration = 800;
+  const overlayFadeDuration = 550;
+
+  function clearIntroTimers() {
+    if (openTimer) {
+      clearTimeout(openTimer);
+      openTimer = null;
+    }
+
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
     }
   }
 
-  function closeIntro() {
-    if (introIsClosing) return;
-    introIsClosing = true;
+  function hideOverlayImmediately() {
+    clearIntroTimers();
+    introIsRunning = false;
 
-    clearIntroTimer();
+    overlay.classList.remove("is-opening", "is-open", "is-closing", "is-hiding");
+    overlay.classList.add("hidden");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.dataset.active = "false";
+    document.body.classList.remove("reviews-intro-lock");
+  }
 
+  function finishIntro() {
     overlay.classList.add("is-hiding");
     overlay.setAttribute("aria-hidden", "true");
     overlay.dataset.active = "false";
     document.body.classList.remove("reviews-intro-lock");
 
-    window.setTimeout(() => {
+    hideTimer = window.setTimeout(() => {
+      introIsRunning = false;
       overlay.classList.add("hidden");
-      overlay.classList.remove("is-hiding");
-      introIsClosing = false;
-    }, 650);
+      overlay.classList.remove("is-opening", "is-open", "is-closing", "is-hiding");
+    }, overlayFadeDuration);
   }
 
-  function startIntro() {
-    clearIntroTimer();
+  function runIntro() {
+    clearIntroTimers();
+    introIsRunning = true;
 
-    overlay.classList.remove("hidden", "is-hiding");
+    overlay.classList.remove("hidden", "is-opening", "is-open", "is-closing", "is-hiding");
     overlay.setAttribute("aria-hidden", "false");
     overlay.dataset.active = "true";
     document.body.classList.add("reviews-intro-lock");
 
-    // restart animation cleanly
-    overlay.classList.remove("is-restarting");
     void overlay.offsetWidth;
-    overlay.classList.add("is-restarting");
 
-    window.setTimeout(() => {
-      overlay.classList.remove("is-restarting");
-    }, 60);
+    overlay.classList.add("is-opening");
 
-    introTimeout = window.setTimeout(() => {
-      closeIntro();
-    }, introDuration);
+    openTimer = window.setTimeout(() => {
+      overlay.classList.remove("is-opening");
+      overlay.classList.add("is-open");
+
+      closeTimer = window.setTimeout(() => {
+        overlay.classList.remove("is-open");
+        overlay.classList.add("is-closing");
+
+        hideTimer = window.setTimeout(() => {
+          finishIntro();
+        }, closeDuration);
+      }, holdDuration);
+    }, openDuration);
+  }
+
+  function closeIntroNow() {
+    hideOverlayImmediately();
   }
 
   if (skipButton) {
-    skipButton.addEventListener("click", closeIntro);
+    skipButton.addEventListener("click", closeIntroNow);
   }
 
   if (replayButton) {
-    replayButton.addEventListener("click", startIntro);
+    replayButton.addEventListener("click", runIntro);
   }
 
   overlay.addEventListener("click", (event) => {
     if (event.target === overlay) {
-      closeIntro();
+      closeIntroNow();
     }
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && overlay.dataset.active === "true") {
-      closeIntro();
+    if (event.key === "Escape" && introIsRunning) {
+      closeIntroNow();
     }
   });
 
-  startIntro();
+  runIntro();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

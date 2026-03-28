@@ -81,7 +81,7 @@
     <span>ا</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ر</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ع</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>ه</span><span>و</span><span>ي</span>
   </div>
 
-  <div id="reviewsIntroOverlay" class="reviews-intro-overlay" aria-hidden="true">
+  <div id="reviewsIntroOverlay" class="reviews-intro-overlay hidden" aria-hidden="true" data-active="false">
     <div class="reviews-intro-stage">
       <div class="reviews-intro-glow reviews-intro-glow-a"></div>
       <div class="reviews-intro-glow reviews-intro-glow-b"></div>
@@ -97,15 +97,9 @@
         <p class="reviews-intro-title-ar rtl" dir="rtl">آراء الأهالي عن أكاديمية اقرأ</p>
 
         <div class="reviews-intro-fan" aria-hidden="true">
-          <div class="reviews-fan-card reviews-fan-card-1">
-            <img src="logo.png" alt="">
-          </div>
-          <div class="reviews-fan-card reviews-fan-card-2">
-            <img src="logo.png" alt="">
-          </div>
-          <div class="reviews-fan-card reviews-fan-card-3">
-            <img src="logo.png" alt="">
-          </div>
+          <div class="reviews-fan-card reviews-fan-card-1 is-empty"></div>
+          <div class="reviews-fan-card reviews-fan-card-2 is-empty"></div>
+          <div class="reviews-fan-card reviews-fan-card-3 is-empty"></div>
         </div>
 
         <button
@@ -235,52 +229,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const body = document.body;
-      const overlay = document.getElementById("reviewsIntroOverlay");
-      const skipButton = document.getElementById("skipReviewsIntro");
-      const replayButton = document.getElementById("replayReviewsIntro");
-
-      if (!overlay) return;
-
-      let introTimeout = null;
-
-      function clearIntroTimer() {
-        if (introTimeout) {
-          clearTimeout(introTimeout);
-          introTimeout = null;
-        }
-      }
-
-      function closeIntro() {
-        overlay.classList.add("is-hidden");
-        overlay.setAttribute("aria-hidden", "true");
-        body.classList.remove("reviews-intro-open");
-        clearIntroTimer();
-      }
-
-      function openIntro() {
-        clearIntroTimer();
-        overlay.classList.remove("is-hidden");
-        overlay.setAttribute("aria-hidden", "false");
-        body.classList.add("reviews-intro-open");
-
-        introTimeout = window.setTimeout(() => {
-          closeIntro();
-        }, 2600);
-      }
-
-      skipButton?.addEventListener("click", closeIntro);
-      replayButton?.addEventListener("click", openIntro);
-      overlay.addEventListener("click", (event) => {
-        if (event.target === overlay) {
-          closeIntro();
-        }
-      });
-
-      openIntro();
-    });
-  </script>
 </body>
 </html>
