@@ -34,12 +34,13 @@ async function loadImages() {
       finalImages.forEach((src, index) => {
         const card = document.createElement("article");
         card.className = "media-card reveal";
-        card.style.setProperty("--stagger-delay", `${index * 0.1}s`);
-        card.style.setProperty("--float-delay", `${index * 0.8}s`);
+        card.style.setProperty("--stagger-delay", `${index * 0.08}s`);
+        card.style.setProperty("--float-delay", `${index * 0.5}s`);
+        card.setAttribute("tabindex", "0");
 
         const img = document.createElement("img");
         img.src = `${src}?v=${assetVersion}`;
-        img.loading = "lazy";
+        img.loading = index < 4 ? "eager" : "lazy";
         img.alt = "Iqraa Akademie";
         img.draggable = false;
 
@@ -97,9 +98,9 @@ async function loadImages() {
       return Promise.all(loadingPromises);
     }
 
-    render("galleryGrid", data.gallery, { limit: 3 });
-    render("heroKidsGrid", data.hero, { limit: 3 });
-    render("certificateGrid", data.certificates, { limit: 3 });
+    render("galleryGrid", data.gallery);
+    render("heroKidsGrid", data.hero);
+    render("certificateGrid", data.certificates);
 
     render("galleryPageGrid", data.gallery);
     render("heroMomentsPageGrid", data.hero);
@@ -112,7 +113,7 @@ async function loadImages() {
     );
 
     initReveal();
-    initLivingPreviewGrids();
+    initInteractiveMediaRails();
   } catch (error) {
     console.error("Image loading error:", error);
   }
@@ -143,12 +144,12 @@ function initReveal() {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-function initLivingPreviewGrids() {
-  const previewGrids = document.querySelectorAll('[data-live-preview="true"]');
+function initInteractiveMediaRails() {
+  const rails = document.querySelectorAll('[data-live-preview="true"]');
 
-  previewGrids.forEach((grid) => {
-    if (grid.dataset.previewInitialized === "true") return;
-    grid.dataset.previewInitialized = "true";
+  rails.forEach((grid) => {
+    if (grid.dataset.railInitialized === "true") return;
+    grid.dataset.railInitialized = "true";
 
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
@@ -157,267 +158,171 @@ function initLivingPreviewGrids() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    let activeIndex = cards.length === 2 ? 0 : 1;
-    let direction = 1;
-    let intervalId = null;
-    let resumeTimeout = null;
-    let autoPulseTimer = null;
-    let isPausedByUser = false;
+    grid.classList.add("is-interactive-rail");
 
-    function getViewportMode() {
-      if (window.innerWidth <= 600) return "mobile";
-      if (window.innerWidth <= 900) return "tablet";
-      return "desktop";
+    let scrollTicking = false;
+
+    function getCardCenter(card) {
+      return card.offsetLeft + card.offsetWidth / 2;
     }
 
-    function clearCardStates() {
-      cards.forEach((card) => {
+    function getViewportCenter() {
+      return grid.scrollLeft + grid.clientWidth / 2;
+    }
+
+    function getClosestCardIndex() {
+      const viewportCenter = getViewportCenter();
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      cards.forEach((card, index) => {
+        const distance = Math.abs(getCardCenter(card) - viewportCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    }
+
+    function updateActiveCards() {
+      const activeIndex = getClosestCardIndex();
+
+      cards.forEach((card, index) => {
         card.classList.remove(
-          "is-spotlight",
+          "is-active",
+          "is-side",
+          "is-far",
           "is-before-spotlight",
           "is-after-spotlight",
-          "is-edge-left",
-          "is-edge-right",
-          "is-hidden-card",
-          "is-moving",
-          "is-pulsing"
+          "is-spotlight"
         );
-      });
-    }
 
-    function getWrappedIndex(index) {
-      const total = cards.length;
-      return ((index % total) + total) % total;
-    }
+        const distance = Math.abs(index - activeIndex);
 
-    function applyThreeCardLayout(centerIndex) {
-      const total = cards.length;
-      const leftIndex = getWrappedIndex(centerIndex - 1);
-      const rightIndex = getWrappedIndex(centerIndex + 1);
-
-      cards.forEach((card, index) => {
-        if (index === centerIndex) {
-          card.classList.add("is-spotlight");
-        } else if (index === leftIndex) {
-          card.classList.add("is-before-spotlight", "is-edge-left");
-        } else if (index === rightIndex) {
-          card.classList.add("is-after-spotlight", "is-edge-right");
+        if (index === activeIndex) {
+          card.classList.add("is-active", "is-spotlight");
+        } else if (distance === 1) {
+          card.classList.add("is-side");
+          if (index < activeIndex) {
+            card.classList.add("is-before-spotlight");
+          } else {
+            card.classList.add("is-after-spotlight");
+          }
         } else {
-          card.classList.add("is-hidden-card");
+          card.classList.add("is-far");
         }
       });
     }
 
-    function applyTwoCardLayout(centerIndex) {
-      const otherIndex = getWrappedIndex(centerIndex + 1);
+    function centerCard(index, behavior = "smooth") {
+      const card = cards[index];
+      if (!card) return;
 
-      cards.forEach((card, index) => {
-        if (index === centerIndex) {
-          card.classList.add("is-spotlight");
-        } else if (index === otherIndex) {
-          card.classList.add("is-after-spotlight", "is-edge-right");
-        } else {
-          card.classList.add("is-hidden-card");
-        }
+      const targetLeft =
+        card.offsetLeft - (grid.clientWidth / 2 - card.offsetWidth / 2);
+
+      grid.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: prefersReducedMotion ? "auto" : behavior,
       });
-    }
 
-    function setActiveCard(index, options = {}) {
-      const { addMotionClass = false } = options;
-      const normalizedIndex = getWrappedIndex(index);
-
-      clearCardStates();
-
-      if (cards.length === 2) {
-        applyTwoCardLayout(normalizedIndex);
-      } else {
-        applyThreeCardLayout(normalizedIndex);
+      if (prefersReducedMotion) {
+        updateActiveCards();
       }
+    }
 
-      activeIndex = normalizedIndex;
+    function setupInitialPosition() {
+      const startIndex = cards.length > 2 ? 1 : 0;
+      centerCard(startIndex, "auto");
+      updateActiveCards();
+    }
 
-      if (addMotionClass) {
-        cards.forEach((card) => {
-          card.classList.add("is-moving");
+    function handleScroll() {
+      if (scrollTicking) return;
+
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        updateActiveCards();
+        scrollTicking = false;
+      });
+    }
+
+    function handleWheel(event) {
+      const isDesktop = window.innerWidth > 900;
+      if (!isDesktop) return;
+
+      const absX = Math.abs(event.deltaX);
+      const absY = Math.abs(event.deltaY);
+
+      if (absY > absX) {
+        event.preventDefault();
+        grid.scrollBy({
+          left: event.deltaY * 1.1,
+          behavior: "auto",
         });
-
-        window.setTimeout(() => {
-          cards.forEach((card) => card.classList.remove("is-moving"));
-        }, 900);
       }
     }
-
-    function pulseSpotlight() {
-      if (prefersReducedMotion) return;
-      const activeCard = cards[activeIndex];
-      if (!activeCard) return;
-
-      activeCard.classList.remove("is-pulsing");
-      void activeCard.offsetWidth;
-      activeCard.classList.add("is-pulsing");
-
-      window.setTimeout(() => {
-        activeCard.classList.remove("is-pulsing");
-      }, 1200);
-    }
-
-    function startPulseLoop() {
-      stopPulseLoop();
-
-      if (prefersReducedMotion) return;
-
-      autoPulseTimer = window.setInterval(() => {
-        if (!isPausedByUser) {
-          pulseSpotlight();
-        }
-      }, 2200);
-    }
-
-    function stopPulseLoop() {
-      if (!autoPulseTimer) return;
-      clearInterval(autoPulseTimer);
-      autoPulseTimer = null;
-    }
-
-    function chooseNextIndex() {
-      const mode = getViewportMode();
-
-      if (cards.length <= 1) return activeIndex;
-
-      if (cards.length === 2) {
-        return getWrappedIndex(activeIndex + 1);
-      }
-
-      if (mode === "mobile") {
-        return getWrappedIndex(activeIndex + 1);
-      }
-
-      const nextIndex = activeIndex + direction;
-
-      if (nextIndex <= 0 || nextIndex >= cards.length - 1) {
-        direction *= -1;
-      }
-
-      return getWrappedIndex(activeIndex + direction);
-    }
-
-    function nextSlide() {
-      const nextIndex = chooseNextIndex();
-      setActiveCard(nextIndex, { addMotionClass: true });
-      pulseSpotlight();
-    }
-
-    function startCycle() {
-      if (intervalId || cards.length < 2 || prefersReducedMotion) return;
-
-      intervalId = window.setInterval(() => {
-        nextSlide();
-      }, 2400);
-    }
-
-    function stopCycle() {
-      if (!intervalId) return;
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-
-    function clearResumeTimeout() {
-      if (!resumeTimeout) return;
-      clearTimeout(resumeTimeout);
-      resumeTimeout = null;
-    }
-
-    function scheduleResume(delayMs = 1600) {
-      clearResumeTimeout();
-
-      resumeTimeout = window.setTimeout(() => {
-        isPausedByUser = false;
-        startCycle();
-        startPulseLoop();
-      }, delayMs);
-    }
-
-    function pauseEverything() {
-      isPausedByUser = true;
-      clearResumeTimeout();
-      stopCycle();
-      stopPulseLoop();
-    }
-
-    function pauseAndFocus(targetIndex) {
-      pauseEverything();
-      if (typeof targetIndex === "number") {
-        setActiveCard(targetIndex, { addMotionClass: true });
-        pulseSpotlight();
-      }
-      scheduleResume(1800);
-    }
-
-    function resetLayoutOnResize() {
-      clearResumeTimeout();
-      stopCycle();
-      stopPulseLoop();
-      setActiveCard(activeIndex);
-      startCycle();
-      startPulseLoop();
-    }
-
-    setActiveCard(activeIndex);
-    pulseSpotlight();
-    startCycle();
-    startPulseLoop();
-
-    grid.addEventListener("mouseenter", () => {
-      pauseEverything();
-    });
-
-    grid.addEventListener("mouseleave", () => {
-      scheduleResume(1000);
-    });
-
-    grid.addEventListener("focusin", () => {
-      pauseEverything();
-    });
-
-    grid.addEventListener("focusout", () => {
-      scheduleResume(1000);
-    });
-
-    grid.addEventListener(
-      "touchstart",
-      () => {
-        pauseEverything();
-      },
-      { passive: true }
-    );
-
-    grid.addEventListener(
-      "touchend",
-      () => {
-        scheduleResume(1400);
-      },
-      { passive: true }
-    );
 
     cards.forEach((card, index) => {
-      card.addEventListener("mouseenter", () => pauseAndFocus(index));
-      card.addEventListener("focusin", () => pauseAndFocus(index));
-      card.addEventListener(
-        "touchstart",
-        () => {
-          pauseAndFocus(index);
-        },
-        { passive: true }
-      );
+      card.addEventListener("click", () => {
+        centerCard(index);
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          centerCard(index);
+        }
+      });
     });
+
+    grid.addEventListener("scroll", handleScroll, { passive: true });
+    grid.addEventListener("wheel", handleWheel, { passive: false });
 
     let resizeTimer = null;
     window.addEventListener("resize", () => {
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => {
-        resetLayoutOnResize();
+      resizeTimer = setTimeout(() => {
+        updateInteractiveRailLayout(grid, cards);
+        updateActiveCards();
       }, 180);
     });
+
+    updateInteractiveRailLayout(grid, cards);
+    setupInitialPosition();
+  });
+}
+
+function updateInteractiveRailLayout(grid, cards) {
+  const isMobile = window.innerWidth <= 900;
+
+  grid.style.display = "flex";
+  grid.style.flexWrap = "nowrap";
+  grid.style.alignItems = "center";
+  grid.style.justifyContent = "flex-start";
+  grid.style.overflowX = "auto";
+  grid.style.overflowY = "visible";
+  grid.style.scrollSnapType = "x mandatory";
+  grid.style.webkitOverflowScrolling = "touch";
+  grid.style.scrollBehavior = "smooth";
+  grid.style.paddingBottom = "8px";
+
+  if (isMobile) {
+    grid.style.gap = "14px";
+    grid.style.paddingLeft = "16px";
+    grid.style.paddingRight = "16px";
+  } else {
+    grid.style.gap = "18px";
+    grid.style.paddingLeft = "40px";
+    grid.style.paddingRight = "40px";
+  }
+
+  cards.forEach((card) => {
+    card.style.flex = "0 0 auto";
+    card.style.scrollSnapAlign = "center";
+    card.style.cursor = "pointer";
   });
 }
 
