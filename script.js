@@ -153,109 +153,240 @@ function initLivingPreviewGrids() {
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
-    let activeIndex = cards.length >= 2 ? 1 % cards.length : 0;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let activeIndex = cards.length === 2 ? 0 : 1;
+    let direction = 1;
     let intervalId = null;
     let resumeTimeout = null;
+    let autoPulseTimer = null;
+    let isPausedByUser = false;
 
-    const clearCardStates = () => {
+    function getViewportMode() {
+      if (window.innerWidth <= 600) return "mobile";
+      if (window.innerWidth <= 900) return "tablet";
+      return "desktop";
+    }
+
+    function clearCardStates() {
       cards.forEach((card) => {
         card.classList.remove(
           "is-spotlight",
           "is-before-spotlight",
-          "is-after-spotlight"
+          "is-after-spotlight",
+          "is-edge-left",
+          "is-edge-right",
+          "is-hidden-card",
+          "is-moving",
+          "is-pulsing"
         );
       });
-    };
+    }
 
-    const setActiveCard = (index) => {
+    function getWrappedIndex(index) {
       const total = cards.length;
-      if (!total) return;
+      return ((index % total) + total) % total;
+    }
 
-      const normalizedIndex = ((index % total) + total) % total;
-      const beforeIndex = (normalizedIndex - 1 + total) % total;
-      const afterIndex = (normalizedIndex + 1) % total;
+    function applyThreeCardLayout(centerIndex) {
+      const total = cards.length;
+      const leftIndex = getWrappedIndex(centerIndex - 1);
+      const rightIndex = getWrappedIndex(centerIndex + 1);
+
+      cards.forEach((card, index) => {
+        if (index === centerIndex) {
+          card.classList.add("is-spotlight");
+        } else if (index === leftIndex) {
+          card.classList.add("is-before-spotlight", "is-edge-left");
+        } else if (index === rightIndex) {
+          card.classList.add("is-after-spotlight", "is-edge-right");
+        } else {
+          card.classList.add("is-hidden-card");
+        }
+      });
+    }
+
+    function applyTwoCardLayout(centerIndex) {
+      const otherIndex = getWrappedIndex(centerIndex + 1);
+
+      cards.forEach((card, index) => {
+        if (index === centerIndex) {
+          card.classList.add("is-spotlight");
+        } else if (index === otherIndex) {
+          card.classList.add("is-after-spotlight", "is-edge-right");
+        } else {
+          card.classList.add("is-hidden-card");
+        }
+      });
+    }
+
+    function setActiveCard(index, options = {}) {
+      const { addMotionClass = false } = options;
+      const normalizedIndex = getWrappedIndex(index);
 
       clearCardStates();
 
-      cards.forEach((card, cardIndex) => {
-        if (cardIndex === normalizedIndex) {
-          card.classList.add("is-spotlight");
-        } else if (cardIndex === beforeIndex) {
-          card.classList.add("is-before-spotlight");
-        } else if (cardIndex === afterIndex) {
-          card.classList.add("is-after-spotlight");
-        } else {
-          card.classList.add("is-after-spotlight");
-        }
-      });
+      if (cards.length === 2) {
+        applyTwoCardLayout(normalizedIndex);
+      } else {
+        applyThreeCardLayout(normalizedIndex);
+      }
 
       activeIndex = normalizedIndex;
-    };
 
-    const nextSlide = () => {
-      setActiveCard(activeIndex + 1);
-    };
+      if (addMotionClass) {
+        cards.forEach((card) => {
+          card.classList.add("is-moving");
+        });
 
-    const startCycle = () => {
-      if (intervalId || cards.length < 2) return;
+        window.setTimeout(() => {
+          cards.forEach((card) => card.classList.remove("is-moving"));
+        }, 900);
+      }
+    }
+
+    function pulseSpotlight() {
+      if (prefersReducedMotion) return;
+      const activeCard = cards[activeIndex];
+      if (!activeCard) return;
+
+      activeCard.classList.remove("is-pulsing");
+      void activeCard.offsetWidth;
+      activeCard.classList.add("is-pulsing");
+
+      window.setTimeout(() => {
+        activeCard.classList.remove("is-pulsing");
+      }, 1200);
+    }
+
+    function startPulseLoop() {
+      stopPulseLoop();
+
+      if (prefersReducedMotion) return;
+
+      autoPulseTimer = window.setInterval(() => {
+        if (!isPausedByUser) {
+          pulseSpotlight();
+        }
+      }, 2200);
+    }
+
+    function stopPulseLoop() {
+      if (!autoPulseTimer) return;
+      clearInterval(autoPulseTimer);
+      autoPulseTimer = null;
+    }
+
+    function chooseNextIndex() {
+      const mode = getViewportMode();
+
+      if (cards.length <= 1) return activeIndex;
+
+      if (cards.length === 2) {
+        return getWrappedIndex(activeIndex + 1);
+      }
+
+      if (mode === "mobile") {
+        return getWrappedIndex(activeIndex + 1);
+      }
+
+      const nextIndex = activeIndex + direction;
+
+      if (nextIndex <= 0 || nextIndex >= cards.length - 1) {
+        direction *= -1;
+      }
+
+      return getWrappedIndex(activeIndex + direction);
+    }
+
+    function nextSlide() {
+      const nextIndex = chooseNextIndex();
+      setActiveCard(nextIndex, { addMotionClass: true });
+      pulseSpotlight();
+    }
+
+    function startCycle() {
+      if (intervalId || cards.length < 2 || prefersReducedMotion) return;
 
       intervalId = window.setInterval(() => {
         nextSlide();
-      }, 2800);
-    };
+      }, 2400);
+    }
 
-    const stopCycle = () => {
+    function stopCycle() {
       if (!intervalId) return;
       clearInterval(intervalId);
       intervalId = null;
-    };
+    }
 
-    const scheduleResume = () => {
-      if (resumeTimeout) {
-        clearTimeout(resumeTimeout);
-      }
+    function clearResumeTimeout() {
+      if (!resumeTimeout) return;
+      clearTimeout(resumeTimeout);
+      resumeTimeout = null;
+    }
+
+    function scheduleResume(delayMs = 1600) {
+      clearResumeTimeout();
 
       resumeTimeout = window.setTimeout(() => {
+        isPausedByUser = false;
         startCycle();
-      }, 1800);
-    };
+        startPulseLoop();
+      }, delayMs);
+    }
 
-    const pauseAndFocus = (targetIndex) => {
+    function pauseEverything() {
+      isPausedByUser = true;
+      clearResumeTimeout();
       stopCycle();
+      stopPulseLoop();
+    }
 
+    function pauseAndFocus(targetIndex) {
+      pauseEverything();
       if (typeof targetIndex === "number") {
-        setActiveCard(targetIndex);
+        setActiveCard(targetIndex, { addMotionClass: true });
+        pulseSpotlight();
       }
+      scheduleResume(1800);
+    }
 
-      scheduleResume();
-    };
+    function resetLayoutOnResize() {
+      clearResumeTimeout();
+      stopCycle();
+      stopPulseLoop();
+      setActiveCard(activeIndex);
+      startCycle();
+      startPulseLoop();
+    }
 
     setActiveCard(activeIndex);
+    pulseSpotlight();
     startCycle();
+    startPulseLoop();
 
     grid.addEventListener("mouseenter", () => {
-      stopCycle();
-      if (resumeTimeout) clearTimeout(resumeTimeout);
+      pauseEverything();
     });
 
     grid.addEventListener("mouseleave", () => {
-      scheduleResume();
+      scheduleResume(1000);
     });
 
     grid.addEventListener("focusin", () => {
-      stopCycle();
-      if (resumeTimeout) clearTimeout(resumeTimeout);
+      pauseEverything();
     });
 
     grid.addEventListener("focusout", () => {
-      scheduleResume();
+      scheduleResume(1000);
     });
 
     grid.addEventListener(
       "touchstart",
       () => {
-        stopCycle();
-        if (resumeTimeout) clearTimeout(resumeTimeout);
+        pauseEverything();
       },
       { passive: true }
     );
@@ -263,7 +394,7 @@ function initLivingPreviewGrids() {
     grid.addEventListener(
       "touchend",
       () => {
-        scheduleResume();
+        scheduleResume(1400);
       },
       { passive: true }
     );
@@ -278,6 +409,14 @@ function initLivingPreviewGrids() {
         },
         { passive: true }
       );
+    });
+
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resetLayoutOnResize();
+      }, 180);
     });
   });
 }
@@ -571,7 +710,8 @@ function setupSignaturePads() {
     }
 
     if (!form.reportValidity()) {
-      formMessage.textContent = "Bitte alle Pflichtfelder korrekt ausfüllen / يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح";
+      formMessage.textContent =
+        "Bitte alle Pflichtfelder korrekt ausfüllen / يرجى تعبئة جميع الحقول المطلوبة بشكل صحيح";
       formMessage.className = "form-message err";
       return;
     }
