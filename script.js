@@ -6,7 +6,7 @@ async function loadImages() {
       return;
     }
 
-    const assetVersion = "20260328-v1";
+    const assetVersion = "20260329-v1";
 
     const res = await fetch(`/data/images.json?v=${assetVersion}`, {
       cache: "no-store",
@@ -144,9 +144,12 @@ function initReveal() {
 }
 
 function initLivingPreviewGrids() {
-  const previewGrids = document.querySelectorAll('[data-live-preview="true"]');
+  const previewGrids = document.querySelectorAll("[data-live-grid]");
 
   previewGrids.forEach((grid) => {
+    if (grid.dataset.liveGridReady === "true") return;
+    grid.dataset.liveGridReady = "true";
+
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
@@ -172,18 +175,35 @@ function initLivingPreviewGrids() {
     };
 
     const startCycle = () => {
-      if (intervalId) return;
+      if (intervalId || window.matchMedia("(max-width: 860px)").matches) return;
 
       intervalId = window.setInterval(() => {
         activeIndex = (activeIndex + 1) % cards.length;
         setActiveCard(activeIndex);
-      }, 2600);
+      }, 2400);
     };
 
     const stopCycle = () => {
       if (!intervalId) return;
       clearInterval(intervalId);
       intervalId = null;
+    };
+
+    const refreshForViewport = () => {
+      if (window.matchMedia("(max-width: 860px)").matches) {
+        stopCycle();
+        cards.forEach((card) => {
+          card.classList.remove(
+            "is-spotlight",
+            "is-before-spotlight",
+            "is-after-spotlight"
+          );
+        });
+        return;
+      }
+
+      setActiveCard(activeIndex);
+      startCycle();
     };
 
     setActiveCard(activeIndex);
@@ -193,6 +213,9 @@ function initLivingPreviewGrids() {
     grid.addEventListener("mouseleave", startCycle);
     grid.addEventListener("focusin", stopCycle);
     grid.addEventListener("focusout", startCycle);
+
+    window.addEventListener("resize", refreshForViewport);
+    refreshForViewport();
   });
 }
 
