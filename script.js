@@ -1,3 +1,5 @@
+let iqraaImageData = null;
+
 async function loadImages() {
   try {
     const isFileProtocol = window.location.protocol === "file:";
@@ -17,6 +19,7 @@ async function loadImages() {
     }
 
     const data = await res.json();
+    iqraaImageData = data;
 
     function render(containerId, images, options = {}) {
       const container = document.getElementById(containerId);
@@ -114,6 +117,7 @@ async function loadImages() {
 
     initReveal();
     initInteractiveMediaRails();
+    initMediaIntroLinks();
   } catch (error) {
     console.error("Image loading error:", error);
   }
@@ -323,6 +327,137 @@ function updateInteractiveRailLayout(grid, cards) {
     card.style.flex = "0 0 auto";
     card.style.scrollSnapAlign = "center";
     card.style.cursor = "pointer";
+  });
+}
+
+function getIntroImagesByKey(key) {
+  if (!iqraaImageData) return [];
+
+  if (key === "gallery") return Array.isArray(iqraaImageData.gallery) ? iqraaImageData.gallery : [];
+  if (key === "hero") return Array.isArray(iqraaImageData.hero) ? iqraaImageData.hero : [];
+  if (key === "certificates") return Array.isArray(iqraaImageData.certificates) ? iqraaImageData.certificates : [];
+  if (key === "reviews") return Array.isArray(iqraaImageData.reviews) ? iqraaImageData.reviews : [];
+
+  return [];
+}
+
+function ensureMediaIntroOverlay() {
+  let overlay = document.getElementById("mediaIntroOverlay");
+  if (overlay) return overlay;
+
+  overlay = document.createElement("div");
+  overlay.id = "mediaIntroOverlay";
+  overlay.className = "reviews-intro-overlay media-intro-overlay hidden";
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.innerHTML = `
+    <div class="reviews-intro-stage media-intro-stage">
+      <div class="reviews-intro-glow reviews-intro-glow-a"></div>
+      <div class="reviews-intro-glow reviews-intro-glow-b"></div>
+      <div class="reviews-intro-center">
+        <img src="logo.png" alt="Iqraa Akademie Logo" class="reviews-intro-logo">
+        <div class="reviews-intro-badge">Iqraa Akademie / أكاديمية اقرأ</div>
+        <h2 class="reviews-intro-title-de">Unsere Bilderwelt öffnet sich</h2>
+        <p class="reviews-intro-title-ar">لحظة قصيرة ويتم فتح جميع الصور</p>
+        <div class="reviews-intro-fan media-intro-fan">
+          <div class="reviews-fan-card reviews-fan-card-1 is-empty"></div>
+          <div class="reviews-fan-card reviews-fan-card-2 is-empty"></div>
+          <div class="reviews-fan-card reviews-fan-card-3 is-empty"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  return overlay;
+}
+
+function populateMediaIntroCards(images) {
+  const overlay = ensureMediaIntroOverlay();
+  const cards = overlay.querySelectorAll(".reviews-fan-card");
+  const assetVersion = "20260328-v1";
+  const selectedImages = Array.isArray(images) ? images.filter(Boolean).slice(0, 3) : [];
+
+  const loadingPromises = [];
+
+  cards.forEach((card, index) => {
+    card.innerHTML = "";
+    card.classList.add("is-empty");
+
+    if (!selectedImages[index]) return;
+
+    const img = document.createElement("img");
+    img.src = `${selectedImages[index]}?v=${assetVersion}`;
+    img.loading = "eager";
+    img.alt = "Iqraa Akademie Galerie";
+    img.draggable = false;
+
+    const imageReadyPromise = new Promise((resolve) => {
+      img.onload = () => {
+        card.classList.remove("is-empty");
+        resolve(true);
+      };
+
+      img.onerror = () => {
+        card.innerHTML = "";
+        card.classList.add("is-empty");
+        resolve(false);
+      };
+    });
+
+    loadingPromises.push(imageReadyPromise);
+    card.appendChild(img);
+  });
+
+  protectMediaElements(overlay.querySelectorAll("img"));
+  return Promise.all(loadingPromises);
+}
+
+function runMediaIntroAndNavigate(url, imageKey) {
+  const overlay = ensureMediaIntroOverlay();
+  const chosenImages = getIntroImagesByKey(imageKey);
+  const openDuration = 900;
+  const holdDuration = 900;
+  const closeDuration = 800;
+
+  populateMediaIntroCards(chosenImages).finally(() => {
+    overlay.classList.remove("hidden", "is-opening", "is-open", "is-closing", "is-hiding");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("reviews-intro-lock");
+    void overlay.offsetWidth;
+    overlay.classList.add("is-opening");
+
+    window.setTimeout(() => {
+      overlay.classList.remove("is-opening");
+      overlay.classList.add("is-open");
+
+      window.setTimeout(() => {
+        overlay.classList.remove("is-open");
+        overlay.classList.add("is-closing");
+
+        window.setTimeout(() => {
+          window.location.href = url;
+        }, closeDuration);
+      }, holdDuration);
+    }, openDuration);
+  });
+}
+
+function initMediaIntroLinks() {
+  const links = document.querySelectorAll(".media-intro-link");
+  if (!links.length) return;
+
+  links.forEach((link) => {
+    if (link.dataset.mediaIntroBound === "true") return;
+    link.dataset.mediaIntroBound = "true";
+
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      const imageKey = link.dataset.introImages || "gallery";
+
+      if (!href) return;
+      event.preventDefault();
+      runMediaIntroAndNavigate(href, imageKey);
+    });
   });
 }
 
@@ -819,6 +954,7 @@ function initPageTransitions() {
 
     if (link.target && link.target.toLowerCase() === "_blank") return;
     if (link.getAttribute("rel")?.includes("external")) return;
+    if (link.classList.contains("media-intro-link")) return;
 
     const destination = new URL(link.href, window.location.href);
 
