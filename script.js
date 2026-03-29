@@ -6,7 +6,7 @@ async function loadImages() {
       return;
     }
 
-    const assetVersion = "20260329-v1";
+    const assetVersion = "20260329-v2";
 
     const res = await fetch(`/data/images.json?v=${assetVersion}`, {
       cache: "no-store",
@@ -150,13 +150,31 @@ function initLivingPreviewGrids() {
     if (grid.dataset.liveGridReady === "true") return;
     grid.dataset.liveGridReady = "true";
 
-    const cards = Array.from(grid.querySelectorAll(".media-card"));
+    let cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
     let activeIndex = 0;
     let intervalId = null;
+    let animationLocked = false;
+    let resizeTimer = null;
 
-    const setActiveCard = (index) => {
+    const desktopQuery = () => !window.matchMedia("(max-width: 860px)").matches;
+
+    const clearCardStates = () => {
+      cards.forEach((card) => {
+        card.classList.remove(
+          "is-spotlight",
+          "is-before-spotlight",
+          "is-after-spotlight",
+          "is-exit-left",
+          "is-exit-right",
+          "is-enter-left",
+          "is-enter-right"
+        );
+      });
+    };
+
+    const applyStackState = (index) => {
       cards.forEach((card, cardIndex) => {
         card.classList.remove(
           "is-spotlight",
@@ -174,13 +192,61 @@ function initLivingPreviewGrids() {
       });
     };
 
+    const animateToIndex = (nextIndex) => {
+      if (!desktopQuery()) {
+        activeIndex = nextIndex;
+        clearCardStates();
+        return;
+      }
+
+      if (animationLocked || nextIndex === activeIndex) return;
+      animationLocked = true;
+
+      const currentCard = cards[activeIndex];
+      const nextCard = cards[nextIndex];
+
+      if (!currentCard || !nextCard) {
+        activeIndex = nextIndex;
+        applyStackState(activeIndex);
+        animationLocked = false;
+        return;
+      }
+
+      const movingForward = nextIndex > activeIndex || (activeIndex === cards.length - 1 && nextIndex === 0);
+
+      clearCardStates();
+      applyStackState(activeIndex);
+
+      currentCard.classList.add(movingForward ? "is-exit-left" : "is-exit-right");
+      nextCard.classList.add(movingForward ? "is-enter-right" : "is-enter-left");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          activeIndex = nextIndex;
+          applyStackState(activeIndex);
+
+          window.setTimeout(() => {
+            cards.forEach((card) => {
+              card.classList.remove(
+                "is-exit-left",
+                "is-exit-right",
+                "is-enter-left",
+                "is-enter-right"
+              );
+            });
+            animationLocked = false;
+          }, 900);
+        });
+      });
+    };
+
     const startCycle = () => {
-      if (intervalId || window.matchMedia("(max-width: 860px)").matches) return;
+      if (intervalId || !desktopQuery()) return;
 
       intervalId = window.setInterval(() => {
-        activeIndex = (activeIndex + 1) % cards.length;
-        setActiveCard(activeIndex);
-      }, 2400);
+        const nextIndex = (activeIndex + 1) % cards.length;
+        animateToIndex(nextIndex);
+      }, 2600);
     };
 
     const stopCycle = () => {
@@ -190,23 +256,31 @@ function initLivingPreviewGrids() {
     };
 
     const refreshForViewport = () => {
-      if (window.matchMedia("(max-width: 860px)").matches) {
+      cards = Array.from(grid.querySelectorAll(".media-card"));
+
+      if (cards.length < 2) {
         stopCycle();
-        cards.forEach((card) => {
-          card.classList.remove(
-            "is-spotlight",
-            "is-before-spotlight",
-            "is-after-spotlight"
-          );
-        });
+        clearCardStates();
         return;
       }
 
-      setActiveCard(activeIndex);
+      if (!desktopQuery()) {
+        stopCycle();
+        clearCardStates();
+        animationLocked = false;
+        return;
+      }
+
+      if (activeIndex >= cards.length) {
+        activeIndex = 0;
+      }
+
+      clearCardStates();
+      applyStackState(activeIndex);
       startCycle();
     };
 
-    setActiveCard(activeIndex);
+    applyStackState(activeIndex);
     startCycle();
 
     grid.addEventListener("mouseenter", stopCycle);
@@ -214,7 +288,11 @@ function initLivingPreviewGrids() {
     grid.addEventListener("focusin", stopCycle);
     grid.addEventListener("focusout", startCycle);
 
-    window.addEventListener("resize", refreshForViewport);
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(refreshForViewport, 120);
+    });
+
     refreshForViewport();
   });
 }
