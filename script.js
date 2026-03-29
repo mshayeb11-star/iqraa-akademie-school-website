@@ -147,37 +147,61 @@ function initLivingPreviewGrids() {
   const previewGrids = document.querySelectorAll('[data-live-preview="true"]');
 
   previewGrids.forEach((grid) => {
+    if (grid.dataset.previewInitialized === "true") return;
+    grid.dataset.previewInitialized = "true";
+
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
-    let activeIndex = 0;
+    let activeIndex = cards.length >= 2 ? 1 % cards.length : 0;
     let intervalId = null;
+    let resumeTimeout = null;
 
-    const setActiveCard = (index) => {
-      cards.forEach((card, cardIndex) => {
+    const clearCardStates = () => {
+      cards.forEach((card) => {
         card.classList.remove(
           "is-spotlight",
           "is-before-spotlight",
           "is-after-spotlight"
         );
+      });
+    };
 
-        if (cardIndex === index) {
+    const setActiveCard = (index) => {
+      const total = cards.length;
+      if (!total) return;
+
+      const normalizedIndex = ((index % total) + total) % total;
+      const beforeIndex = (normalizedIndex - 1 + total) % total;
+      const afterIndex = (normalizedIndex + 1) % total;
+
+      clearCardStates();
+
+      cards.forEach((card, cardIndex) => {
+        if (cardIndex === normalizedIndex) {
           card.classList.add("is-spotlight");
-        } else if (cardIndex < index) {
+        } else if (cardIndex === beforeIndex) {
           card.classList.add("is-before-spotlight");
+        } else if (cardIndex === afterIndex) {
+          card.classList.add("is-after-spotlight");
         } else {
           card.classList.add("is-after-spotlight");
         }
       });
+
+      activeIndex = normalizedIndex;
+    };
+
+    const nextSlide = () => {
+      setActiveCard(activeIndex + 1);
     };
 
     const startCycle = () => {
-      if (intervalId) return;
+      if (intervalId || cards.length < 2) return;
 
       intervalId = window.setInterval(() => {
-        activeIndex = (activeIndex + 1) % cards.length;
-        setActiveCard(activeIndex);
-      }, 2600);
+        nextSlide();
+      }, 2800);
     };
 
     const stopCycle = () => {
@@ -186,13 +210,75 @@ function initLivingPreviewGrids() {
       intervalId = null;
     };
 
+    const scheduleResume = () => {
+      if (resumeTimeout) {
+        clearTimeout(resumeTimeout);
+      }
+
+      resumeTimeout = window.setTimeout(() => {
+        startCycle();
+      }, 1800);
+    };
+
+    const pauseAndFocus = (targetIndex) => {
+      stopCycle();
+
+      if (typeof targetIndex === "number") {
+        setActiveCard(targetIndex);
+      }
+
+      scheduleResume();
+    };
+
     setActiveCard(activeIndex);
     startCycle();
 
-    grid.addEventListener("mouseenter", stopCycle);
-    grid.addEventListener("mouseleave", startCycle);
-    grid.addEventListener("focusin", stopCycle);
-    grid.addEventListener("focusout", startCycle);
+    grid.addEventListener("mouseenter", () => {
+      stopCycle();
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+    });
+
+    grid.addEventListener("mouseleave", () => {
+      scheduleResume();
+    });
+
+    grid.addEventListener("focusin", () => {
+      stopCycle();
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+    });
+
+    grid.addEventListener("focusout", () => {
+      scheduleResume();
+    });
+
+    grid.addEventListener(
+      "touchstart",
+      () => {
+        stopCycle();
+        if (resumeTimeout) clearTimeout(resumeTimeout);
+      },
+      { passive: true }
+    );
+
+    grid.addEventListener(
+      "touchend",
+      () => {
+        scheduleResume();
+      },
+      { passive: true }
+    );
+
+    cards.forEach((card, index) => {
+      card.addEventListener("mouseenter", () => pauseAndFocus(index));
+      card.addEventListener("focusin", () => pauseAndFocus(index));
+      card.addEventListener(
+        "touchstart",
+        () => {
+          pauseAndFocus(index);
+        },
+        { passive: true }
+      );
+    });
   });
 }
 
