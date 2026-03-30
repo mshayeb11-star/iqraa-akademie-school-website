@@ -1960,6 +1960,13 @@ body.page-reenter .homepage-footer {
     linear-gradient(180deg, #fdf8fc 0%, #f3f9ff 100%);
 }
 
+.registration-body .reveal,
+.registration-body .reveal.in-view {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 .registration-body .site-header {
   position: sticky;
 }
