@@ -1457,6 +1457,63 @@ body.page-reenter .homepage-footer {
   transform: translateX(145%);
 }
 
+.all-images-btn {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px; /* smaller + cleaner */
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: white;
+  background: linear-gradient(135deg, #f57bae, #66b0e9);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(102,176,233,0.25);
+  transition: all 0.25s ease;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Arabic subtitle */
+.all-images-btn span {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* Hover (premium feel) */
+.all-images-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(102,176,233,0.35);
+}
+
+/* Click effect */
+.all-images-btn:active {
+  transform: scale(0.97);
+}
+
+/* Optional: subtle glow pulse (VERY premium) */
+.all-images-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f57bae, #66b0e9);
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+.all-images-btn:hover::after {
+  opacity: 0.4;
+}
+
 /* =========================
    PREMIUM CINEMATIC HOMEPAGE RAILS
    ========================= */
