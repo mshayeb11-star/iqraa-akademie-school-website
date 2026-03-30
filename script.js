@@ -1,4 +1,77 @@
 let iqraaImageData = null;
+let pageTransitionActive = false;
+let pageReadyTimer = null;
+
+function getPageLoader() {
+  return document.getElementById("pageLoader");
+}
+
+function setPageLoadedState(isLoaded) {
+  if (!document.body) return;
+  document.body.classList.toggle("loaded", isLoaded);
+}
+
+function showPageLoader() {
+  const loader = getPageLoader();
+
+  if (loader) {
+    loader.setAttribute("aria-hidden", "false");
+  }
+
+  setPageLoadedState(false);
+}
+
+function hidePageLoaderImmediate() {
+  if (pageReadyTimer) {
+    clearTimeout(pageReadyTimer);
+    pageReadyTimer = null;
+  }
+
+  const loader = getPageLoader();
+
+  if (loader) {
+    loader.setAttribute("aria-hidden", "true");
+  }
+
+  setPageLoadedState(true);
+}
+
+function schedulePageReady(delay = 0) {
+  if (pageReadyTimer) {
+    clearTimeout(pageReadyTimer);
+  }
+
+  pageReadyTimer = window.setTimeout(() => {
+    hidePageLoaderImmediate();
+  }, Math.max(0, delay));
+}
+
+function forceHideOverlay(overlay) {
+  if (!overlay) return;
+
+  overlay.classList.add("hidden");
+  overlay.classList.remove("is-opening", "is-open", "is-closing", "is-hiding");
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.dataset.active = "false";
+}
+
+function restorePageAfterHistoryNavigation() {
+  pageTransitionActive = false;
+
+  forceHideOverlay(document.getElementById("mediaIntroOverlay"));
+  forceHideOverlay(document.getElementById("reviewsIntroOverlay"));
+
+  if (document.body) {
+    document.body.classList.remove("reviews-intro-lock");
+  }
+
+  hidePageLoaderImmediate();
+}
+
+function isHistoryNavigation(event) {
+  const navigationEntry = performance.getEntriesByType("navigation")[0];
+  return Boolean(event?.persisted) || navigationEntry?.type === "back_forward";
+}
 
 async function loadImages() {
   try {
@@ -333,10 +406,23 @@ function updateInteractiveRailLayout(grid, cards) {
 function getIntroImagesByKey(key) {
   if (!iqraaImageData) return [];
 
-  if (key === "gallery") return Array.isArray(iqraaImageData.gallery) ? iqraaImageData.gallery : [];
-  if (key === "hero") return Array.isArray(iqraaImageData.hero) ? iqraaImageData.hero : [];
-  if (key === "certificates") return Array.isArray(iqraaImageData.certificates) ? iqraaImageData.certificates : [];
-  if (key === "reviews") return Array.isArray(iqraaImageData.reviews) ? iqraaImageData.reviews : [];
+  if (key === "gallery") {
+    return Array.isArray(iqraaImageData.gallery) ? iqraaImageData.gallery : [];
+  }
+
+  if (key === "hero") {
+    return Array.isArray(iqraaImageData.hero) ? iqraaImageData.hero : [];
+  }
+
+  if (key === "certificates") {
+    return Array.isArray(iqraaImageData.certificates)
+      ? iqraaImageData.certificates
+      : [];
+  }
+
+  if (key === "reviews") {
+    return Array.isArray(iqraaImageData.reviews) ? iqraaImageData.reviews : [];
+  }
 
   return [];
 }
@@ -356,8 +442,6 @@ function ensureMediaIntroOverlay() {
       <div class="reviews-intro-center">
         <img src="logo.png" alt="Iqraa Akademie Logo" class="reviews-intro-logo">
         <div class="reviews-intro-badge">Iqraa Akademie / أكاديمية اقرأ</div>
-        <h2 class="reviews-intro-title-de">Unsere Bilderwelt öffnet sich</h2>
-        <p class="reviews-intro-title-ar">لحظة قصيرة ويتم فتح جميع الصور</p>
         <div class="reviews-intro-fan media-intro-fan">
           <div class="reviews-fan-card reviews-fan-card-1 is-empty"></div>
           <div class="reviews-fan-card reviews-fan-card-2 is-empty"></div>
@@ -921,13 +1005,11 @@ function initPageTransitions() {
   if (document.body.dataset.pageTransitionReady === "true") return;
   document.body.dataset.pageTransitionReady = "true";
 
-  let isTransitioning = false;
-
   document.addEventListener("click", async (event) => {
     const link = event.target.closest("a");
     if (!link) return;
 
-    if (isTransitioning) {
+    if (pageTransitionActive) {
       event.preventDefault();
       return;
     }
@@ -968,17 +1050,11 @@ function initPageTransitions() {
     }
 
     event.preventDefault();
-    isTransitioning = true;
+    pageTransitionActive = true;
 
-    const loader = document.getElementById("pageLoader");
+    showPageLoader();
 
-    if (loader) {
-      loader.setAttribute("aria-hidden", "false");
-    }
-
-    document.body.classList.remove("loaded");
-
-    await delay(180);
+    await delay(120);
     window.location.href = destination.href;
   });
 }
@@ -1056,6 +1132,8 @@ function initReviewsIntro() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  schedulePageReady(320);
+
   await loadImages();
   initReveal();
   setupSignaturePads();
@@ -1068,10 +1146,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   initReviewsIntro();
 });
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.body.classList.add("loaded");
-  }, 550);
+window.addEventListener("pageshow", (event) => {
+  if (isHistoryNavigation(event)) {
+    restorePageAfterHistoryNavigation();
+  }
+});
 
+window.addEventListener("pagehide", () => {
+  pageTransitionActive = false;
+});
+
+window.addEventListener("load", () => {
+  schedulePageReady(0);
   initHeroVideos();
 });
