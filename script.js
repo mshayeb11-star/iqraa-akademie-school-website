@@ -1,6 +1,8 @@
 let iqraaImageData = null;
 let pageTransitionActive = false;
 let pageReadyTimer = null;
+let pageReentryTimer = null;
+let revealObserver = null;
 
 function getPageLoader() {
   return document.getElementById("pageLoader");
@@ -46,6 +48,22 @@ function schedulePageReady(delay = 0) {
   }, Math.max(0, delay));
 }
 
+function triggerPageReentryAnimation() {
+  if (!document.body) return;
+
+  if (pageReentryTimer) {
+    clearTimeout(pageReentryTimer);
+  }
+
+  document.body.classList.remove("page-reenter");
+  void document.body.offsetWidth;
+  document.body.classList.add("page-reenter");
+
+  pageReentryTimer = window.setTimeout(() => {
+    document.body.classList.remove("page-reenter");
+  }, 520);
+}
+
 function forceHideOverlay(overlay) {
   if (!overlay) return;
 
@@ -66,6 +84,7 @@ function restorePageAfterHistoryNavigation() {
   }
 
   hidePageLoaderImmediate();
+  triggerPageReentryAnimation();
 }
 
 function isHistoryNavigation(event) {
@@ -105,18 +124,20 @@ async function loadImages() {
           ? safeImages.slice(0, limit)
           : safeImages;
 
+      const fragment = document.createDocumentFragment();
       container.innerHTML = "";
 
       finalImages.forEach((src, index) => {
         const card = document.createElement("article");
         card.className = "media-card reveal";
-        card.style.setProperty("--stagger-delay", `${index * 0.08}s`);
-        card.style.setProperty("--float-delay", `${index * 0.5}s`);
+        card.style.setProperty("--stagger-delay", `${index * 0.07}s`);
+        card.style.setProperty("--float-delay", `${index * 0.4}s`);
         card.setAttribute("tabindex", "0");
 
         const img = document.createElement("img");
         img.src = `${src}?v=${assetVersion}`;
-        img.loading = index < 4 ? "eager" : "lazy";
+        img.loading = index < 3 ? "eager" : "lazy";
+        img.decoding = "async";
         img.alt = "Iqraa Akademie";
         img.draggable = false;
 
@@ -126,8 +147,10 @@ async function loadImages() {
         };
 
         card.appendChild(img);
-        container.appendChild(card);
+        fragment.appendChild(card);
       });
+
+      container.appendChild(fragment);
 
       protectMediaElements(container.querySelectorAll("img, video"));
     }
@@ -149,6 +172,7 @@ async function loadImages() {
         const img = document.createElement("img");
         img.src = `${images[index]}?v=${assetVersion}`;
         img.loading = "eager";
+        img.decoding = "async";
         img.alt = "Iqraa Akademie Bewertung";
         img.draggable = false;
 
@@ -199,26 +223,31 @@ async function loadImages() {
 function initReveal() {
   const revealItems = document.querySelectorAll(".reveal");
 
+  if (revealObserver) {
+    revealObserver.disconnect();
+    revealObserver = null;
+  }
+
   if (!("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("in-view"));
     return;
   }
 
-  const observer = new IntersectionObserver(
+  revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          observer.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in-view");
+        revealObserver.unobserve(entry.target);
       });
     },
     {
-      threshold: 0.12,
+      threshold: 0.14,
+      rootMargin: "0px 0px -10% 0px",
     }
   );
 
-  revealItems.forEach((item) => observer.observe(item));
+  revealItems.forEach((item) => revealObserver.observe(item));
 }
 
 function initInteractiveMediaRails() {
@@ -228,6 +257,7 @@ function initInteractiveMediaRails() {
     if (grid.dataset.railInitialized === "true") return;
     grid.dataset.railInitialized = "true";
 
+    const railWrap = grid.closest(".cinematic-rail");
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
@@ -238,6 +268,8 @@ function initInteractiveMediaRails() {
     grid.classList.add("is-interactive-rail");
 
     let scrollTicking = false;
+    let resizeTimer = null;
+    let activeIndex = 0;
 
     function getCardCenter(card) {
       return card.offsetLeft + card.offsetWidth / 2;
@@ -263,8 +295,25 @@ function initInteractiveMediaRails() {
       return closestIndex;
     }
 
+    function updateArrowState() {
+      if (!railWrap) return;
+
+      const leftButton = railWrap.querySelector('.media-rail-arrow[data-rail-direction="-1"]');
+      const rightButton = railWrap.querySelector('.media-rail-arrow[data-rail-direction="1"]');
+
+      if (leftButton) {
+        leftButton.disabled = activeIndex <= 0;
+        leftButton.classList.toggle("is-disabled", activeIndex <= 0);
+      }
+
+      if (rightButton) {
+        rightButton.disabled = activeIndex >= cards.length - 1;
+        rightButton.classList.toggle("is-disabled", activeIndex >= cards.length - 1);
+      }
+    }
+
     function updateActiveCards() {
-      const activeIndex = getClosestCardIndex();
+      activeIndex = getClosestCardIndex();
 
       cards.forEach((card, index) => {
         card.classList.remove(
@@ -291,10 +340,13 @@ function initInteractiveMediaRails() {
           card.classList.add("is-far");
         }
       });
+
+      updateArrowState();
     }
 
     function centerCard(index, behavior = "smooth") {
-      const card = cards[index];
+      const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
+      const card = cards[safeIndex];
       if (!card) return;
 
       const targetLeft =
@@ -305,7 +357,8 @@ function initInteractiveMediaRails() {
         behavior: prefersReducedMotion ? "auto" : behavior,
       });
 
-      if (prefersReducedMotion) {
+      if (prefersReducedMotion || behavior === "auto") {
+        activeIndex = safeIndex;
         updateActiveCards();
       }
     }
@@ -342,6 +395,21 @@ function initInteractiveMediaRails() {
       }
     }
 
+    function bindArrowControls() {
+      if (!railWrap) return;
+
+      const arrowButtons = railWrap.querySelectorAll(".media-rail-arrow");
+      arrowButtons.forEach((button) => {
+        if (button.dataset.railArrowBound === "true") return;
+        button.dataset.railArrowBound = "true";
+
+        button.addEventListener("click", () => {
+          const direction = Number(button.dataset.railDirection || "0");
+          centerCard(activeIndex + direction);
+        });
+      });
+    }
+
     cards.forEach((card, index) => {
       card.addEventListener("click", () => {
         centerCard(index);
@@ -358,16 +426,16 @@ function initInteractiveMediaRails() {
     grid.addEventListener("scroll", handleScroll, { passive: true });
     grid.addEventListener("wheel", handleWheel, { passive: false });
 
-    let resizeTimer = null;
     window.addEventListener("resize", () => {
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         updateInteractiveRailLayout(grid, cards);
         updateActiveCards();
-      }, 180);
+      }, 160);
     });
 
     updateInteractiveRailLayout(grid, cards);
+    bindArrowControls();
     setupInitialPosition();
   });
 }
@@ -472,6 +540,7 @@ function populateMediaIntroCards(images) {
     const img = document.createElement("img");
     img.src = `${selectedImages[index]}?v=${assetVersion}`;
     img.loading = "eager";
+    img.decoding = "async";
     img.alt = "Iqraa Akademie Galerie";
     img.draggable = false;
 
@@ -499,9 +568,9 @@ function populateMediaIntroCards(images) {
 function runMediaIntroAndNavigate(url, imageKey) {
   const overlay = ensureMediaIntroOverlay();
   const chosenImages = getIntroImagesByKey(imageKey);
-  const openDuration = 900;
-  const holdDuration = 900;
-  const closeDuration = 800;
+  const openDuration = 620;
+  const holdDuration = 360;
+  const closeDuration = 420;
 
   populateMediaIntroCards(chosenImages).finally(() => {
     overlay.classList.remove("hidden", "is-opening", "is-open", "is-closing", "is-hiding");
@@ -1054,7 +1123,7 @@ function initPageTransitions() {
 
     showPageLoader();
 
-    await delay(120);
+    await delay(110);
     window.location.href = destination.href;
   });
 }
@@ -1132,7 +1201,7 @@ function initReviewsIntro() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  schedulePageReady(320);
+  schedulePageReady(180);
 
   await loadImages();
   initReveal();

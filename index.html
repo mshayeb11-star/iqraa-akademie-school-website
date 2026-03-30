@@ -127,7 +127,7 @@
     <section id="home" class="hero">
       <div class="hero-layout">
 
-        <div class="hero-card">
+        <div class="hero-card reveal">
           <img src="logo.png" class="hero-logo-main" alt="Iqraa Akademie Logo">
 
           <div class="hero-mini-line">
@@ -157,7 +157,7 @@
           </div>
         </div>
 
-        <div class="hero-videos-under">
+        <div class="hero-videos-under reveal">
           <div class="hero-video hero-left">
             <video class="hero-media-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
               <source src="videos/hero1.mp4" type="video/mp4">
@@ -260,18 +260,19 @@
         <div class="cinematic-rail cinematic-rail-calm reveal" data-cinematic-section="certificates">
           <div class="cinematic-rail-bg cinematic-rail-bg-left" aria-hidden="true"></div>
           <div class="cinematic-rail-bg cinematic-rail-bg-right" aria-hidden="true"></div>
+
+          <div class="media-rail-arrows" data-rail-controls data-target-grid="certificateGrid">
+            <button type="button" class="media-rail-arrow media-rail-arrow-left" data-rail-direction="-1" aria-label="Vorherige Bilder anzeigen / عرض الصور السابقة">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button type="button" class="media-rail-arrow media-rail-arrow-right" data-rail-direction="1" aria-label="Nächste Bilder anzeigen / عرض الصور التالية">
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+
           <div class="cinematic-rail-inner">
             <div id="certificateGrid" class="media-grid media-grid-2 certificates-grid cinematic-track" data-live-preview="true" data-cinematic-track="calm"></div>
           </div>
-        </div>
-
-        <div class="media-preview-hint reveal" aria-hidden="true">
-          <span class="media-preview-hint-line"></span>
-          <div class="media-preview-hint-text">
-            <strong>Wischen oder weiter schauen</strong>
-            <small>اسحبوا لرؤية المزيد من الصور</small>
-          </div>
-          <span class="media-preview-hint-line"></span>
         </div>
 
         <div class="media-section-actions reveal center">
@@ -293,18 +294,19 @@
         <div class="cinematic-rail cinematic-rail-rich reveal" data-cinematic-section="gallery">
           <div class="cinematic-rail-bg cinematic-rail-bg-left" aria-hidden="true"></div>
           <div class="cinematic-rail-bg cinematic-rail-bg-right" aria-hidden="true"></div>
+
+          <div class="media-rail-arrows" data-rail-controls data-target-grid="galleryGrid">
+            <button type="button" class="media-rail-arrow media-rail-arrow-left" data-rail-direction="-1" aria-label="Vorherige Bilder anzeigen / عرض الصور السابقة">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button type="button" class="media-rail-arrow media-rail-arrow-right" data-rail-direction="1" aria-label="Nächste Bilder anzeigen / عرض الصور التالية">
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+
           <div class="cinematic-rail-inner">
             <div id="galleryGrid" class="media-grid media-grid-3 gallery-grid cinematic-track" data-live-preview="true" data-cinematic-track="rich"></div>
           </div>
-        </div>
-
-        <div class="media-preview-hint reveal" aria-hidden="true">
-          <span class="media-preview-hint-line"></span>
-          <div class="media-preview-hint-text">
-            <strong>Mehr Fotos durch Wischen</strong>
-            <small>بدّلوا بين الصور وشاهدوا المزيد</small>
-          </div>
-          <span class="media-preview-hint-line"></span>
         </div>
 
         <div class="media-section-actions reveal center">
@@ -326,18 +328,19 @@
         <div class="cinematic-rail cinematic-rail-rich reveal" data-cinematic-section="moments">
           <div class="cinematic-rail-bg cinematic-rail-bg-left" aria-hidden="true"></div>
           <div class="cinematic-rail-bg cinematic-rail-bg-right" aria-hidden="true"></div>
+
+          <div class="media-rail-arrows" data-rail-controls data-target-grid="heroKidsGrid">
+            <button type="button" class="media-rail-arrow media-rail-arrow-left" data-rail-direction="-1" aria-label="Vorherige Bilder anzeigen / عرض الصور السابقة">
+              <span aria-hidden="true">‹</span>
+            </button>
+            <button type="button" class="media-rail-arrow media-rail-arrow-right" data-rail-direction="1" aria-label="Nächste Bilder anzeigen / عرض الصور التالية">
+              <span aria-hidden="true">›</span>
+            </button>
+          </div>
+
           <div class="cinematic-rail-inner">
             <div id="heroKidsGrid" class="media-grid media-grid-3 hero-kids-grid cinematic-track" data-live-preview="true" data-cinematic-track="rich"></div>
           </div>
-        </div>
-
-        <div class="media-preview-hint reveal" aria-hidden="true">
-          <span class="media-preview-hint-line"></span>
-          <div class="media-preview-hint-text">
-            <strong>Noch mehr Unterrichtsmomente</strong>
-            <small>هناك صور أكثر عند التبديل</small>
-          </div>
-          <span class="media-preview-hint-line"></span>
         </div>
 
         <div class="media-section-actions reveal center">
@@ -356,9 +359,9 @@
           <p class="section-sub-ar" dir="rtl">الوجوه التي تقف خلف الأكاديمية</p>
         </div>
 
-        <div class="team-grid reveal">
+        <div class="team-grid">
 
-          <article class="team-card">
+          <article class="team-card reveal">
             <img src="images/team/owner-01.jpg" alt="Moustafa Shayeb von der Iqraa Akademie" loading="lazy" draggable="false">
             <div class="team-info">
               <h3>Moustafa Shayeb</h3>
@@ -367,7 +370,7 @@
             </div>
           </article>
 
-          <article class="team-card logo-team-card">
+          <article class="team-card logo-team-card reveal">
             <div class="team-logo-wrap">
               <img src="logo.png" alt="Iqraa Akademie Logo" class="team-logo-image" draggable="false">
             </div>
@@ -441,19 +444,19 @@
   <footer class="site-footer homepage-footer">
     <div class="container homepage-footer-grid">
 
-      <div class="homepage-footer-card homepage-footer-info">
+      <div class="homepage-footer-card homepage-footer-info reveal">
         <strong>Iqraa Akademie / أكاديمية اقرأ</strong>
         <p>Dinxperloer Straße 92, 46399 Bocholt</p>
         <p><a href="mailto:kontakt@iqraa-akademie.de">kontakt@iqraa-akademie.de</a></p>
       </div>
 
-      <div class="homepage-footer-card homepage-footer-links">
+      <div class="homepage-footer-card homepage-footer-links reveal">
         <a href="#home">Startseite</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
       </div>
 
-      <div class="homepage-footer-card homepage-footer-alphabet">
+      <div class="homepage-footer-card homepage-footer-alphabet reveal">
         <div class="alphabet-strip" aria-hidden="true">
           <span>أ</span><span>ب</span><span>ت</span><span>ث</span><span>ج</span><span>ح</span><span>خ</span><span>د</span><span>ذ</span><span>ر</span><span>ز</span><span>س</span><span>ش</span><span>ص</span><span>ض</span><span>ط</span><span>ظ</span><span>ع</span><span>غ</span><span>ف</span><span>ق</span><span>ك</span><span>ل</span><span>م</span><span>ن</span><span>هـ</span><span>و</span><span>ي</span>
         </div>
