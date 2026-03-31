@@ -4736,12 +4736,6 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail-calm .media-card.is-spotlight {
     transform: translateY(-5px) scale(1.04);
   }
-
-  .media-rail-arrow {
-    width: 42px;
-    height: 42px;
-    font-size: 1.3rem;
-  }
 }
 
 @media (max-width: 600px) {
