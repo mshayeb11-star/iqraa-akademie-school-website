@@ -4546,17 +4546,19 @@ body:not(.registration-body) .wa-float-extended {
   }
 
   .main-nav {
-    display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    gap: 8px;
-    justify-content: flex-start;
-    padding: 2px 2px 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 2px 6px 6px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+}
 
   .main-nav::-webkit-scrollbar {
     display: none;
@@ -4572,6 +4574,14 @@ body:not(.registration-body) .wa-float-extended {
   .nav-cta {
     min-width: 148px !important;
     padding: 10px 14px !important;
+  }
+
+  .site-header {
+    overflow: visible;
+  }
+
+  .nav-wrap {
+    overflow: visible;
   }
 
   .grid-2,
@@ -4735,6 +4745,12 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail-calm .media-card:nth-child(2),
   .cinematic-rail-calm .media-card.is-spotlight {
     transform: translateY(-5px) scale(1.04);
+  }
+
+  .media-rail-arrow {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
   }
 }
 
