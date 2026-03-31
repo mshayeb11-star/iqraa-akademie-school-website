@@ -430,6 +430,7 @@ function initInteractiveMediaRails() {
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         updateInteractiveRailLayout(grid, cards);
+        centerCard(activeIndex, "auto");
         updateActiveCards();
       }, 160);
     });
