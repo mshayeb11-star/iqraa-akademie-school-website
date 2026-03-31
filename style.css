@@ -4584,6 +4584,10 @@ body:not(.registration-body) .wa-float-extended {
     overflow: visible;
   }
 
+  .main-nav {
+    max-width: 100%;
+  }
+
   .grid-2,
   .media-grid-2,
   .media-grid-3,
