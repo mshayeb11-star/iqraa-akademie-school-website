@@ -3730,6 +3730,20 @@ body:not(.registration-body) .wa-float-extended {
     width: clamp(120px, 11vw, 156px);
   }
 
+  .cinematic-rail .media-card {
+    border-radius: 22px;
+    padding: 3px;
+  }
+
+  .cinematic-rail .media-card::before {
+    inset: 3px;
+    border-radius: 18px;
+  }
+
+  .cinematic-rail .media-card img {
+    border-radius: 16px;
+  }
+
   .cinematic-rail .media-card:nth-child(1),
   .cinematic-rail .media-card.is-before-spotlight {
     z-index: 1;
