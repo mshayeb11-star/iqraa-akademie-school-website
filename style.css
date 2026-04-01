@@ -1672,6 +1672,8 @@ body.page-reenter .homepage-footer {
     box-shadow .55s ease;
   will-change: transform, opacity, filter;
   scroll-snap-align: center;
+  animation: galleryFloat 7s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
 }
 
 .cinematic-rail .media-card::before {
