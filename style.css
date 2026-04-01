@@ -1287,8 +1287,8 @@ body.page-reenter .homepage-footer {
 }
 
 @keyframes galleryFloatDesktop {
-  0%,100% { translate: 0 0; }
-  50% { translate: 0 -6px; }
+  0%,100% { top: 0; }
+  50% { top: -6px; }
 }
 
 @keyframes footerLetterDance {
@@ -3750,6 +3750,7 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail .media-card {
     border-radius: 26px;
     padding: 3px;
+    top: 0;
     animation-name: galleryFloatDesktop;
     animation-duration: 7s;
     animation-timing-function: ease-in-out;
@@ -3757,7 +3758,6 @@ body:not(.registration-body) .wa-float-extended {
     animation-delay: var(--float-delay, 0s);
     transition:
       transform .9s cubic-bezier(0.22, 1, 0.36, 1),
-      translate .9s cubic-bezier(0.22, 1, 0.36, 1),
       opacity .6s ease,
       filter .6s ease,
       box-shadow .6s ease;
@@ -3772,6 +3772,7 @@ body:not(.registration-body) .wa-float-extended {
     border-radius: 20px;
   }
 
+  .cinematic-rail .media-card:nth-child(1),
   .cinematic-rail .media-card.is-before-spotlight {
     z-index: 1;
     transform: translateY(4px) scale(0.90);
@@ -3782,6 +3783,7 @@ body:not(.registration-body) .wa-float-extended {
       0 5px 12px rgba(245,123,174,0.05);
   }
 
+  .cinematic-rail .media-card:nth-child(2),
   .cinematic-rail .media-card.is-spotlight {
     z-index: 5;
     transform: translateY(-12px) scale(1.08);
@@ -3793,6 +3795,7 @@ body:not(.registration-body) .wa-float-extended {
       0 0 0 3px rgba(255,255,255,0.32);
   }
 
+  .cinematic-rail .media-card:nth-child(3),
   .cinematic-rail .media-card.is-after-spotlight {
     z-index: 1;
     transform: translateY(4px) scale(0.90);
@@ -3810,6 +3813,7 @@ body:not(.registration-body) .wa-float-extended {
     filter: saturate(0.76) brightness(0.92);
   }
 
+  .cinematic-rail-calm .media-card:nth-child(2),
   .cinematic-rail-calm .media-card.is-spotlight {
     transform: translateY(-6px) scale(1.04);
     box-shadow:
