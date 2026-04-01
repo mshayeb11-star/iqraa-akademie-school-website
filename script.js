@@ -250,6 +250,10 @@ function initReveal() {
   revealItems.forEach((item) => revealObserver.observe(item));
 }
 
+function isDesktopRailViewport() {
+  return window.matchMedia("(min-width: 1101px)").matches;
+}
+
 function initInteractiveMediaRails() {
   const rails = document.querySelectorAll('[data-live-preview="true"]');
 
@@ -380,7 +384,7 @@ function initInteractiveMediaRails() {
     }
 
     function handleWheel(event) {
-      const isDesktop = window.innerWidth > 900;
+      const isDesktop = isDesktopRailViewport();
       if (!isDesktop) return;
 
       const absX = Math.abs(event.deltaX);
@@ -443,6 +447,7 @@ function initInteractiveMediaRails() {
 
 function updateInteractiveRailLayout(grid, cards) {
   const isMobile = window.innerWidth <= 900;
+  const isDesktop = isDesktopRailViewport();
 
   grid.style.display = "flex";
   grid.style.flexWrap = "nowrap";
@@ -459,6 +464,10 @@ function updateInteractiveRailLayout(grid, cards) {
     grid.style.gap = "14px";
     grid.style.paddingLeft = "16px";
     grid.style.paddingRight = "16px";
+  } else if (isDesktop) {
+    grid.style.gap = "";
+    grid.style.paddingLeft = "";
+    grid.style.paddingRight = "";
   } else {
     grid.style.gap = "18px";
     grid.style.paddingLeft = "40px";
