@@ -3835,6 +3835,37 @@ body:not(.registration-body) .wa-float-extended {
   .media-rail-arrow-right {
     right: 10px;
   }
+
+  #certificates.section,
+  #gallery.section,
+  #moments.section {
+    padding-top: 54px;
+    padding-bottom: 48px;
+  }
+
+  #team.section {
+    padding-top: 56px;
+  }
+
+  #certificates .section-head,
+  #gallery .section-head,
+  #moments .section-head {
+    margin-bottom: 22px;
+  }
+
+  #certificates .cinematic-rail,
+  #gallery .cinematic-rail,
+  #moments .cinematic-rail {
+    margin-top: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  #certificates .media-section-actions,
+  #gallery .media-section-actions,
+  #moments .media-section-actions {
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 1180px) {
