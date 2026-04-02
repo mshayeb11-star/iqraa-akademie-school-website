@@ -254,6 +254,62 @@ function isDesktopRailViewport() {
   return window.matchMedia("(min-width: 1101px)").matches;
 }
 
+function syncDesktopRailCardMotion(card) {
+  if (isDesktopRailViewport()) {
+    card.style.position = "relative";
+    card.style.setProperty("top", "0px", "important");
+    card.style.willChange = "transform, opacity, filter, top";
+    card.style.setProperty(
+      "animation",
+      "galleryFloatDesktop 7s ease-in-out var(--float-delay, 0s) infinite",
+      "important"
+    );
+    return;
+  }
+
+  card.style.removeProperty("top");
+  card.style.removeProperty("animation");
+  card.style.removeProperty("will-change");
+}
+
+function syncDesktopRailCardState(card, state) {
+  if (!isDesktopRailViewport()) {
+    card.style.removeProperty("transform");
+    card.style.removeProperty("opacity");
+    card.style.removeProperty("filter");
+    card.style.removeProperty("box-shadow");
+    card.style.removeProperty("z-index");
+    return;
+  }
+
+  if (state === "spotlight") {
+    card.style.transform = "translateY(-12px) scale(1.08)";
+    card.style.opacity = "1";
+    card.style.filter = "saturate(1.05) brightness(1.02)";
+    card.style.boxShadow =
+      "0 34px 72px rgba(32,58,102,0.18), 0 14px 28px rgba(245,123,174,0.12), 0 0 0 3px rgba(255,255,255,0.32)";
+    card.style.zIndex = "5";
+    return;
+  }
+
+  if (state === "side") {
+    card.style.transform = "translateY(4px) scale(0.90)";
+    card.style.opacity = "0.64";
+    card.style.filter = "saturate(0.88) brightness(0.96)";
+    card.style.boxShadow =
+      "0 12px 24px rgba(32,58,102,0.08), 0 5px 12px rgba(245,123,174,0.05)";
+    card.style.zIndex = "1";
+    return;
+  }
+
+  card.style.transform = "translateY(10px) scale(0.80)";
+  card.style.opacity = "0.24";
+  card.style.filter = "saturate(0.76) brightness(0.92)";
+  card.style.boxShadow =
+    "0 12px 24px rgba(32,58,102,0.06), 0 5px 12px rgba(245,123,174,0.04)";
+  card.style.zIndex = "0";
+}
+
 function initInteractiveMediaRails() {
   const rails = document.querySelectorAll('[data-live-preview="true"]');
 
@@ -333,6 +389,7 @@ function initInteractiveMediaRails() {
 
         if (index === activeIndex) {
           card.classList.add("is-active", "is-spotlight");
+          syncDesktopRailCardState(card, "spotlight");
         } else if (distance === 1) {
           card.classList.add("is-side");
           if (index < activeIndex) {
@@ -340,8 +397,10 @@ function initInteractiveMediaRails() {
           } else {
             card.classList.add("is-after-spotlight");
           }
+          syncDesktopRailCardState(card, "side");
         } else {
           card.classList.add("is-far");
+          syncDesktopRailCardState(card, "far");
         }
       });
 
@@ -478,6 +537,7 @@ function updateInteractiveRailLayout(grid, cards) {
     card.style.flex = "0 0 auto";
     card.style.scrollSnapAlign = "center";
     card.style.cursor = "pointer";
+    syncDesktopRailCardMotion(card);
   });
 }
 
