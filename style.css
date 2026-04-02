@@ -3822,38 +3822,16 @@ body:not(.registration-body) .wa-float-extended {
     transform: translateY(-5px) scale(1.04);
   }
 
-  .cinematic-rail.is-compact-rail {
-    width: min(var(--compact-rail-width, 760px), 100%);
+  #certificates .cinematic-rail {
+    width: min(640px, calc(100% - 24px));
   }
 
-  .cinematic-rail.is-compact-rail::before {
-    inset-inline: 0;
+  #gallery .cinematic-rail {
+    width: min(720px, calc(100% - 24px));
   }
 
-  .cinematic-rail.is-compact-rail::after,
-  .cinematic-rail.is-compact-rail .cinematic-rail-inner::before,
-  .cinematic-rail.is-compact-rail .cinematic-rail-inner::after,
-  .cinematic-rail.is-compact-rail .cinematic-rail-bg {
-    opacity: 0;
-  }
-
-  .cinematic-rail.is-compact-rail .cinematic-rail-inner {
-    max-width: none;
-    padding: 0 18px;
-    overflow: visible;
-  }
-
-  .cinematic-rail.is-compact-rail .media-grid {
-    width: auto;
-    justify-content: center;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: visible;
-  }
-
-  .cinematic-rail.is-compact-rail .media-rail-arrow {
-    display: none;
+  #moments .cinematic-rail {
+    width: min(660px, calc(100% - 24px));
   }
 
   .media-rail-arrow {
