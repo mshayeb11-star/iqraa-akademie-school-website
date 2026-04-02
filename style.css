@@ -3822,6 +3822,40 @@ body:not(.registration-body) .wa-float-extended {
     transform: translateY(-5px) scale(1.04);
   }
 
+  .cinematic-rail.is-compact-rail {
+    width: min(var(--compact-rail-width, 760px), 100%);
+  }
+
+  .cinematic-rail.is-compact-rail::before {
+    inset-inline: 0;
+  }
+
+  .cinematic-rail.is-compact-rail::after,
+  .cinematic-rail.is-compact-rail .cinematic-rail-inner::before,
+  .cinematic-rail.is-compact-rail .cinematic-rail-inner::after,
+  .cinematic-rail.is-compact-rail .cinematic-rail-bg {
+    opacity: 0;
+  }
+
+  .cinematic-rail.is-compact-rail .cinematic-rail-inner {
+    max-width: none;
+    padding: 0 18px;
+    overflow: visible;
+  }
+
+  .cinematic-rail.is-compact-rail .media-grid {
+    width: auto;
+    justify-content: center;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: visible;
+  }
+
+  .cinematic-rail.is-compact-rail .media-rail-arrow {
+    display: none;
+  }
+
   .media-rail-arrow {
     width: 50px;
     height: 50px;

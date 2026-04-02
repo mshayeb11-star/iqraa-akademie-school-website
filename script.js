@@ -265,6 +265,8 @@ function initInteractiveMediaRails() {
     const cards = Array.from(grid.querySelectorAll(".media-card"));
     if (cards.length < 2) return;
 
+    const initialSpotlightIndex = cards.length > 2 ? 1 : 0;
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -273,7 +275,11 @@ function initInteractiveMediaRails() {
 
     let scrollTicking = false;
     let resizeTimer = null;
-    let activeIndex = 0;
+    let activeIndex = initialSpotlightIndex;
+
+    function isCompactDesktopRail() {
+      return grid.dataset.compactRail === "true";
+    }
 
     function getCardCenter(card) {
       return card.offsetLeft + card.offsetWidth / 2;
@@ -304,20 +310,25 @@ function initInteractiveMediaRails() {
 
       const leftButton = railWrap.querySelector('.media-rail-arrow[data-rail-direction="-1"]');
       const rightButton = railWrap.querySelector('.media-rail-arrow[data-rail-direction="1"]');
+      const disableArrows = isCompactDesktopRail();
 
       if (leftButton) {
-        leftButton.disabled = activeIndex <= 0;
-        leftButton.classList.toggle("is-disabled", activeIndex <= 0);
+        leftButton.disabled = disableArrows || activeIndex <= 0;
+        leftButton.classList.toggle("is-disabled", disableArrows || activeIndex <= 0);
       }
 
       if (rightButton) {
-        rightButton.disabled = activeIndex >= cards.length - 1;
-        rightButton.classList.toggle("is-disabled", activeIndex >= cards.length - 1);
+        rightButton.disabled = disableArrows || activeIndex >= cards.length - 1;
+        rightButton.classList.toggle("is-disabled", disableArrows || activeIndex >= cards.length - 1);
       }
     }
 
     function updateActiveCards() {
-      activeIndex = getClosestCardIndex();
+      if (!isCompactDesktopRail()) {
+        activeIndex = getClosestCardIndex();
+      } else {
+        activeIndex = Math.max(0, Math.min(activeIndex, cards.length - 1));
+      }
 
       cards.forEach((card, index) => {
         card.classList.remove(
@@ -353,6 +364,12 @@ function initInteractiveMediaRails() {
       const card = cards[safeIndex];
       if (!card) return;
 
+      if (isCompactDesktopRail()) {
+        activeIndex = safeIndex;
+        updateActiveCards();
+        return;
+      }
+
       const targetLeft =
         card.offsetLeft - (grid.clientWidth / 2 - card.offsetWidth / 2);
 
@@ -368,7 +385,14 @@ function initInteractiveMediaRails() {
     }
 
     function setupInitialPosition() {
-      const startIndex = cards.length > 2 ? 1 : 0;
+      const startIndex = initialSpotlightIndex;
+      activeIndex = startIndex;
+
+      if (isCompactDesktopRail()) {
+        updateActiveCards();
+        return;
+      }
+
       centerCard(startIndex, "auto");
       updateActiveCards();
     }
@@ -448,6 +472,7 @@ function initInteractiveMediaRails() {
 function updateInteractiveRailLayout(grid, cards) {
   const isMobile = window.innerWidth <= 900;
   const isDesktop = isDesktopRailViewport();
+  const railWrap = grid.closest(".cinematic-rail");
 
   grid.style.display = "flex";
   grid.style.flexWrap = "nowrap";
@@ -475,6 +500,30 @@ function updateInteractiveRailLayout(grid, cards) {
     card.style.scrollSnapAlign = "center";
     card.style.cursor = "pointer";
   });
+
+  if (!railWrap) return;
+
+  railWrap.classList.remove("is-compact-rail");
+  railWrap.style.removeProperty("--compact-rail-width");
+  grid.dataset.compactRail = "false";
+
+  if (!isDesktop) return;
+
+  const gridStyles = window.getComputedStyle(grid);
+  const gap = parseFloat(gridStyles.columnGap || gridStyles.gap || "0");
+  const paddingLeft = parseFloat(gridStyles.paddingLeft || "0");
+  const paddingRight = parseFloat(gridStyles.paddingRight || "0");
+  const cardsWidth = cards.reduce((total, card) => total + card.offsetWidth, 0);
+  const trackWidth =
+    cardsWidth + gap * Math.max(0, cards.length - 1) + paddingLeft + paddingRight;
+  const compactRailWidth = Math.ceil(trackWidth + 116);
+  const availableWidth = railWrap.parentElement?.clientWidth || railWrap.clientWidth;
+
+  if (compactRailWidth < availableWidth - 12) {
+    railWrap.classList.add("is-compact-rail");
+    railWrap.style.setProperty("--compact-rail-width", `${compactRailWidth}px`);
+    grid.dataset.compactRail = "true";
+  }
 }
 
 function getIntroImagesByKey(key) {
