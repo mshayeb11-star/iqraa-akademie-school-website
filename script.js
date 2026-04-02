@@ -254,26 +254,6 @@ function isDesktopRailViewport() {
   return window.matchMedia("(min-width: 1101px)").matches;
 }
 
-function syncDesktopRailCardMotion(card) {
-  card.style.removeProperty("position");
-  card.style.removeProperty("top");
-  card.style.removeProperty("animation");
-  card.style.removeProperty("animation-name");
-  card.style.removeProperty("animation-duration");
-  card.style.removeProperty("animation-timing-function");
-  card.style.removeProperty("animation-iteration-count");
-  card.style.removeProperty("animation-delay");
-  card.style.removeProperty("will-change");
-}
-
-function syncDesktopRailCardState(card, state) {
-  card.style.removeProperty("transform");
-  card.style.removeProperty("opacity");
-  card.style.removeProperty("filter");
-  card.style.removeProperty("box-shadow");
-  card.style.removeProperty("z-index");
-}
-
 function initInteractiveMediaRails() {
   const rails = document.querySelectorAll('[data-live-preview="true"]');
 
@@ -353,7 +333,6 @@ function initInteractiveMediaRails() {
 
         if (index === activeIndex) {
           card.classList.add("is-active", "is-spotlight");
-          syncDesktopRailCardState(card, "spotlight");
         } else if (distance === 1) {
           card.classList.add("is-side");
           if (index < activeIndex) {
@@ -361,10 +340,8 @@ function initInteractiveMediaRails() {
           } else {
             card.classList.add("is-after-spotlight");
           }
-          syncDesktopRailCardState(card, "side");
         } else {
           card.classList.add("is-far");
-          syncDesktopRailCardState(card, "far");
         }
       });
 
@@ -497,7 +474,6 @@ function updateInteractiveRailLayout(grid, cards) {
     card.style.flex = "0 0 auto";
     card.style.scrollSnapAlign = "center";
     card.style.cursor = "pointer";
-    syncDesktopRailCardMotion(card);
   });
 }
 

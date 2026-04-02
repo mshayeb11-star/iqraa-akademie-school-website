@@ -1288,7 +1288,7 @@ body.page-reenter .homepage-footer {
 
 @keyframes galleryFloatDesktop {
   0%,100% { top: 0; }
-  50% { top: -6px; }
+  50% { top: -8px; }
 }
 
 @keyframes footerLetterDance {
@@ -3720,8 +3720,8 @@ body:not(.registration-body) .wa-float-extended {
   }
 
   .cinematic-rail-inner {
-    max-width: 760px;
-    padding: 0 24px;
+    max-width: 700px;
+    padding: 0 18px;
   }
 
   .cinematic-rail-inner::before,
@@ -3736,15 +3736,15 @@ body:not(.registration-body) .wa-float-extended {
 
   .cinematic-rail .gallery-grid .media-card,
   .cinematic-rail .hero-kids-grid .media-card {
-    width: clamp(132px, 11.2vw, 158px);
+    width: clamp(190px, 17vw, 220px);
   }
 
   .cinematic-rail .certificates-grid .media-card {
-    width: clamp(138px, 11.8vw, 166px);
+    width: clamp(200px, 18vw, 228px);
   }
 
   .cinematic-rail .review-grid .media-card {
-    width: clamp(136px, 11.5vw, 162px);
+    width: clamp(196px, 17.5vw, 224px);
   }
 
   .cinematic-rail .media-card {
@@ -3758,7 +3758,10 @@ body:not(.registration-body) .wa-float-extended {
   }
 
   .cinematic-rail .media-card img {
+    position: relative;
     border-radius: 16px;
+    animation: galleryFloatDesktop 7s ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
   }
 
   .cinematic-rail .media-card:nth-child(1),
