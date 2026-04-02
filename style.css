@@ -3980,6 +3980,16 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail .media-card {
     border-radius: 22px;
     padding: 3px;
+    translate: 0 0;
+    animation: galleryFloatDesktopTranslate 7s ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+    transition:
+      transform .85s cubic-bezier(0.22, 1, 0.36, 1),
+      translate .85s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity .55s ease,
+      filter .55s ease,
+      box-shadow .55s ease;
+    will-change: transform, translate, opacity, filter;
   }
 
   .cinematic-rail .media-card::before {
