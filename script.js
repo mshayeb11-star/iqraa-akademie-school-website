@@ -4,6 +4,7 @@ let pageReadyTimer = null;
 let pageReentryTimer = null;
 let revealObserver = null;
 let mobileScrollPerformanceTimer = null;
+const pageLoaderStartTime = performance.now();
 
 function getPageLoader() {
   return document.getElementById("pageLoader");
@@ -12,6 +13,13 @@ function getPageLoader() {
 function setPageLoadedState(isLoaded) {
   if (!document.body) return;
   document.body.classList.toggle("loaded", isLoaded);
+}
+
+function getPageLoaderMinimumDuration() {
+  if (!document.body) return 0;
+
+  const rawDuration = Number(document.body.dataset.pageLoaderDelay || "0");
+  return Number.isFinite(rawDuration) ? Math.max(0, rawDuration) : 0;
 }
 
 function showPageLoader() {
@@ -44,9 +52,13 @@ function schedulePageReady(delay = 0) {
     clearTimeout(pageReadyTimer);
   }
 
+  const elapsed = performance.now() - pageLoaderStartTime;
+  const remainingLoaderTime = Math.max(0, getPageLoaderMinimumDuration() - elapsed);
+  const finalDelay = Math.max(0, delay, remainingLoaderTime);
+
   pageReadyTimer = window.setTimeout(() => {
     hidePageLoaderImmediate();
-  }, Math.max(0, delay));
+  }, finalDelay);
 }
 
 function triggerPageReentryAnimation() {
@@ -318,8 +330,8 @@ function initInteractiveMediaRails() {
       }
     }
 
-    function updateActiveCards() {
-      activeIndex = getClosestCardIndex();
+    function applyActiveCardClasses(indexToHighlight) {
+      activeIndex = Math.max(0, Math.min(indexToHighlight, cards.length - 1));
 
       cards.forEach((card, index) => {
         card.classList.remove(
@@ -350,10 +362,18 @@ function initInteractiveMediaRails() {
       updateArrowState();
     }
 
+    function updateActiveCards() {
+      applyActiveCardClasses(getClosestCardIndex());
+    }
+
     function centerCard(index, behavior = "smooth") {
       const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
       const card = cards[safeIndex];
       if (!card) return;
+
+      if (window.innerWidth <= 900) {
+        applyActiveCardClasses(safeIndex);
+      }
 
       const targetLeft =
         card.offsetLeft - (grid.clientWidth / 2 - card.offsetWidth / 2);
@@ -364,8 +384,7 @@ function initInteractiveMediaRails() {
       });
 
       if (prefersReducedMotion || behavior === "auto") {
-        activeIndex = safeIndex;
-        updateActiveCards();
+        applyActiveCardClasses(safeIndex);
       }
     }
 

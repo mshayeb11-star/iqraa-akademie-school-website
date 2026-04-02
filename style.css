@@ -4088,6 +4088,25 @@ body:not(.registration-body) .wa-float-extended {
     animation-play-state: paused;
   }
 
+  body.page-is-scrolling .cinematic-rail .media-card::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255,255,255,0.14);
+  }
+
+  body.page-is-scrolling .cinematic-rail .media-card::after {
+    opacity: 0;
+  }
+
+  body.page-is-scrolling .cinematic-rail .media-card,
+  body.page-is-scrolling .cinematic-rail .media-card.is-before-spotlight,
+  body.page-is-scrolling .cinematic-rail .media-card.is-after-spotlight,
+  body.page-is-scrolling .cinematic-rail .media-card.is-spotlight {
+    box-shadow:
+      0 10px 18px rgba(32,58,102,0.09),
+      0 4px 10px rgba(245,123,174,0.04);
+  }
+
   body.page-is-scrolling .cinematic-rail::after,
   body.page-is-scrolling .cinematic-rail-bg {
     opacity: 0.05;
