@@ -4060,6 +4060,39 @@ body:not(.registration-body) .wa-float-extended {
 }
 
 @media (max-width: 900px) {
+  .cinematic-rail {
+    content-visibility: auto;
+    contain-intrinsic-size: 280px;
+  }
+
+  .cinematic-rail::after {
+    width: min(260px, 62vw);
+    height: min(260px, 62vw);
+    filter: blur(12px);
+    opacity: 0.12;
+  }
+
+  .cinematic-rail-bg {
+    width: 180px;
+    height: 180px;
+    filter: blur(24px);
+    opacity: 0.14;
+  }
+
+  .cinematic-rail .media-card::before {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  body.page-is-scrolling .cinematic-rail .media-card {
+    animation-play-state: paused;
+  }
+
+  body.page-is-scrolling .cinematic-rail::after,
+  body.page-is-scrolling .cinematic-rail-bg {
+    opacity: 0.05;
+  }
+
   .section {
     padding: 36px 0;
   }

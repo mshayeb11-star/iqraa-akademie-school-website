@@ -3,6 +3,7 @@ let pageTransitionActive = false;
 let pageReadyTimer = null;
 let pageReentryTimer = null;
 let revealObserver = null;
+let mobileScrollPerformanceTimer = null;
 
 function getPageLoader() {
   return document.getElementById("pageLoader");
@@ -1092,6 +1093,48 @@ function initHeroVideos() {
   });
 }
 
+function initMobileRailScrollPerformance() {
+  if (!document.body) return;
+
+  const mobileQuery = window.matchMedia("(max-width: 900px)");
+
+  function clearScrollingState() {
+    document.body.classList.remove("page-is-scrolling");
+  }
+
+  function markPageScrolling() {
+    if (!mobileQuery.matches) return;
+
+    document.body.classList.add("page-is-scrolling");
+
+    if (mobileScrollPerformanceTimer) {
+      clearTimeout(mobileScrollPerformanceTimer);
+    }
+
+    mobileScrollPerformanceTimer = window.setTimeout(() => {
+      clearScrollingState();
+    }, 140);
+  }
+
+  function handleViewportChange(event) {
+    if (!event.matches) {
+      clearScrollingState();
+      if (mobileScrollPerformanceTimer) {
+        clearTimeout(mobileScrollPerformanceTimer);
+        mobileScrollPerformanceTimer = null;
+      }
+    }
+  }
+
+  window.addEventListener("scroll", markPageScrolling, { passive: true });
+
+  if (typeof mobileQuery.addEventListener === "function") {
+    mobileQuery.addEventListener("change", handleViewportChange);
+  } else if (typeof mobileQuery.addListener === "function") {
+    mobileQuery.addListener(handleViewportChange);
+  }
+}
+
 function initPageTransitions() {
   if (document.body.dataset.pageTransitionReady === "true") return;
   document.body.dataset.pageTransitionReady = "true";
@@ -1232,6 +1275,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
   initMediaProtection();
   initHeroVideos();
+  initMobileRailScrollPerformance();
   resetSendingOverlayText();
   initPageTransitions();
   initReviewsIntro();
