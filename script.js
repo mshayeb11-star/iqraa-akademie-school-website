@@ -378,12 +378,15 @@ function initInteractiveMediaRails() {
       const targetLeft =
         card.offsetLeft - (grid.clientWidth / 2 - card.offsetWidth / 2);
 
+      const effectiveBehavior =
+        prefersReducedMotion || window.innerWidth <= 900 ? "auto" : behavior;
+
       grid.scrollTo({
         left: Math.max(0, targetLeft),
-        behavior: prefersReducedMotion ? "auto" : behavior,
+        behavior: effectiveBehavior,
       });
 
-      if (prefersReducedMotion || behavior === "auto") {
+      if (effectiveBehavior === "auto") {
         applyActiveCardClasses(safeIndex);
       }
     }
@@ -394,6 +397,11 @@ function initInteractiveMediaRails() {
       updateActiveCards();
     }
 
+    function setMobileSwipeState(isSwiping) {
+      if (window.innerWidth > 900) return;
+      grid.classList.toggle("is-swiping", isSwiping);
+    }
+
     function scheduleMobileSettle() {
       if (window.innerWidth > 900) return;
 
@@ -402,7 +410,8 @@ function initInteractiveMediaRails() {
       }
 
       settleTimer = setTimeout(() => {
-        centerCard(getClosestCardIndex());
+        setMobileSwipeState(false);
+        applyActiveCardClasses(getClosestCardIndex());
       }, 120);
     }
 
@@ -411,6 +420,7 @@ function initInteractiveMediaRails() {
 
       scrollTicking = true;
       requestAnimationFrame(() => {
+        setMobileSwipeState(true);
         updateActiveCards();
         scheduleMobileSettle();
         scrollTicking = false;
@@ -463,8 +473,12 @@ function initInteractiveMediaRails() {
 
     grid.addEventListener("scroll", handleScroll, { passive: true });
     grid.addEventListener("wheel", handleWheel, { passive: false });
+    grid.addEventListener("touchstart", () => setMobileSwipeState(true), { passive: true });
+    grid.addEventListener("pointerdown", () => setMobileSwipeState(true), { passive: true });
     grid.addEventListener("touchend", scheduleMobileSettle, { passive: true });
     grid.addEventListener("pointerup", scheduleMobileSettle, { passive: true });
+    grid.addEventListener("touchcancel", scheduleMobileSettle, { passive: true });
+    grid.addEventListener("pointercancel", scheduleMobileSettle, { passive: true });
 
     window.addEventListener("resize", () => {
       if (resizeTimer) clearTimeout(resizeTimer);
@@ -493,7 +507,7 @@ function updateInteractiveRailLayout(grid, cards) {
   grid.style.overflowY = "visible";
   grid.style.scrollSnapType = "x mandatory";
   grid.style.webkitOverflowScrolling = "touch";
-  grid.style.scrollBehavior = "smooth";
+  grid.style.scrollBehavior = isMobile ? "auto" : "smooth";
   grid.style.paddingBottom = "8px";
 
   if (isMobile || isDesktop) {
