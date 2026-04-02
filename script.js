@@ -257,18 +257,26 @@ function isDesktopRailViewport() {
 function syncDesktopRailCardMotion(card) {
   if (isDesktopRailViewport()) {
     card.style.position = "relative";
-    card.style.setProperty("top", "0px", "important");
+    card.style.top = "0px";
     card.style.willChange = "transform, opacity, filter, top";
+    card.style.setProperty("animation-name", "galleryFloatDesktop", "important");
+    card.style.setProperty("animation-duration", "7s", "important");
+    card.style.setProperty("animation-timing-function", "ease-in-out", "important");
+    card.style.setProperty("animation-iteration-count", "infinite", "important");
     card.style.setProperty(
-      "animation",
-      "galleryFloatDesktop 7s ease-in-out var(--float-delay, 0s) infinite",
+      "animation-delay",
+      "var(--float-delay, 0s)",
       "important"
     );
     return;
   }
 
   card.style.removeProperty("top");
-  card.style.removeProperty("animation");
+  card.style.removeProperty("animation-name");
+  card.style.removeProperty("animation-duration");
+  card.style.removeProperty("animation-timing-function");
+  card.style.removeProperty("animation-iteration-count");
+  card.style.removeProperty("animation-delay");
   card.style.removeProperty("will-change");
 }
 

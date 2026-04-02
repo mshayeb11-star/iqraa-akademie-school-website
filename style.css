@@ -5169,7 +5169,7 @@ body:not(.registration-body) .wa-float-extended {
 @media (min-width: 1101px) {
   .cinematic-rail .media-card {
     position: relative;
-    top: 0 !important;
+    top: 0;
     will-change: transform, opacity, filter, top;
     animation: galleryFloatDesktop 7s ease-in-out infinite !important;
     animation-delay: var(--float-delay, 0s) !important;
