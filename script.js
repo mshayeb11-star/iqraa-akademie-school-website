@@ -273,6 +273,7 @@ function initInteractiveMediaRails() {
 
     let scrollTicking = false;
     let resizeTimer = null;
+    let settleTimer = null;
     let activeIndex = 0;
 
     function getCardCenter(card) {
@@ -373,12 +374,25 @@ function initInteractiveMediaRails() {
       updateActiveCards();
     }
 
+    function scheduleMobileSettle() {
+      if (window.innerWidth > 900) return;
+
+      if (settleTimer) {
+        clearTimeout(settleTimer);
+      }
+
+      settleTimer = setTimeout(() => {
+        centerCard(getClosestCardIndex());
+      }, 120);
+    }
+
     function handleScroll() {
       if (scrollTicking) return;
 
       scrollTicking = true;
       requestAnimationFrame(() => {
         updateActiveCards();
+        scheduleMobileSettle();
         scrollTicking = false;
       });
     }
@@ -429,6 +443,8 @@ function initInteractiveMediaRails() {
 
     grid.addEventListener("scroll", handleScroll, { passive: true });
     grid.addEventListener("wheel", handleWheel, { passive: false });
+    grid.addEventListener("touchend", scheduleMobileSettle, { passive: true });
+    grid.addEventListener("pointerup", scheduleMobileSettle, { passive: true });
 
     window.addEventListener("resize", () => {
       if (resizeTimer) clearTimeout(resizeTimer);

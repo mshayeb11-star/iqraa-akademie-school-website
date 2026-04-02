@@ -5212,7 +5212,7 @@ body:not(.registration-body) .wa-float-extended {
     animation: none !important;
   }
 
-  .reveal {
+  .reveal:not(.media-card) {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -5229,6 +5229,22 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail .media-card.is-after-spotlight,
   .cinematic-rail .media-card.is-spotlight {
     transition: none !important;
+  }
+
+  .cinematic-rail .media-card {
+    animation: galleryFloat 7s ease-in-out infinite !important;
+    animation-delay: var(--float-delay, 0s) !important;
+  }
+
+  .cinematic-rail .media-card,
+  .cinematic-rail .media-card.is-before-spotlight,
+  .cinematic-rail .media-card.is-after-spotlight,
+  .cinematic-rail .media-card.is-spotlight {
+    transition:
+      transform .85s cubic-bezier(0.22, 1, 0.36, 1) !important,
+      opacity .55s ease !important,
+      filter .55s ease !important,
+      box-shadow .55s ease !important;
   }
 }
 
