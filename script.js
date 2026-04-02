@@ -255,23 +255,9 @@ function isDesktopRailViewport() {
 }
 
 function syncDesktopRailCardMotion(card) {
-  if (isDesktopRailViewport()) {
-    card.style.position = "relative";
-    card.style.top = "0px";
-    card.style.willChange = "transform, opacity, filter, top";
-    card.style.setProperty("animation-name", "galleryFloatDesktop", "important");
-    card.style.setProperty("animation-duration", "7s", "important");
-    card.style.setProperty("animation-timing-function", "ease-in-out", "important");
-    card.style.setProperty("animation-iteration-count", "infinite", "important");
-    card.style.setProperty(
-      "animation-delay",
-      "var(--float-delay, 0s)",
-      "important"
-    );
-    return;
-  }
-
+  card.style.removeProperty("position");
   card.style.removeProperty("top");
+  card.style.removeProperty("animation");
   card.style.removeProperty("animation-name");
   card.style.removeProperty("animation-duration");
   card.style.removeProperty("animation-timing-function");
@@ -281,41 +267,11 @@ function syncDesktopRailCardMotion(card) {
 }
 
 function syncDesktopRailCardState(card, state) {
-  if (!isDesktopRailViewport()) {
-    card.style.removeProperty("transform");
-    card.style.removeProperty("opacity");
-    card.style.removeProperty("filter");
-    card.style.removeProperty("box-shadow");
-    card.style.removeProperty("z-index");
-    return;
-  }
-
-  if (state === "spotlight") {
-    card.style.transform = "translateY(-12px) scale(1.08)";
-    card.style.opacity = "1";
-    card.style.filter = "saturate(1.05) brightness(1.02)";
-    card.style.boxShadow =
-      "0 34px 72px rgba(32,58,102,0.18), 0 14px 28px rgba(245,123,174,0.12), 0 0 0 3px rgba(255,255,255,0.32)";
-    card.style.zIndex = "5";
-    return;
-  }
-
-  if (state === "side") {
-    card.style.transform = "translateY(4px) scale(0.90)";
-    card.style.opacity = "0.64";
-    card.style.filter = "saturate(0.88) brightness(0.96)";
-    card.style.boxShadow =
-      "0 12px 24px rgba(32,58,102,0.08), 0 5px 12px rgba(245,123,174,0.05)";
-    card.style.zIndex = "1";
-    return;
-  }
-
-  card.style.transform = "translateY(10px) scale(0.80)";
-  card.style.opacity = "0.24";
-  card.style.filter = "saturate(0.76) brightness(0.92)";
-  card.style.boxShadow =
-    "0 12px 24px rgba(32,58,102,0.06), 0 5px 12px rgba(245,123,174,0.04)";
-  card.style.zIndex = "0";
+  card.style.removeProperty("transform");
+  card.style.removeProperty("opacity");
+  card.style.removeProperty("filter");
+  card.style.removeProperty("box-shadow");
+  card.style.removeProperty("z-index");
 }
 
 function initInteractiveMediaRails() {
@@ -527,14 +483,10 @@ function updateInteractiveRailLayout(grid, cards) {
   grid.style.scrollBehavior = "smooth";
   grid.style.paddingBottom = "8px";
 
-  if (isMobile) {
+  if (isMobile || isDesktop) {
     grid.style.gap = "14px";
     grid.style.paddingLeft = "16px";
     grid.style.paddingRight = "16px";
-  } else if (isDesktop) {
-    grid.style.gap = "";
-    grid.style.paddingLeft = "";
-    grid.style.paddingRight = "";
   } else {
     grid.style.gap = "18px";
     grid.style.paddingLeft = "40px";
