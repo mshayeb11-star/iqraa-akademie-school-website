@@ -3831,7 +3831,30 @@ body:not(.registration-body) .wa-float-extended {
   }
 
   #moments .cinematic-rail {
-    width: min(660px, calc(100% - 24px));
+    width: min(590px, calc(100% - 72px));
+  }
+
+  #moments .cinematic-rail-inner {
+    max-width: none;
+    padding: 0 8px;
+  }
+
+  #moments .cinematic-rail .media-grid {
+    gap: 12px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #moments .cinematic-rail .hero-kids-grid .media-card {
+    width: clamp(148px, 11.8vw, 168px);
+  }
+
+  #moments .media-rail-arrow-left {
+    left: -18px;
+  }
+
+  #moments .media-rail-arrow-right {
+    right: -18px;
   }
 
   .media-rail-arrow {
