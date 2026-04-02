@@ -1287,8 +1287,8 @@ body.page-reenter .homepage-footer {
 }
 
 @keyframes galleryFloatDesktop {
-  0%,100% { top: 0; }
-  50% { top: -6px; }
+  0%,100% { translate: 0 0px; }
+  50% { translate: 0 -6px; }
 }
 
 @keyframes footerLetterDance {
@@ -3750,7 +3750,7 @@ body:not(.registration-body) .wa-float-extended {
   .cinematic-rail .media-card {
     border-radius: 26px;
     padding: 3px;
-    animation-name: galleryFloat;
+    animation-name: galleryFloatDesktop;
     animation-duration: 7s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
