@@ -1103,11 +1103,26 @@ function initHeroVideos() {
   const videos = document.querySelectorAll(".hero video, .hero-media-video");
 
   videos.forEach((video) => {
+    if (video.dataset.heroVideoReady === "true") return;
+    video.dataset.heroVideoReady = "true";
+
+    const source = video.querySelector("source");
+
+    video.autoplay = true;
+    video.loop = true;
     video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
     video.setAttribute("preload", "auto");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("loop", "");
+
+    if (source?.src && !video.currentSrc && !video.src) {
+      video.src = source.src;
+    }
 
     const tryPlay = () => {
       const playPromise = video.play();
@@ -1116,13 +1131,56 @@ function initHeroVideos() {
       }
     };
 
+    if (video.readyState === 0) {
+      video.load();
+    }
+
+    tryPlay();
+
     if (video.readyState >= 2) {
       tryPlay();
     } else {
       video.addEventListener("loadeddata", tryPlay, { once: true });
     }
 
+    video.addEventListener("loadedmetadata", tryPlay, { once: true });
     video.addEventListener("canplay", tryPlay, { once: true });
+    video.addEventListener("canplaythrough", tryPlay, { once: true });
+  });
+}
+
+function waitForHeroVideoWarmup(timeout = 350) {
+  const videos = Array.from(document.querySelectorAll(".hero video, .hero-media-video"));
+
+  if (!videos.length) {
+    return Promise.resolve();
+  }
+
+  if (videos.some((video) => video.readyState >= 2)) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    let resolved = false;
+
+    const finish = () => {
+      if (resolved) return;
+      resolved = true;
+      resolve();
+    };
+
+    const timer = window.setTimeout(finish, timeout);
+
+    videos.forEach((video) => {
+      video.addEventListener(
+        "loadeddata",
+        () => {
+          clearTimeout(timer);
+          finish();
+        },
+        { once: true }
+      );
+    });
   });
 }
 
@@ -1301,17 +1359,19 @@ function initReviewsIntro() {
 document.addEventListener("DOMContentLoaded", async () => {
   schedulePageReady(180);
 
+  initHeroVideos();
+  await waitForHeroVideoWarmup();
+  initMediaProtection();
+  initMobileRailScrollPerformance();
+  resetSendingOverlayText();
+  initPageTransitions();
+  initReviewsIntro();
+
   await loadImages();
   initReveal();
   setupSignaturePads();
   setupConditionalField("chronicIllness", "chronicDetailsWrap", "chronicDetails");
   setupConditionalField("allergy", "allergyDetailsWrap", "allergyDetails");
-  initMediaProtection();
-  initHeroVideos();
-  initMobileRailScrollPerformance();
-  resetSendingOverlayText();
-  initPageTransitions();
-  initReviewsIntro();
 });
 
 window.addEventListener("pageshow", (event) => {

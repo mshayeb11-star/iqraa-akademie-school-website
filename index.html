@@ -38,9 +38,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="preload" href="videos/hero1.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="videos/hero2.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="videos/hero3.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="videos/hero1.mp4" as="video" type="video/mp4" fetchpriority="high">
+  <link rel="preload" href="videos/hero2.mp4" as="video" type="video/mp4" fetchpriority="high">
+  <link rel="preload" href="videos/hero3.mp4" as="video" type="video/mp4" fetchpriority="high">
   <link rel="stylesheet" href="style.css?v=20260402-rail-swipe-perf">
 
   <script type="application/ld+json">
@@ -159,21 +159,15 @@
 
         <div class="hero-videos-under reveal">
           <div class="hero-video hero-left">
-            <video class="hero-media-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
-              <source src="videos/hero1.mp4" type="video/mp4">
-            </video>
+            <video class="hero-media-video" src="videos/hero1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
           </div>
 
           <div class="hero-video hero-center">
-            <video class="hero-media-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
-              <source src="videos/hero2.mp4" type="video/mp4">
-            </video>
+            <video class="hero-media-video" src="videos/hero2.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
           </div>
 
           <div class="hero-video hero-right">
-            <video class="hero-media-video" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback>
-              <source src="videos/hero3.mp4" type="video/mp4">
-            </video>
+            <video class="hero-media-video" src="videos/hero3.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
           </div>
         </div>
 
@@ -469,6 +463,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260402-rail-swipe-perf"></script>
+  <script src="script.js?v=20260410-hero-video-warmup"></script>
 </body>
 </html>
